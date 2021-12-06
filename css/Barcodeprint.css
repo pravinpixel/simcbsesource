@@ -1,0 +1,16 @@
+﻿@page{
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 0px;
+margin-bottom: 0px;
+size:11.69in8.5in;
+}
+
+img.barcode
+{
+    width: 201px !important;
+    height: 75px !important;
+    max-width: none;
+    max-height: none;
+}
+

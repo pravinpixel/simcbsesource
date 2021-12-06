@@ -1,0 +1,52 @@
+﻿/*
+-----------------------------------------------
+Grey Box Method - Layout CSS
+----------------------------------------------- */
+
+body {
+	background: #2E5E79;
+	color: #333;
+	font-size: 11px;
+	padding: 0 0 0px;
+	overflow:hidden;
+	
+}
+ 
+
+.leave-title {	font-family:Arial, Helvetica, sans-serif;font-size:18px;color:#000;font-weight:bold; text-decoration:underline;vertical-align:middle;}
+.leave-block {margin-top:20px;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;padding:20px;border:1px solid #c6c6c6;font-size:12px;
+}
+.leave-ser-no { color: #000000; font-family: Arial,Helvetica,sans-serif; font-size: 15px;font-weight: bold; line-height: 24px; padding-left: 10px; vertical-align: middle;
+	padding:10px !important; }
+
+table.formleavetxt{padding-top:10px;padding-bottom:0px !important; 	}
+table.leaveapp td  {vertical-align:middle;padding:3px;font-weight:bold; font-size:10px; }
+.leaveapp-brd-tl{border-top:1px solid #666;border-left:1px solid #666;	}
+.leaveapp-brd-tlr{	border-top:1px solid #666;	border-left:1px solid #666;	border-right:1px solid #666;}
+.leaveapp-brd-tlb{	border-top:1px solid #666;	border-left:1px solid #666;	border-bottom:1px solid #666;	}
+.leaveapp-brd-tlrb{border:1px solid #666;	}
+.leave-type { font-size:10px; font-weight:bold; }
+.leave-staff {color: #000000; font-family: Arial,Helvetica,sans-serif; font-size: 13px;font-weight: bold; line-height: 24px; }
+  .formsc input 
+       {
+           border:none;
+           background:transparent;
+           font-size: 10px;
+           }
+           
+           .formsc textarea 
+       {
+           border:none;
+           background:transparent;
+           color:Black;
+           }
+.user-photo { position:absolute; height:120px;   right:0px; margin: 2px 3px 0 0; }
+.user-details { position:relative;         }
+.educ-bg { background: none repeat scroll 0 0 #999999;}
+
+table.qualific{padding-top:5px;padding-bottom:0px !important;	}
+table.qualific td  {vertical-align:middle;padding:5px;}
+.leaveapp-brd-tl{border-top:1px solid #666;border-left:1px solid #666;	}
+.leaveapp-brd-tlr{	border-top:1px solid #666;	border-left:1px solid #666;	border-right:1px solid #666;}
+.leaveapp-brd-tlb{	border-top:1px solid #666;	border-left:1px solid #666;	border-bottom:1px solid #666;	}
+.leaveapp-brd-tlrb{border:1px solid #666;	}

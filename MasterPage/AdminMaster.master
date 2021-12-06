@@ -1,0 +1,253 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMaster.master.cs" Inherits="AdminMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>::Amalorpavam Lourds Academy::</title>
+    <%="<link href='" + ResolveUrl("~/css/themes/custom-theme/datepicker.css") + "' rel='stylesheet' type='text/css'  media='screen' />"%>
+    <%="<link href='" + ResolveUrl("~/css/themes/custom-theme/jquery.ui.datepicker.css") + "' rel='stylesheet' type='text/css'  media='screen' />"%>
+    <%="<link href='" + ResolveUrl("~/css/reset.css") + "' rel='stylesheet' type='text/css'  media='screen' />"%>
+    <%="<link href='" + ResolveUrl("~/css/text.css") + "' rel='stylesheet' type='text/css'  media='screen'/>"%>
+    <%="<link href='" + ResolveUrl("~/css/grid.css") + "' rel='stylesheet' type='text/css'  media='screen'/>"%>
+    <%="<link href='" + ResolveUrl("~/css/nav.css") + "' rel='stylesheet' type='text/css'  media='screen'/>"%>
+    <%="<link href='" + ResolveUrl("~/css/layout.css") + "' rel='stylesheet' type='text/css'  media='screen'/>"%>
+    <%="<link href='" + ResolveUrl("~/js/jquery.alerts.css") + "' rel='stylesheet' type='text/css'  media='screen'  title='prettyPhoto main stylesheet' charset='utf-8' />"%>
+    <%="<link href='" + ResolveUrl("~/js/jNotify-master/jquery/jNotify.jquery.css") + "' rel='stylesheet' type='text/css'  media='screen' charset='utf-8' />"%>
+    <!--[if IE 6]><%="<link href='" + ResolveUrl("~/css/ie6.css") + "' rel='stylesheet' type='text/css'  media='screen' />"%><![endif]-->
+    <!--[if IE 7]><%="<link href='" + ResolveUrl("~/css/ie.css") + "' rel='stylesheet' type='text/css'  media='screen' />"%><![endif]-->
+    <%="<script src='" + ResolveUrl("~/js/jquery-1.7.2.min.js") + "'  type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.ui.core.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.ui.widget.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.ui.accordion.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.effects.core.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.effects.slide.min.js") + "' type='text/javascript'></script>"%>
+    <%="<link href='" + ResolveUrl("~/css/fancy-button/fancy-button.css") + "' rel='stylesheet' type='text/css' />"%>
+    <%-- <%="<link href='" + ResolveUrl("~/css/themes/base/jquery.ui.all.css") + "' rel='stylesheet' type='text/css' media='screen'  />"%>--%>
+    <%="<script src='" + ResolveUrl("~/js/jquery.validate.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/additional-methods.js") + "' type='text/javascript'></script>"%>
+    <!--jQuery Date Picker-->
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.ui.widget.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.ui.datepicker.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.ui.progressbar.min.js") + "' type='text/javascript'></script>"%>
+    <!-- jQuery dialog related-->
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/external/jquery.bgiframe-2.1.2.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.ui.mouse.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.ui.draggable.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.ui.position.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.ui.resizable.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.ui.dialog.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.effects.blind.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.effects.explode.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/fancy-button/fancy-button.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/setup.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/table/jquery.dataTables.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery-ui/jquery.ui.sortable.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/tiny-mce/jquery.tinymce.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery.alerts.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery.timeentry.package-1.5.0/jquery.timeentry.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/ASPSnippets_Pager.min.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jNotify-master/jquery/jNotify.jquery.js") + "' type='text/javascript'></script>"%>
+    <%="<script src='" + ResolveUrl("~/js/jquery.alerts.js") + "' type='text/javascript'></script>"%>
+    <!--prettyphoto lightbox script starting here -->
+    <%="<script src='" + ResolveUrl("~/prettyphoto/js/jquery.prettyPhoto.js") + "' type='text/javascript' charset='utf-8'></script>"%>
+    <%="<link href='" + ResolveUrl("~/prettyphoto/css/prettyPhoto.css") + "' rel='stylesheet' type='text/css'  media='screen'  title='prettyPhoto main stylesheet' charset='utf-8' />"%>
+    <!--prettyphoto lightbox script ending here -->
+    <%="<link href='" + ResolveUrl("~/js/jquery.timeentry.package-1.5.0/jquery.timeentry.css") + "' rel='stylesheet' type='text/css'  media='screen' />"%>
+    <%="<script src='" + ResolveUrl("~/js/browser.js") + "' type='text/javascript'></script>"%>
+    <script type="text/javascript">
+        var glValue = '';
+        function load() {
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+        }
+        function EndRequestHandler() {
+            setDatePicker("[id*=txtStartdate]");
+            setDatePicker("[id*=txtEnddate]");
+            setupLeftMenu();
+            setSidebarHeight();
+            ChangeParentMenuBG(glValue);
+            setCurrentDatePicker("[id*=txtDate]");
+
+        }
+        
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("[id*=txtTimings]").timeEntry();
+
+        });
+
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var index = parseInt($("[id*=hdnIndex]").val());
+            if (!index <= 0) {
+                $(".section-menu").accordion({
+                    "header": "a.menuitem",
+                    "collapsible": true,
+                    "active": index
+                });
+            }
+            setupTinyMCE();
+
+            setupLeftMenu();
+            setupProgressbar('progress-bar');           
+            setupDialogBox('dialog', 'opener');
+            $('#aspnetForm').validate();
+            $('.datatable').dataTable();
+            setSidebarHeight();
+            glValue = $("[id*=hdnMenuIndex]").val();
+            if ($("[id*=hdnDashModuleId]").val() != '-1')
+                ChangeParentMenuBG(glValue);            
+        });
+    </script>
+    <script type="text/javascript">
+        function ChangeParentMenuBG(value) {
+            glValue = value;
+            $(".ic-grid-tables").each(function () {
+                if ($(this).find("a").attr('class') == value)
+                    $(this).find("a").attr("style", "background:#103D5F;")
+                else
+                    $(this).find("a").removeAttr("style", "background")
+                return;
+            });
+        }
+
+
+        function ChangeApplication() {            
+            var str = document.URL;
+            var res = str.split("/SIMCBSE/");
+            var urlsplit = res[1].toString().split("&AcademicYear=");
+
+            var redirecturl = urlsplit[0].toString().replace(/&/g, '@');
+            var userid = '<%= Session["UserId"] %>';
+            var url = "http://192.168.1.102/SIMV8/redirect.aspx?userid=" + userid + "&redirecturl=" + redirecturl;
+            //var url = "http://192.168.0.43/SIMV8/redirect.aspx?userid=" + userid + "&redirecturl=" + redirecturl;            
+            $(location).attr('href', url) 
+        }                
+        
+    </script>
+    <!-- /TinyMCE -->
+    <style type="text/css">
+        #progress-bar
+        {
+            width: 400px;
+        }
+        .appnavi
+        {
+             padding: 10px 10px 10px 10px;
+              background-color: white;
+        }
+        .appnavi:hover
+        {
+             padding: 10px 10px 10px 10px;
+              background-color: Orange;
+              color: White;
+        }
+    </style>
+    <asp:ContentPlaceHolder ID="head2" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body onload="load()">
+    <form id="aspnetForm" runat="server" enctype="multipart/form-data">
+    <asp:ScriptManager ID="scriptManager" runat="server">
+    </asp:ScriptManager>
+    <asp:HiddenField ID="hdnDashModuleId" runat="server" />
+    <asp:HiddenField ID="hdnIndex" runat="server" />
+    <asp:HiddenField ID="hdnMenuIndex" runat="server" />
+    <asp:HiddenField ID="hfAddPrm" runat="server" />
+    <asp:HiddenField ID="hfViewPrm" runat="server" />
+    <asp:HiddenField ID="hfEditPrm" runat="server" />
+    <asp:HiddenField ID="hfDeletePrm" runat="server" />
+    <asp:HiddenField ID="hfAcademicYear" runat="server" />
+    <div class="container_12">
+        <div class="grid_12 header-repeat">
+            <div id="branding1">
+                <div class="floatleft">
+                    <img src="../img/Amalorpavam-logo.png" alt="Logo" /></div>
+                <div class="float-left1">
+                    <h1>
+                        SIM CBSE V.1</h1>
+
+                       
+                </div>
+                 <div style="float: left;margin-top: 31px; margin-left: 80px;">
+                        <span><a class="appnavi" href="javascript:void(0);" onclick="ChangeApplication();">Goto SIM Application</a></span>
+                </div>
+                <asp:HiddenField ID="hfuserid" runat="server" />
+                <div class="floatright1">
+                    <div class="floatleft">
+                        <img src="../img/photo.jpg" id="imgStaff" runat="server" width="52" height="52" alt="Profile Pic" /></div>
+                    <div class="floatleft marginleft10">
+                        <ul class="pro-ul floatleft">
+                            <li><strong>Hello,
+                                <asp:Label ID="lblUserName" runat="server"></asp:Label></strong> </li>                            
+                            <li><a href="../LogOff.aspx">Logout</a></li>
+                            <li class="big grey">Last Login:
+                                <asp:Label Style="font-size: 11px; color: #fff;" ID="lstlogin" runat="server"></asp:Label></li>
+                        </ul>
+                        <br />                        
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+        <div>
+            <asp:UpdatePanel ID="pnlMenu" runat="server">
+                <ContentTemplate>
+                    <div class="grid_12">
+                        <asp:PlaceHolder ID="phMainMenu" runat="server"></asp:PlaceHolder>
+                    </div>
+                    <div class="acad-year">
+                        <div class="styled">
+                            <asp:DropDownList ID="ddlAcademicYear" CssClass="select-box styledll" runat="server"
+                                OnSelectedIndexChanged="ddlAcademicYear_SelectedIndexChanged" AutoPostBack="True">
+                                <asp:ListItem Selected="True" Value="">Academic Year</asp:ListItem>
+                            </asp:DropDownList>
+                            <%--<select name="select">
+                                <option>Academic year</option>
+                                <option>The second option</option>
+                            </select>--%>
+                        </div>
+                    </div>
+                    <div class="clear">
+                    </div>
+                    <div class="grid_2" id="subMain" runat="server">
+                        <div class="box sidemenu content-wrapper">
+                            <div class="block">
+                            </div>
+                            <div class="block section-menu" id="">
+                                <asp:PlaceHolder ID="phSubMenu" runat="server"></asp:PlaceHolder>
+                            </div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="ddlAcademicYear" EventName="SelectedIndexChanged" />
+                </Triggers>
+            </asp:UpdatePanel>
+        </div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+    <div class="grid_12">
+    </div>
+    <div id="site_info">
+        <p>
+            Copyright <a href="#">Amalorpavam lourds Academy</a>. All Rights Reserved.
+        </p>
+    </div>
+    </form>
+</body>
+</html>

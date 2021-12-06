@@ -1,0 +1,31 @@
+﻿ 
+
+      .merit-bg {
+        background-image: url(participation-bg.jpg);
+        background-repeat: no-repeat;
+        margin: 0 auto;
+    }
+    body{
+      margin: 0;
+    }
+    /*.merit-table {
+      margin: 48% auto 0;
+  }*/
+    .label {
+      font-size: 22px;
+      color: #23408f;
+      text-align: right;
+      font-style: italic;
+  }
+  .merit-table td {
+    padding: 8px 10px;
+    vertical-align: baseline;
+}
+    .value{
+      border-bottom: 1px dashed #d1d2d4;
+      width: 100%;
+    }
+	.formsc{
+		margin-top: 20px;
+	}
+    

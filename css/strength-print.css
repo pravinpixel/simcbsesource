@@ -1,0 +1,58 @@
+body
+{
+	background-color:#ffffff;
+}
+.printContent {
+	
+	color: #333333;
+	font-size: 11px;
+	font-family:Tahoma, Geneva, sans-serif;
+	
+	}	
+
+
+
+.tbl-bg {
+	
+	background-color:#8f8f8f;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	font-weight:bold;
+	color:#fff;
+		}
+
+.tbl-subbg {
+	background-color:#e5e5e5;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	color:#000;
+	}		
+		
+.tbl-bg tr td {
+
+	}		
+	.price-brd-left {
+		border-right:1px solid #e6e6e6;
+		padding-right: 50px;
+		text-align:right;
+		
+		}
+.printContent td {
+		border-bottom:1px solid #e6e6e6;
+		padding-top:10px;
+		border-left:1px solid #e6e6e6;
+		padding-left: 50px;
+	}
+.colan td  {
+	width:50px !important;
+	}
+.printContent td label {
+		padding-left:10px;
+	}
+	
+	.printContent td input{
+	
+	border:0px solid #e6e6e6;
+		
+	}

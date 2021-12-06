@@ -1,0 +1,147 @@
+﻿
+.tc-block {
+	margin-top:20px;
+	-webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+	padding:20px;
+	border:1px solid #c6c6c6;
+	font-size:13px;
+}
+
+
+.tc-logo-addr{
+	font-size:14px !important;
+	font-weight:normal;
+	padding-top:10px;
+	}
+.tctext {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:18px;
+	color:#000;
+	font-weight:bold;
+	text-decoration:underline;
+	vertical-align:middle;
+	}
+	
+.tctextTitle {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:18px;
+	color:#000;
+	font-weight:bold;
+	text-decoration:underline;
+	vertical-align:middle;
+	margin-top:-100px;
+	}
+
+
+table.formtc {
+	width:100%;
+
+}
+
+table.formtc input, table.formtc select,table.formtc textarea {
+padding: 4px 4px 5px 4px;
+border-top: 1px solid #b3b3b3;
+border-left: 1px solid #b3b3b3;
+border-right: 1px solid #eaeaea;
+border-bottom: 1px solid #eaeaea;
+width:400px; text-transform:uppercase;
+}
+
+
+
+table.formtc td {
+	padding:15px 0px 0px;
+	
+
+}
+
+table .tcbg{
+	border:1px solid #;	
+	padding:10px 0px;
+	-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+
+	}
+.ser-no {
+	  color: #000000;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 24px;
+    padding-left: 10px;
+    vertical-align: middle;
+	padding:10px !important; 
+
+	}
+.tc-photo {
+	
+	padding:10px 30px 10px 10px !important; 
+
+	}
+	
+.tc-photo img {
+	
+    max-height: 100%;
+	
+
+	}	
+	
+table.formtctxt{
+	padding-top:10px;
+	padding-bottom:0px !important;
+	}
+table.course td  {
+	vertical-align:middle;
+	padding:5px;
+	}
+.cours-brd-tl{
+	border-top:1px solid #666;
+	border-left:1px solid #666; text-transform:uppercase;
+	}
+.cours-brd-tlr{
+	border-top:1px solid #666;
+	border-left:1px solid #666; text-transform:uppercase;
+	border-right:1px solid #666;
+	}
+.cours-brd-tlb{
+	border-top:1px solid #666; text-transform:uppercase;
+	border-left:1px solid #666;
+	border-bottom:1px solid #666;
+	}
+.cours-brd-tlrb{
+	border:1px solid #666;
+	
+	}
+.decleartion{
+	font-size:15px;
+	font-weight:bold;
+	line-height:30px;
+	}
+.tdHeight
+{
+   padding-top:10px;
+    
+}
+.signature
+{
+ padding:20px;   
+ }
+ .schoolLogo
+ {
+     width:615px;
+     height:110px;
+ }
+.studPhoto
+{
+     width:100px;
+     height:100px;
+}
+
+.signparent 
+{
+    text-align:left;
+    padding-right:30px !important;
+    }

@@ -1,0 +1,176 @@
+﻿@page{
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 0px;
+margin-bottom: 0px;
+size:8.5in 14in;
+}
+body 
+{
+    margin:0px;
+    padding:0px;
+}
+
+.bord-bott
+{
+    border-bottom:1px solid;
+}
+
+.tctext {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:15px;
+	color:#000;
+	font-weight:bold;
+	text-decoration:underline;
+	vertical-align:middle;
+	}
+
+
+table.formtc {
+	width:100%;
+	width:800px;
+	height:900px;
+   
+}
+
+table.formtc td {
+	padding:4px 0px 0px;
+	font-size:13px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+table .tcbg{
+	border:1px solid #;	
+	padding:5px 0px;
+	-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+
+	}
+	
+.ser-no {
+	  color: #000000;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 24px;
+    padding-left: 10px;
+    vertical-align: middle;
+	padding:10px !important; 
+
+	}
+.tc-photo {
+	
+	padding:0px 30px 0px 10px !important; 
+
+	}
+table.formtctxt{  font-size: 14px !important;
+	padding-top:10px;
+	padding-bottom:0px !important;
+	}
+table.course td  {
+	vertical-align:middle;
+	padding:5px; font-size: 10px;
+	}
+.cours-brd-tl{
+	border-top:1px solid #666;
+	border-left:1px solid #666; text-transform:uppercase; font-size: 10px;
+	}
+.cours-brd-tl-lower{
+	border-top:1px solid #666;
+	border-left:1px solid #666;  font-size: 10px;
+	}
+.cours-brd-tlr{
+	border-top:1px solid #666;
+	border-left:1px solid #666;
+	border-right:1px solid #666; text-transform:uppercase; font-size: 10px;
+	}
+.cours-brd-tlb{
+	border-top:1px solid #666;
+	border-left:1px solid #666;
+	border-bottom:1px solid #666; text-transform:uppercase; font-size: 10px;
+	}
+.cours-brd-tlrb{
+	border:1px solid #666;
+	
+	}
+.decleartion{
+	font-size:14px;
+	font-weight:bold;
+	line-height:30px;
+	}
+.signature
+{
+ padding:8px;   
+ }
+ .tdHeight
+{
+   padding-top:5px;
+}
+ .schoolLogo
+ {
+     width:550px;
+     height:80px;
+ }
+ .studPhoto
+{
+     width:80px;
+     height:80px;
+}
+table
+{
+ margin-bottom:0px;   
+}
+table.formtc td .course td
+{
+    padding:0px 5px 0px 5px;
+}
+table.formtc td .course td p
+{
+    margin:0px;
+    padding:0px;
+}
+.signparent
+{
+    padding-right:50px !important ;
+    text-align:right;
+}
+
+.ui-datepicker-trigger
+{
+    display:none;    
+}
+
+table.formtc input, table.formtc select,table.formtc textarea {
+  border:none;
+ -webkit-appearance: none;
+ -moz-appearance: none;
+ appearance: none;
+ overflow:hidden;
+ resize: none;
+ font-size:13px;
+ font-family:Arial, Helvetica, sans-serif;
+margin-left: -6px;
+}
+.tc-txt-upper {text-transform:uppercase; font-size:13px;  }
+.formtc select {text-transform:uppercase; font-size:13px;}
+
+/* .tc-imgplace { text-align:center; position:relative; right:10px; width:90px; height:114px;  padding:3px; border:2px solid #999; -webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;  }
+.tc-img img  {height:100%; vertical-align:middle; border:0px solid #999; -webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px; }*/
+
+.tc-imgplace { text-align:center; position:relative; right:10px; width:90px; height:114px;  padding:3px; border:0px solid #999; -webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;  }
+.tc-img img  {  vertical-align:middle; border:2px solid #999; -webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px; }
+
+
+
+@font-face{
+	font-family:calibri;
+	src: url('../fonts/Calibri.ttf');
+	 font-weight:normal;
+}
+@font-face{
+	font-family:DV-TTNatraj;
+	src: url('../fonts/Dvnt0btt_0.ttf');
+	 font-weight:normal;
+}
+

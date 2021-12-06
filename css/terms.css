@@ -1,0 +1,62 @@
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+
+
+
+.terms-bg {
+	background:url(../img/term-bg.jpg) no-repeat center top;
+	}
+
+.terms {}
+.titlebg { background:url(../img/title-bg.jpg) repeat-x left bottom; }
+.title-hd { margin-top:30px; margin-top: 19px; }
+
+.terms-cont h1{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:20px; font-weight:normal; margin:0px; display:inline;
+	text-decoration:none; font-style:normal; color:#000;
+	}
+.terms-cont { width:1000px; margin:20px auto; }
+.terms-student-details { width:850px; margin:10px auto;}
+.terms-studentname { font-family:Arial, Helvetica, sans-serif; font-size:17px; color:#000; text-align:left; font-weight:bold;  }
+.terms-markareaHSSCO { background:#ededed; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; padding:10px; height:395px;}
+.terms-markareaSCO { background:#ededed; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; padding:10px; height:365px;}
+.terms-markareaCO { background:#ededed; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; padding:10px;}
+
+.terms-markarea1 { font-family:Arial, Helvetica, sans-serif; font-size:13px; color:#000; font-weight:bold; }
+.signature-brd { border-top:1px solid #000; }
+	
+.terms-title { font-family:Arial, Helvetica, sans-serif; font-size:15px; font-weight:bold; }	
+
+
+.scholastictable {	}
+.scholastictable table thead {border-bottom: 1px solid #FF0000;border-top: 1px solid #FFFFFF; color: #FFFFFF;font-size: 11px; font-weight: normal; height: 30px; text-transform: uppercase;}
+.scholastictable thead tr th { background: none repeat scroll 0 0 #ababab;  font-weight: normal; font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:bold;   padding: 6px 4px; }
+.scholastictable thead tr th:first-child { border-top-left-radius: 6px;}
+.scholastictable thead tr th:last-child {  border-top-right-radius: 6px;}
+.scholastictable table td { padding:10px 3px; border-bottom:1px dashed #e3e3e3; border-right:1px dashed #000000; font-size:13px; font-family:Arial, Helvetica, sans-serif; color:#000; line-height:17px;	}
+.scholastictable table td.total { text-align:center; padding-right:60px; text-transform:uppercase; }
+.scholastictable table td.hstotal { text-align:right; padding-right:43px; text-transform:uppercase; }
+.scholastictable table td.percentage { text-align:left; padding-left:10px; text-transform:uppercase; }
+.scholastictable tr:nth-child(even) {background: #f8f9f8}
+.scholastictable tr:nth-child(odd) {background: #FFF}
+.scholastictable tr td:last-child {border-right:none;}
+.highlights {	color: #2870BA;	}
+
+
+.curricular-block {    float: left;    margin-right: 20px;    width: 400px;}
+.general-block {    float: left;    margin-right: 20px;    width: 400px;}
+.performance-block {}
+.performance-block h1{font-family:Arial, Helvetica, sans-serif; font-size:18px;  text-transform:uppercase; text-align:left; color:#000; border-bottom:1px solid #636363; padding-bottom:5px; }
+.performance table thead {	border-bottom: 1px solid #FF0000;border-top: 1px solid #FFFFFF; color: #FFFFFF;font-size: 13px; font-weight: normal; height: 30px; text-transform: uppercase;}
+.performance thead tr th { background: none repeat scroll 0 0 #ababab;  font-weight: bold; font-size:13px; font-family:Arial, Helvetica, sans-serif; color:#fff;    padding: 6px 4px; }
+.performance thead tr th:first-child { border-top-left-radius: 6px;}
+.performance thead tr th:last-child {  border-top-right-radius: 6px;}
+.performance table td { text-transform:uppercase; padding:6px 3px; border-bottom:1px dashed #e3e3e3; font-size:13px; font-family:Arial, Helvetica, sans-serif; color:#000;	}
+.performance tr:nth-child(even) {background: #f8f9f8 font-family:Arial, Helvetica, sans-serif; font-size:18px;}
+.performance tr:nth-child(odd) {background: #FFF font-family:Arial, Helvetica, sans-serif; font-size:18px;}
+.performance tfoot tr td {  }

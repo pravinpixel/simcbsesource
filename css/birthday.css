@@ -1,0 +1,107 @@
+
+.birth_wrapper
+{
+    width: 100%;
+}
+.birth_wrap
+{
+    width: 900px;
+    margin: 0 auto;
+    background-color: #CCCCCC;
+    background: url(../img/birthday-templ-bg1.jpg) no-repeat center top;
+}
+.birth_wrap2
+{
+    width: 900px;
+    margin: 0 auto;
+    background-color: #CCCCCC;
+    background: url(../img/birthday-templ-bg2.jpg) no-repeat center top;
+}
+.birth_wrap3
+{
+    width: 900px;
+    margin: 0 auto;
+    background-color: #CCCCCC;
+    background: url(../img/birthday-templ-bg3.jpg) no-repeat center top;
+}
+.birthday_heading
+{
+    width: 600px;
+    margin: 0 auto;
+    height: 65px; /*background-color:#666666;*/
+    text-align: center;
+    background: url(../img/birthday-templ-heading-bg1.png) no-repeat center;
+}
+.birthday_heading2
+{
+    width: 600px;
+    margin: 0 auto;
+    height: 65px; /*background-color:#666666;*/
+    text-align: center;
+    background: url(../img/birthday-templ-heading-bg2.png) no-repeat center;
+}
+.birthday_heading3
+{
+    width: 600px;
+    margin: 0 auto;
+    height: 65px; /*background-color:#666666;*/
+    text-align: center;
+    background: url(../img/birthday-templ-heading-bg3.png) no-repeat center;
+}
+
+.txt-heading
+{
+    font-family: Georgia, "Times New Roman" , Times, serif;
+    color: #000;
+    padding: 16px 0px 0px 0px;
+    font-size: 26px;
+    font-style: italic;
+    font-weight: bold;
+    color: black; /* -webkit-text-fill-color: #000;     -webkit-text-stroke-width: 1px;    -webkit-text-stroke-color: white;    -moz-text-fill-color: #000;     -moz-text-stroke-width: 3px;    -moz-text-stroke-color: white;*/
+}
+
+.clear
+{
+    clear: both;
+}
+.birthday_phto-block
+{
+    width: 900px;
+    margin: 0 auto;
+}
+
+.birthday_phto-list
+{
+    width: 170px;
+    height: 200px;
+    background-color: #fff;
+    border: 3px solid #E8C72A;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    margin: 10px 23px 20px 25px;
+    float: left;
+}
+
+.birthday_photo
+{
+    width: 146px;
+    margin: 10px auto;
+    height: 147px;
+    background-color: #999900;
+}
+.birthday_photo-name
+{
+    width: 146px;
+    margin: auto;
+    text-align: center;
+    font-family: "Myriad Pro" , "Trebuchet MS" , Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #000;
+    font-weight:bold;
+    text-transform: uppercase;
+}
+.printAllDiv
+{
+    display: none;
+}

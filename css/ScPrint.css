@@ -1,0 +1,106 @@
+﻿@page{
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 0px;
+margin-bottom: 0px;
+}
+body 
+{
+    margin:0px;
+    padding:0px;
+}
+
+
+
+div.formsc  {
+}
+
+
+div.formsctxt{
+	
+	}
+
+ 
+
+
+div.formsc input, div.formsc select,div.formsc textarea {
+
+}
+
+        
+        @font-face
+        {
+            font-family: 'MonotypeCorsivaRegular';
+            src: url('../fonts/mtcorsva.eot');
+            src: url('../fonts/mtcorsva.eot') format('embedded-opentype'), url('../mtcorsva.woff') format('woff'), url('fonts/mtcorsva.ttf') format('truetype'), url('../fonts/mtcorsva.svg#MonotypeCorsivaRegular') format('svg');
+        }
+        
+        .study-certificate
+        {
+            background: url(../img/study-certificate-bg.jpg) no-repeat center top;
+        }
+        
+        .st-certificate
+        {
+        }
+        .st-certificate h1
+        {
+            font-family: Georgia, "Times New Roman" , Times, serif;
+            font-size: 28px;
+            font-weight: normal;
+            margin: 0px; font-style:italic;
+            display: inline;
+            text-decoration: underline;
+            color: #000;
+        }
+        .st-certificate-cont
+        {
+            width: 950px;
+            margin: 20px auto;
+        }
+        .st-certificate-cont1
+        {
+        }
+        
+        .st-certificate-cont h4
+        {
+            margin: 0px;
+            font-family: Georgia, "Times New Roman" , Times, serif;
+            font-size: 24px;
+            line-height: 45px;
+            font-weight: normal;
+            font-style: normal;
+            color: #000;
+        }
+        .st-certificate-name
+        {
+            /*text-decoration: underline;*/
+            font-weight: bold;
+            font-style: italic;
+        }
+        .bio-table
+        {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 17px;
+            color: #000;
+        }
+        .bio-th
+        {
+            background: #CCC;
+        }
+        
+        .st-certificate-cont img
+        {
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+            border: 5px solid #cecece;
+        }
+        .style1
+        {
+           width: 48%;
+            height: 30px;
+            text-transform: uppercase;
+            font-size: 18px;
+            font-weight:normal;
+        }
