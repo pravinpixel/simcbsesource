@@ -89,20 +89,32 @@ public partial class Reports_CustomReport : System.Web.UI.Page
             CustomReport.LocalReport.SetParameters(new ReportParameter[] { foccupation });
             ReportParameter fqual = new ReportParameter("fqual", "False", false);
             CustomReport.LocalReport.SetParameters(new ReportParameter[] { fqual });
-            ReportParameter gname = new ReportParameter("gname", "False", false);
-            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gname });
-            ReportParameter gemail = new ReportParameter("gemail", "False", false);
-            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gemail });
-            ReportParameter gocc = new ReportParameter("gocc", "False", false);
-            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gocc });
-            ReportParameter gphno = new ReportParameter("gphno", "False", false);
-            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gphno });
-            ReportParameter gaddr = new ReportParameter("gaddr", "False", false);
-            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gaddr });
+            ReportParameter finc = new ReportParameter("finc", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { finc });
+            ReportParameter gname1 = new ReportParameter("gname1", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gname1 });
+            ReportParameter gemail1 = new ReportParameter("gemail1", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gemail1 });
+            ReportParameter gocc1 = new ReportParameter("gocc1", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gocc1 });
+            ReportParameter gphno1 = new ReportParameter("gphno1", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gphno1 });
+            ReportParameter gaddr1 = new ReportParameter("gaddr1", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gaddr1 });
+            ReportParameter gname2 = new ReportParameter("gname2", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gname2 });
+            ReportParameter gemail2 = new ReportParameter("gemail2", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gemail2 });
+            ReportParameter gocc2 = new ReportParameter("gocc2", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gocc2 });
+            ReportParameter gphno2 = new ReportParameter("gphno2", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gphno2 });
+            ReportParameter gaddr2 = new ReportParameter("gaddr2", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { gaddr2 });
             ReportParameter memail = new ReportParameter("memail", "False", false);
             CustomReport.LocalReport.SetParameters(new ReportParameter[] { memail });
             ReportParameter mname = new ReportParameter("mname", "False", false);
-            CustomReport.LocalReport.SetParameters(new ReportParameter[] { mname });
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { mname });           
             ReportParameter moccaddress = new ReportParameter("moccaddress", "False", false);
             CustomReport.LocalReport.SetParameters(new ReportParameter[] { moccaddress });
             ReportParameter moccupation = new ReportParameter("moccupation", "False", false);
@@ -113,6 +125,8 @@ public partial class Reports_CustomReport : System.Web.UI.Page
             CustomReport.LocalReport.SetParameters(new ReportParameter[] { mothertongue });
             ReportParameter mqual = new ReportParameter("mqual", "False", false);
             CustomReport.LocalReport.SetParameters(new ReportParameter[] { mqual });
+            ReportParameter minc = new ReportParameter("minc", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { minc });
             ReportParameter peraddr = new ReportParameter("peraddr", "False", false);
             CustomReport.LocalReport.SetParameters(new ReportParameter[] { peraddr });
             ReportParameter religion = new ReportParameter("religion", "False", false);
@@ -151,6 +165,26 @@ public partial class Reports_CustomReport : System.Web.UI.Page
             CustomReport.LocalReport.SetParameters(new ReportParameter[] { academicremarks });
             ReportParameter medicalremarks = new ReportParameter("medicalremarks", "False", false);
             CustomReport.LocalReport.SetParameters(new ReportParameter[] { medicalremarks });
+            ReportParameter sslcno = new ReportParameter("sslcno", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { sslcno });
+            ReportParameter sslcyear = new ReportParameter("sslcyear", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { sslcyear });
+            ReportParameter hscno = new ReportParameter("hscno", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { hscno });
+            ReportParameter hscyear = new ReportParameter("hscyear", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { hscyear });
+            ReportParameter caretaker = new ReportParameter("caretaker", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { caretaker });
+            ReportParameter curricularremarks = new ReportParameter("curricularremarks", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { curricularremarks });
+            ReportParameter suid = new ReportParameter("suid", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { suid });
+            ReportParameter tamilname = new ReportParameter("tamilname", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { tamilname });
+            ReportParameter height = new ReportParameter("height", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { height });
+            ReportParameter weight = new ReportParameter("weight", "False", false);
+            CustomReport.LocalReport.SetParameters(new ReportParameter[] { weight });
 
             ReportParameter Schoolname = new ReportParameter("Schoolname", dtSchool.Rows[0]["SchoolName"].ToString());
             CustomReport.LocalReport.SetParameters(new ReportParameter[] { Schoolname });
@@ -217,11 +251,11 @@ public partial class Reports_CustomReport : System.Web.UI.Page
         string sqlstr = "";
         if (Isactive == "1" || Isactive == "True")
         {
-            sqlstr = "SELECT upper(COLUMN_NAME) as Columnname FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'vw_getallstudent' and COLUMN_NAME  in ('studentname','regno','AdmissionNo','AdClass','AdSection','class','section','DOB','DOA','DOJ','Sex','MotherTongue','Religion','Community','Caste','AadhaarNo','TempAddr','PerAddr','Email','FName','FOccupation','FOccAddress','FQual','FEmail','MName','MOccupation','MOccAddress','MQual','MEmail','FatherCell','MotherCell','BloodGroup','EmerPhNo','Doctor','DocPhNo','DocAddr','TransportName','Firstlang','Seclang','GName','GEmail','GOcc','GPhno','GAddr','SmartCardNo','RationCardNo','IDmarks','ExamNo','Nationality','HandicaptDetails','DisOrders','Medium','PhoneNo','AcademicRemarks','MedicalRemarks')";
+            sqlstr = "SELECT upper(COLUMN_NAME) as Columnname FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'vw_getallstudent' and COLUMN_NAME  in ('studentname','regno','AdmissionNo','AdClass','AdSection','class','section','DOB','DOA','DOJ','Sex','MotherTongue','Religion','Community','Caste','AadhaarNo','TempAddr','PerAddr','Email','FName','FOccupation','FOccAddress','FQual','FEmail','FIncome','MName','MOccupation','MOccAddress','MQual','MEmail','MIncome','FatherCell','MotherCell','BloodGroup','EmerPhNo','Doctor','DocPhNo','DocAddr','TransportName','Firstlang','Seclang','GName1','GEmail1','GOcc1','GPhno1','GAddr1','SmartCardNo','RationCardNo','IDmarks','ExamNo','Nationality','HandicaptDetails','DisOrders','Medium','PhoneNo','AcademicRemarks','MedicalRemarks','SSLCNo','SSLCYear','HSCNo','HSCYear','GName2','GAddr2','GPhno2','GOcc2','GEmail2','Caretaker','CurricularRemarks','SUID', 'TamilName', 'Height', 'Weight' )  order by column_name";
         }
         else if (Isactive == "0" || Isactive == "False")
         {
-            sqlstr = "SELECT upper(COLUMN_NAME) as Columnname FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'vw_getalloldstudent' and COLUMN_NAME  in ('studentname','regno','AdmissionNo','AdClass','AdSection','class','section','DOB','DOA','DOJ','Sex','MotherTongue','Religion','Community','Caste','AadhaarNo','TempAddr','PerAddr','Email','FName','FOccupation','FOccAddress','FQual','FEmail','MName','MOccupation','MOccAddress','MQual','MEmail','FatherCell','MotherCell','BloodGroup','EmerPhNo','Doctor','DocPhNo','DocAddr','TransportName','Firstlang','Seclang','GName','GEmail','GOcc','GPhno','GAddr','SmartCardNo','RationCardNo','IDmarks','ExamNo','Nationality','HandicaptDetails','DisOrders','Medium','PhoneNo','AcademicRemarks','MedicalRemarks')";
+            sqlstr = "SELECT upper(COLUMN_NAME) as Columnname FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'vw_getalloldstudent' and COLUMN_NAME  in ('studentname','regno','AdmissionNo','AdClass','AdSection','class','section','DOB','DOA','DOJ','Sex','MotherTongue','Religion','Community','Caste','AadhaarNo','TempAddr','PerAddr','Email','FName','FOccupation','FOccAddress','FQual','FIncome','MIncome','FEmail','MName','MOccupation','MOccAddress','MQual','MEmail','FatherCell','MotherCell','BloodGroup','EmerPhNo','Doctor','DocPhNo','DocAddr','TransportName','Firstlang','Seclang','GName1','GEmail1','GOcc1','GPhno1','GAddr1','SmartCardNo','RationCardNo','IDmarks','ExamNo','Nationality','HandicaptDetails','DisOrders','Medium','PhoneNo','AcademicRemarks','MedicalRemarks','SSLCNo','SSLCYear','HSCNo','HSCYear','GName2','GAddr2','GPhno2','GOcc2','GEmail2','Caretaker','CurricularRemarks','SUID', 'TamilName', 'Height', 'Weight' )  order by column_name";
         }
         
         dt = utl.GetDataTable(sqlstr);
@@ -310,6 +344,10 @@ public partial class Reports_CustomReport : System.Web.UI.Page
                 {
                     chkids.Items.Add("FATHER QUALIFICATION");
                 }
+                else if (dr["Columnname"].ToString().Trim() == "FINCOME")
+                {
+                    chkids.Items.Add("FATHER INCOME");
+                }
                 else if (dr["Columnname"].ToString().Trim() == "FEMAIL")
                 {
                     chkids.Items.Add("FATHER EMAIL");
@@ -333,6 +371,10 @@ public partial class Reports_CustomReport : System.Web.UI.Page
                 else if (dr["Columnname"].ToString().Trim() == "MEMAIL")
                 {
                     chkids.Items.Add("MOTHER EMAIL");
+                }
+                else if (dr["Columnname"].ToString().Trim() == "MINCOME")
+                {
+                    chkids.Items.Add("MOTHER INCOME");
                 }
                 else if (dr["Columnname"].ToString().Trim() == "EMERPHNO")
                 {
@@ -362,25 +404,45 @@ public partial class Reports_CustomReport : System.Web.UI.Page
                 {
                     chkids.Items.Add("SECONDARY LANGUAGE");
                 }
-                else if (dr["Columnname"].ToString().Trim() == "GNAME")
+                else if (dr["Columnname"].ToString().Trim() == "GNAME1")
                 {
-                    chkids.Items.Add("GAURDIAN NAME");
+                    chkids.Items.Add("GAURDIAN I NAME");
                 }
-                else if (dr["Columnname"].ToString().Trim() == "GEMAIL")
+                else if (dr["Columnname"].ToString().Trim() == "GEMAIL1")
                 {
-                    chkids.Items.Add("GAURDIAN EMAIL");
+                    chkids.Items.Add("GAURDIAN I EMAIL");
                 }
-                else if (dr["Columnname"].ToString().Trim() == "GOCC")
+                else if (dr["Columnname"].ToString().Trim() == "GOCC1")
                 {
-                    chkids.Items.Add("GAURDIAN OCCUPATION");
+                    chkids.Items.Add("GAURDIAN I OCCUPATION");
                 }
-                else if (dr["Columnname"].ToString().Trim() == "GADDR")
+                else if (dr["Columnname"].ToString().Trim() == "GADDR1")
                 {
-                    chkids.Items.Add("GAURDIAN ADDRESS");
+                    chkids.Items.Add("GAURDIAN I ADDRESS");
                 }
-                else if (dr["Columnname"].ToString().Trim() == "GPHNO")
+                else if (dr["Columnname"].ToString().Trim() == "GPHNO1")
                 {
-                    chkids.Items.Add("GAURDIAN PHONENO");
+                    chkids.Items.Add("GAURDIAN I PHONENO");
+                }
+                else if (dr["Columnname"].ToString().Trim() == "GNAME2")
+                {
+                    chkids.Items.Add("GAURDIAN II NAME");
+                }
+                else if (dr["Columnname"].ToString().Trim() == "GEMAIL2")
+                {
+                    chkids.Items.Add("GAURDIAN II EMAIL");
+                }
+                else if (dr["Columnname"].ToString().Trim() == "GOCC2")
+                {
+                    chkids.Items.Add("GAURDIAN II OCCUPATION");
+                }
+                else if (dr["Columnname"].ToString().Trim() == "GADDR2")
+                {
+                    chkids.Items.Add("GAURDIAN II ADDRESS");
+                }
+                else if (dr["Columnname"].ToString().Trim() == "GPHNO2")
+                {
+                    chkids.Items.Add("GAURDIAN II PHONENO");
                 }
                 else if (dr["Columnname"].ToString().Trim() == "IDMARKS")
                 {
@@ -413,7 +475,6 @@ public partial class Reports_CustomReport : System.Web.UI.Page
                 else
                 {
                     chkids.Items.Add(dr["Columnname"].ToString());
-
                 }
                 
             }
@@ -433,10 +494,6 @@ public partial class Reports_CustomReport : System.Web.UI.Page
     }
 
 
-
-
-
-
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         utl = new Utilities();
@@ -445,6 +502,67 @@ public partial class Reports_CustomReport : System.Web.UI.Page
 
         foreach (ListItem li in chkids.Items)
         {
+            if (li.Text.ToLower() == "suid")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter suid = new ReportParameter("suid", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { suid });
+                }
+                else
+                {
+                    ReportParameter suid = new ReportParameter("suid", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { suid });
+                }
+
+            }
+
+            if (li.Text.ToLower() == "tamilname")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter tamilname = new ReportParameter("tamilname", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { tamilname });
+                }
+                else
+                {
+                    ReportParameter tamilname = new ReportParameter("tamilname", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { tamilname });
+                }
+
+            }
+
+
+            if (li.Text.ToLower() == "height")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter height = new ReportParameter("height", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { height });
+                }
+                else
+                {
+                    ReportParameter height = new ReportParameter("height", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { height });
+                }
+
+            }
+
+
+            if (li.Text.ToLower() == "weight")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter weight = new ReportParameter("weight", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { weight });
+                }
+                else
+                {
+                    ReportParameter weight = new ReportParameter("weight", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { weight });
+                }
+
+            }
 
             if (li.Text.ToLower() == "academic remarks")
             {
@@ -799,6 +917,36 @@ public partial class Reports_CustomReport : System.Web.UI.Page
 
             }
 
+            if (li.Text.ToLower() == "father income")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter finc = new ReportParameter("finc", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { finc });
+                }
+                else
+                {
+                    ReportParameter finc = new ReportParameter("finc", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { finc });
+                }
+
+            }
+
+            if (li.Text.ToLower() == "mother income")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter minc = new ReportParameter("minc", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { minc });
+                }
+                else
+                {
+                    ReportParameter minc = new ReportParameter("minc", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { minc });
+                }
+
+            }
+
             if (li.Text.ToLower() == "first language")
             {
                 if (li.Selected == true)
@@ -873,81 +1021,155 @@ public partial class Reports_CustomReport : System.Web.UI.Page
                 }
 
             }
-            if (li.Text.ToLower() == "gaurdian name")
+            if (li.Text.ToLower() == "gaurdian i name")
             {
                 if (li.Selected == true)
                 {
-                    ReportParameter gname = new ReportParameter("gname", "True", true);
-                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gname });
+                    ReportParameter gname1 = new ReportParameter("gname1", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gname1 });
                 }
                 else
                 {
-                    ReportParameter gname = new ReportParameter("gname", "False", false);
-                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gname });
+                    ReportParameter gname1 = new ReportParameter("gname1", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gname1 });
                 }
 
             }
 
-            if (li.Text.ToLower() == "gaurdian email")
+            if (li.Text.ToLower() == "gaurdian i email")
             {
                 if (li.Selected == true)
                 {
-                    ReportParameter gemail = new ReportParameter("gemail", "True", true);
-                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gemail });
+                    ReportParameter gemail1 = new ReportParameter("gemail1", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gemail1 });
                 }
                 else
                 {
-                    ReportParameter gemail = new ReportParameter("gemail", "False", false);
-                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gemail });
+                    ReportParameter gemail1 = new ReportParameter("gemail1", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gemail1 });
                 }
 
             }
 
-            if (li.Text.ToLower() == "gaurdian occupation")
+            if (li.Text.ToLower() == "gaurdian i occupation")
             {
                 if (li.Selected == true)
                 {
-                    ReportParameter gocc = new ReportParameter("gocc", "True", true);
-                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gocc });
+                    ReportParameter gocc1 = new ReportParameter("gocc1", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gocc1 });
                 }
                 else
                 {
-                    ReportParameter gocc = new ReportParameter("gocc", "False", false);
-                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gocc });
+                    ReportParameter gocc1 = new ReportParameter("gocc1", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gocc1 });
                 }
 
             }
 
-            if (li.Text.ToLower() == "gaurdian phoneno")
+            if (li.Text.ToLower() == "gaurdian i phoneno")
             {
                 if (li.Selected == true)
                 {
-                    ReportParameter gphno = new ReportParameter("gphno", "True", true);
-                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gphno });
+                    ReportParameter gphno1 = new ReportParameter("gphno1", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gphno1 });
                 }
                 else
                 {
-                    ReportParameter gphno = new ReportParameter("gphno", "False", false);
-                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gphno });
+                    ReportParameter gphno1 = new ReportParameter("gphno1", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gphno1 });
                 }
 
             }
 
-            if (li.Text.ToLower() == "gaurdian address")
+            if (li.Text.ToLower() == "gaurdian i address")
             {
                 if (li.Selected == true)
                 {
-                    ReportParameter gaddr = new ReportParameter("gaddr", "True", true);
-                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gaddr });
+                    ReportParameter gaddr1 = new ReportParameter("gaddr1", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gaddr1 });
                 }
                 else
                 {
-                    ReportParameter gaddr = new ReportParameter("gaddr", "False", false);
-                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gaddr });
+                    ReportParameter gaddr1 = new ReportParameter("gaddr1", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gaddr1 });
                 }
 
             }
 
+            if (li.Text.ToLower() == "gaurdian ii name")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter gname2 = new ReportParameter("gname2", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gname2 });
+                }
+                else
+                {
+                    ReportParameter gname2 = new ReportParameter("gname2", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gname2 });
+                }
+
+            }
+
+            if (li.Text.ToLower() == "gaurdian ii email")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter gemail2 = new ReportParameter("gemail2", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gemail2 });
+                }
+                else
+                {
+                    ReportParameter gemail2 = new ReportParameter("gemail2", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gemail2 });
+                }
+
+            }
+
+            if (li.Text.ToLower() == "gaurdian ii occupation")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter gocc2 = new ReportParameter("gocc2", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gocc2 });
+                }
+                else
+                {
+                    ReportParameter gocc2 = new ReportParameter("gocc2", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gocc2 });
+                }
+
+            }
+
+            if (li.Text.ToLower() == "gaurdian ii phoneno")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter gphno2 = new ReportParameter("gphno2", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gphno2 });
+                }
+                else
+                {
+                    ReportParameter gphno2 = new ReportParameter("gphno2", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gphno2 });
+                }
+
+            }
+
+            if (li.Text.ToLower() == "gaurdian ii address")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter gaddr2 = new ReportParameter("gaddr2", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gaddr2 });
+                }
+                else
+                {
+                    ReportParameter gaddr2 = new ReportParameter("gaddr2", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { gaddr2 });
+                }
+
+            }
             if (li.Text.ToLower() == "mother email")
             {
                 if (li.Selected == true)
@@ -1270,7 +1492,98 @@ public partial class Reports_CustomReport : System.Web.UI.Page
                     CustomReport.LocalReport.SetParameters(new ReportParameter[] { handicaptdetails });
                 }
             }
-           
+
+            if (li.Text.ToLower() == "handicaptdetails")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter handicaptdetails = new ReportParameter("handicaptdetails", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { handicaptdetails });
+                }
+                else
+                {
+                    ReportParameter handicaptdetails = new ReportParameter("handicaptdetails", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { handicaptdetails });
+                }
+            }
+            if (li.Text.ToLower() == "sslcno")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter sslcno = new ReportParameter("sslcno", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { sslcno });
+                }
+                else
+                {
+                    ReportParameter sslcno = new ReportParameter("sslcno", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { sslcno });
+                }
+            }
+            if (li.Text.ToLower() == "sslcyear")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter sslcyear = new ReportParameter("sslcyear", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { sslcyear });
+                }
+                else
+                {
+                    ReportParameter sslcyear = new ReportParameter("sslcyear", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { sslcyear });
+                }
+            }
+            if (li.Text.ToLower() == "hscno")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter hscno = new ReportParameter("hscno", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { hscno });
+                }
+                else
+                {
+                    ReportParameter hscno = new ReportParameter("hscno", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { hscno });
+                }
+            }
+            if (li.Text.ToLower() == "hscyear")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter hscyear = new ReportParameter("hscyear", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { hscyear });
+                }
+                else
+                {
+                    ReportParameter hscyear = new ReportParameter("hscyear", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { hscyear });
+                }
+            }
+            if (li.Text.ToLower() == "caretaker")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter caretaker = new ReportParameter("caretaker", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { caretaker });
+                }
+                else
+                {
+                    ReportParameter caretaker = new ReportParameter("caretaker", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { caretaker });
+                }
+            }
+            if (li.Text.ToLower() == "curricularremarks")
+            {
+                if (li.Selected == true)
+                {
+                    ReportParameter curricularremarks = new ReportParameter("curricularremarks", "True", true);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { curricularremarks });
+                }
+                else
+                {
+                    ReportParameter curricularremarks = new ReportParameter("curricularremarks", "False", false);
+                    CustomReport.LocalReport.SetParameters(new ReportParameter[] { curricularremarks });
+                }
+            }
         }
 
         ReportParameter Schoolname = new ReportParameter("Schoolname", dtSchool.Rows[0]["SchoolName"].ToString());
@@ -1445,6 +1758,7 @@ public partial class Reports_CustomReport : System.Web.UI.Page
         }
 
     }
+
     protected void unchkAll_CheckedChanged(object sender, EventArgs e)
     {
         if (unchkAll.Checked == true)
@@ -1466,5 +1780,6 @@ public partial class Reports_CustomReport : System.Web.UI.Page
         }
 
     }
+
      
 }
