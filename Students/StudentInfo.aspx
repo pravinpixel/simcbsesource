@@ -443,7 +443,7 @@
             var cls = xml.find("SectionByClass");
             var select = $("[id*=ddlSection]");
             select.children().remove();
-            select.append($("<option>").val('').text('New'));
+            select.append($("<option>").val('').text('Select'));
             $.each(cls, function () {
                 var icls = $(this);
                 var SectionID = $(this).find("SectionID").text();
@@ -485,7 +485,7 @@
             var cls = xml.find("AdSectionByAdClass");
             var select = $("[id*=ddlAdSection]");
             select.children().remove();
-            select.append($("<option>").val('').text('New'));
+            select.append($("<option>").val('').text('Select'));
             $.each(cls, function () {
                 var icls = $(this);
                 var SectionID = $(this).find("SectionID").text();
@@ -4900,7 +4900,7 @@
                                             </td>
                                             <td width="20%">
                                                 <asp:DropDownList ID="ddlSection" runat="server" AppendDataBoundItems="True">
-                                                    <asp:ListItem Selected="True" Value="">New</asp:ListItem>
+                                                  <asp:ListItem Selected="True" Value="">Select</asp:ListItem>
                                                 </asp:DropDownList>
                                             </td>
                                         </tr>

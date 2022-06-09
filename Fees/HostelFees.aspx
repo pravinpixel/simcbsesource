@@ -321,6 +321,9 @@
             if (xml.find("PresentStatus").text() == "Inactive") {
                 jAlert('Can\'t Display the Fees Bill, B\'coz he/she is not active. !!!');
             }
+            if (xml.find("AdminNo").text() == "0" || xml.find("AdminNo").text() == "") {
+                jAlert('Can\'t Display the Fees Bill, B\'coz the student admission is not approved. !!!');
+            }
         }
    
     </script>

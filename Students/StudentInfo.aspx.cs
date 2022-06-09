@@ -1156,7 +1156,7 @@ public partial class StudentInfo : System.Web.UI.Page
         }
         else
         {
-            query = "sp_GetPromoStudentInfo " + studentid + "";
+            query = "sp_GetPromoStudentInfo " + HttpContext.Current.Session["AcademicID"] + ",'" + studentid + "'";
         }
         return utl.GetDatasetTable(query, "StudentInfo").GetXml();
     }
