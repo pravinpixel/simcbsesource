@@ -260,22 +260,31 @@
 
         };
         function OnGetDaysListSucces(response) {
+            // alert(response.d);
             var xmlDoc = $.parseXML(response.d);
             var xml = $(xmlDoc);
             var DaysList = xml.find("DaysList");
-            $(".checkbox2").find("input:checkbox").each(function () {
-                $(".checkbox2").attr("checked", false);
-            });
-            $.each(DaysList, function () {
-                $("[id*=txtDays]").val($(this).find("NoofDays").text());
-                var DayValue = $(this).find("Dayvalue").text();
+            if (DaysList.length > 0) {
                 $(".checkbox2").find("input:checkbox").each(function () {
-                    var DateVal = $(this).val();
-                    if (DayValue == DateVal) {
-                        $(this).attr("checked", true);
-                    }
+                    $(".chkDays").attr("checked", false);
                 });
-            });
+                $.each(DaysList, function () {
+                    $("[id*=txtDays]").val($(this).find("NoofDays").text());
+                    var DayValue = $(this).find("Dayvalue").text();
+                    $(".checkbox2").find("input:checkbox").each(function () {
+                        var DateVal = $(this).val();
+                        if (DayValue == DateVal) {
+                            $(this).attr("checked", true);
+                        }
+                    });
+                });
+            }
+            else {
+                $(".checkbox2").find("input:checkbox").each(function () {
+                    $(".chkDays").attr("checked", true);
+                });
+            }
+
 
         };
        
