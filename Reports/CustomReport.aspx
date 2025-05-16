@@ -46,6 +46,7 @@
                                             <asp:ListItem Value="C">Current</asp:ListItem>
                                             <asp:ListItem Value="O">Old</asp:ListItem>
                                             <asp:ListItem Value="D">Discontinued</asp:ListItem>
+                                              <asp:ListItem Value="E">Cancelled</asp:ListItem>
                                         </asp:DropDownList>
                                         &nbsp;  <label>Any Field Search :</label>
                                         <asp:TextBox ID="txtSearch" runat="server" TextMode="MultiLine" Width="244px"></asp:TextBox>

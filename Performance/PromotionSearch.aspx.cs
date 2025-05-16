@@ -61,6 +61,8 @@ public partial class Promotions_PromotionSearch : System.Web.UI.Page
             ddlClass.DataBind();
             ddlClass.SelectedIndex = 0;
         }
+
+
     }
 
 

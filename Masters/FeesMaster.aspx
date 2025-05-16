@@ -43,19 +43,24 @@
 
         function GetFeesCatHead(pageIndex) {
             var AcademicId = $("[id*=hfAcademicYear]").val();
+            var ClassID = $("[id*=ddlClassSearch]").val();
+
+            if (ClassID == 'null' || ClassID == "---Select---") {
+                ClassID = "";
+            }
             if ($("[id*=hfViewPrm]").val() == 'true') {
                 $.ajax({
                     type: "POST",
                     url: "../Masters/FeesMaster.aspx/GetFeesCatHead",
-                    data: '{pageIndex: ' + pageIndex + ',AcademicId:' + AcademicId + '}',
+                    data: '{pageIndex: ' + pageIndex + ',"ClassID": "' + ClassID + '",AcademicId:' + AcademicId + '}',
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: OnSuccess,
                     failure: function (response) {
-                         AlertMessage('info', response.d);
+                        AlertMessage('info', response.d);
                     },
                     error: function (response) {
-                         AlertMessage('info', response.d);
+                        AlertMessage('info', response.d);
                     }
                 });
             }
@@ -63,6 +68,7 @@
                 return false;
             }
         }
+
 
 
         function OnSuccess(response) {
@@ -450,6 +456,18 @@
             
             <div class="block ">
                 <table width="100%">
+                  <tr>
+                                                 
+                                                  <td valign="top" colspan="2" align="right">
+                                                    <label>
+                                                        Class :
+                                                    </label>
+                                                    &nbsp;
+                                                    <asp:DropDownList ID="ddlClassSearch" runat="server" onchange="javascript:GetFeesCatHead(1);">
+                                                        <asp:ListItem Selected="True" Value="">---Select---</asp:ListItem>
+                                                    </asp:DropDownList>
+                                                </td>
+                                            </tr>
                     <tr valign="top">
                         <td valign="top" colspan="2">
                             <asp:GridView ID="dgFeesCategoryHead" runat="server" Width="100%" AutoGenerateColumns="false"

@@ -39,7 +39,24 @@ public partial class FeesMaster : System.Web.UI.Page
                 BindFeesCategory();
                 // BindFeesHead();
                 BindDummyRow();
+                DataSet dsClass = new DataSet();
+                dsClass = utl.GetDataset("sp_GetClass");
 
+                if (dsClass != null && dsClass.Tables.Count > 0 && dsClass.Tables[0].Rows.Count > 0)
+                {
+                    ddlClassSearch.DataSource = dsClass;
+                    ddlClassSearch.DataTextField = "ClassName";
+                    ddlClassSearch.DataValueField = "ClassID";
+                    ddlClassSearch.DataBind();
+                }
+                else
+                {
+                    ddlClassSearch.DataSource = null;
+                    ddlClassSearch.DataTextField = "";
+                    ddlClassSearch.DataValueField = "";
+                    ddlClassSearch.DataBind();
+                }
+                ddlClassSearch.Items.Insert(0, "---Select---");
             }
         }
     }
@@ -194,7 +211,7 @@ public partial class FeesMaster : System.Web.UI.Page
         return utl.GetDatasetTable(query, "FeesTypeByClass").GetXml();
     }
     [WebMethod]
-    public static string GetFeesCatHead(int pageIndex, int AcademicId)
+    public static string GetFeesCatHead(int pageIndex, string ClassID, int AcademicId)
     {
         Utilities utl = new Utilities();
         string query = "[GetFeesCategoryHead_Pager]";
@@ -203,6 +220,7 @@ public partial class FeesMaster : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
         cmd.Parameters.AddWithValue("@PageSize", PageSize);
         cmd.Parameters.AddWithValue("@AcademicId", AcademicId);
+        cmd.Parameters.AddWithValue("@ClassID", ClassID);
         cmd.Parameters.Add("@RecordCount", SqlDbType.Int, 4).Direction = ParameterDirection.Output;
         return GetData(cmd, pageIndex).GetXml();
     }

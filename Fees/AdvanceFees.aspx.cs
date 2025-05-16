@@ -14,6 +14,8 @@ using System.Configuration;
 using System.Drawing.Printing;
 using System.Drawing;
 using System.Web.Script.Serialization;
+using System.Data.OleDb;
+using System.IO;
 
 
 public partial class Fees_AdvanceFees : System.Web.UI.Page
@@ -519,4 +521,189 @@ public partial class Fees_AdvanceFees : System.Web.UI.Page
         finally { GC.Collect(); }
     }
 
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Utilities utl = new Utilities();
+        try
+        {
+            if (!FileUpload1.HasFile)
+            {
+                return;
+            }
+            if (File.Exists(Server.MapPath(".//") + FileUpload1.PostedFile.FileName) == true)
+            {
+                File.Delete(Server.MapPath(".//") + FileUpload1.PostedFile.FileName);
+            }
+            FileUpload1.SaveAs(Server.MapPath(".//") + System.DateTime.Now.ToString("yyyyMMddhhmmss") + FileUpload1.PostedFile.FileName);
+
+            string path = Server.MapPath(".//") + System.DateTime.Now.ToString("yyyyMMddhhmmss") + FileUpload1.PostedFile.FileName;
+            //  DisplayData();
+
+            string excelConnectionString = "";
+            OleDbConnection excelConnection = null;
+            OleDbCommand cmd = null;
+            try
+            {
+                excelConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties='Excel 8.0;HDR=Yes'";
+                excelConnection = new OleDbConnection(excelConnectionString);
+                cmd = new OleDbCommand("Select regno,amount,datefor,receiptno,remarks,oldregno  from [sheet1$]", excelConnection);
+                cmd.CommandTimeout = 50000;
+                excelConnection.Open();
+            }
+            catch
+            {
+                excelConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties='Excel 8.0;HDR=No'";
+                excelConnection = new OleDbConnection(excelConnectionString);
+                cmd = new OleDbCommand("Select regno,amount,datefor,receiptno,remarks,oldregno from [sheet1$]", excelConnection);
+                cmd.CommandTimeout = 50000;
+                excelConnection.Open();
+            }
+            OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            excelConnection.Close();
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    string sqlstr = "";
+                    string regno = ds.Tables[0].Rows[i]["regno"].ToString();
+                    string amount = ds.Tables[0].Rows[i]["amount"].ToString();
+                    string datefor = ds.Tables[0].Rows[i]["datefor"].ToString();
+                    string receiptno = ds.Tables[0].Rows[i]["receiptno"].ToString();
+                    string datepaid = Convert.ToDateTime(datefor).ToString("yyyy-MM-dd");
+                    string remarks = ds.Tables[0].Rows[i]["remarks"].ToString();
+                    string oldregno = ds.Tables[0].Rows[i]["oldregno"].ToString();
+                    if (remarks.ToLower() == "transfer")
+                    {
+                        int icnt = Convert.ToInt32(utl.ExecuteScalar("select  isnull(COUNT(*),0) from s_studentpromotion where AcademicId=31 and isactive=1 and regno='" + regno + "'"));
+                        if (icnt == 0 || icnt == null)
+                        {
+                            utl.ExecuteQuery(@"insert into dbo.s_studentpromotion(regno,ClassID,SectionID,BusFacility,Concession,Hostel,Scholar
+                            ,AcademicId,Active,UserId)(select " + regno + ",ClassId,SectionId,BusFacility,Concession,Hostel,Scholar,31,Active,1 from  SIMV6.dbo.s_studentpromotion where regno=" + oldregno + " and AcademicId=15)");
+                        }
+
+                        sqlstr = @"select e.*, e.FeesCatHeadID,e.FeesHeadId,e.Amount from s_studentinfo info 
+	                          inner join s_studentpromotion promo on info.RegNo=promo.RegNo  
+	                          inner join m_feescategoryhead e on e.ClassId=promo.ClassId and e.AcademicId=promo.AcademicId
+	                          and e.FeesCategoryId= case when promo.Active='C' then '1' when promo.Active='N' then '2' end  and e.isactive=1
+	                          inner join m_feeshead f on f.FeesHeadId=e.FeesHeadId and f.FeesHeadCode='A'
+                            where promo.academicID=31 and info.regno='" + regno + "'";
+
+                        DataTable dtfee = new DataTable();
+
+                        dtfee = utl.GetDataTable(sqlstr);
+                        if (dtfee != null && dtfee.Rows.Count > 0)
+                        {
+                            for (int k = 0; k < dtfee.Rows.Count; k++)
+                            {
+                                string subQuery = string.Empty;
+
+                                int COUNT = Convert.ToInt32(utl.ExecuteScalar("select COUNT(billno) from f_studentbillmaster where FinancialId=12 and isactive=1"));
+                                COUNT = COUNT + 1;
+
+                                string iexists = utl.ExecuteScalar("select isnull(count(*),0) from f_studentbillmaster where isactive=1 and FinancialId=12 and billrefno='" + receiptno + "' and regno='" + regno + "'");
+                                if (iexists == "" || iexists == "0")
+                                {
+
+                                    string query = @" INSERT INTO [dbo].[f_studentbillmaster]                      
+                                               ([BillNo]                      
+                                               ,[FinancialId]                      
+                                               ,[AcademicId]                      
+                                               ,[FeesCategoryId]                      
+                                               ,[RegNo]                      
+                                               ,[BillMonth]                      
+                                               ,[TotalAmount]                      
+                                               ,[BillDate]               
+                                               ,[PaymentModeId]                     
+                                               ,[IsActive]                      
+                                               ,[UserId]
+                                                ,billrefno                       
+                                               )                      
+                                         VALUES                      
+                              (('0000' +convert(nvarchar(20)," + COUNT + ")) ,12,31," + dtfee.Rows[k]["FeesCategoryId"].ToString() + ",'" + regno + "','Mar'," + amount + ",'" + datepaid + "',1  ,'True' ,1,'" + receiptno + "')";
+                                    utl.ExecuteQuery(query);
+
+                                    string BillID = utl.ExecuteScalar("SELECT max(BillID) from f_studentbillmaster");
+
+                                    subQuery = "INSERT INTO [dbo].[f_studentbills]([BillId],[FeesCatHeadId],[BillMonth],[Amount],[IsActive],[UserId])VALUES(" + BillID + "," + dtfee.Rows[k]["FeesCatHeadID"].ToString() + ",'Mar',10000,'True',1)";
+
+                                    utl.ExecuteQuery(subQuery);
+
+                                    utl.ExecuteQuery("insert into f_studentpaymodebills(BillID,CashAmount,CardAmount,Isactive,userID)values(" + BillID + ",10000,0,'True',1)");
+
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        sqlstr = @"select e.*, e.FeesCatHeadID,e.FeesHeadId,e.Amount from s_studentinfo info 
+	                          inner join s_studentpromotion promo on info.RegNo=promo.RegNo  
+	                          inner join m_feescategoryhead e on e.ClassId=promo.ClassId and e.AcademicId=promo.AcademicId
+	                          and e.FeesCategoryId= case when promo.Active='C' then '1' when promo.Active='N' then '2' end  and e.isactive=1
+	                          inner join m_feeshead f on f.FeesHeadId=e.FeesHeadId and f.FeesHeadCode='A'
+                            where promo.academicID=31 and info.regno='" + regno + "'";
+
+                        DataTable dtfee = new DataTable();
+
+                        dtfee = utl.GetDataTable(sqlstr);
+                        if (dtfee != null && dtfee.Rows.Count > 0)
+                        {
+                            for (int k = 0; k < dtfee.Rows.Count; k++)
+                            {
+                                string subQuery = string.Empty;
+
+                                int COUNT = Convert.ToInt32(utl.ExecuteScalar("select COUNT(billno) from f_studentbillmaster where FinancialId=12 and isactive=1"));
+                                COUNT = COUNT + 1;
+
+                                string iexists = utl.ExecuteScalar("select isnull(count(*),0) from f_studentbillmaster where isactive=1 and FinancialId=12 and billrefno='" + receiptno + "' and regno='" + regno + "'");
+                                if (iexists == "" || iexists == "0")
+                                {
+
+                                    string query = @" INSERT INTO [dbo].[f_studentbillmaster]                      
+                                               ([BillNo]                      
+                                               ,[FinancialId]                      
+                                               ,[AcademicId]                      
+                                               ,[FeesCategoryId]                      
+                                               ,[RegNo]                      
+                                               ,[BillMonth]                      
+                                               ,[TotalAmount]                      
+                                               ,[BillDate]               
+                                               ,[PaymentModeId]                     
+                                               ,[IsActive]                      
+                                               ,[UserId]
+                                                ,billrefno                       
+                                               )                      
+                                         VALUES                      
+                              (('0000' +convert(nvarchar(20)," + COUNT + ")) ,12,31," + dtfee.Rows[k]["FeesCategoryId"].ToString() + ",'" + regno + "','Mar'," + amount + ",'" + datepaid + "',1  ,'True' ,1,'" + receiptno + "')";
+                                    utl.ExecuteQuery(query);
+
+                                    string BillID = utl.ExecuteScalar("SELECT max(BillID) from f_studentbillmaster");
+
+                                    subQuery = "INSERT INTO [dbo].[f_studentbills]([BillId],[FeesCatHeadId],[BillMonth],[Amount],[IsActive],[UserId])VALUES(" + BillID + "," + dtfee.Rows[k]["FeesCatHeadID"].ToString() + ",'Mar',10000,'True',1)";
+
+                                    utl.ExecuteQuery(subQuery);
+
+                                    utl.ExecuteQuery("insert into f_studentpaymodebills(BillID,CashAmount,CardAmount,Isactive,userID)values(" + BillID + ",10000,0,'True',1)");
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            FileUpload1.Dispose();
+            File.Delete(path);
+            utl.ShowMessage("Uploaded Successfully", this.Page);
+        }
+        catch (Exception ex)
+        {
+            FileUpload1.Dispose();
+            utl.ShowMessage("File content problem, cant upload the file. kindly check it" + ex, this.Page);
+
+        }
+    }
 }

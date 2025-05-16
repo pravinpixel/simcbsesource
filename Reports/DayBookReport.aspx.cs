@@ -112,6 +112,27 @@ public partial class Reports_DayBookReport : System.Web.UI.Page
                 lblHostelAcc.Text = "0.00";
             }
 
+            if (DataSet1.Tables[24].Rows[0][0].ToString() != "")
+            {
+                lblAHSSApp.Text = DataSet1.Tables[24].Rows[0][0].ToString();
+                netAmount += Convert.ToDecimal(DataSet1.Tables[24].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblAHSSApp.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[25].Rows[0][0].ToString() != "")
+            {
+                lblAECAApp.Text = DataSet1.Tables[25].Rows[0][0].ToString();
+                netAmount += Convert.ToDecimal(DataSet1.Tables[25].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblAECAApp.Text = "0.00";
+            }
+
+
             hdnTotalAcc.Value = Convert.ToDecimal(netAmount).ToString();
             decimal otherNetAmt = 0;
 
@@ -190,7 +211,168 @@ public partial class Reports_DayBookReport : System.Web.UI.Page
             {
                 lblCashReturn.Text = "0.00";
             }
-            netInHand = Convert.ToDecimal(lblNetCash.Text) - (Convert.ToDecimal(cashSpentNet)) + Convert.ToDecimal(lblCashReturn.Text);
+
+            if (DataSet1.Tables[8].Rows[0][0].ToString() != "")
+            {
+                lblAdvance.Text = DataSet1.Tables[8].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblAdvance.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[9].Rows[0][0].ToString() != "")
+            {
+                lblCash.Text = DataSet1.Tables[9].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblCash.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[10].Rows[0][0].ToString() != "")
+            {
+                lblCheque.Text = DataSet1.Tables[10].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblCheque.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[11].Rows[0][0].ToString() != "")
+            {
+                lblCard.Text = DataSet1.Tables[11].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblCard.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[12].Rows[0][0].ToString() != "")
+            {
+                lblCashCard.Text = DataSet1.Tables[12].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblCashCard.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[13].Rows[0][0].ToString() != "")
+            {
+                lblQRCode.Text = DataSet1.Tables[13].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblQRCode.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[14].Rows[0][0].ToString() != "")
+            {
+                lblNetbank.Text = DataSet1.Tables[14].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblNetbank.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[15].Rows[0][0].ToString() != "")
+            {
+                lblPayTM.Text = DataSet1.Tables[15].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblPayTM.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[16].Rows[0][0].ToString() != "")
+            {
+                lblCardQR.Text = DataSet1.Tables[16].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblCardQR.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[17].Rows[0][0].ToString() != "")
+            {
+                lblCashQR.Text = DataSet1.Tables[17].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblCashQR.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[18].Rows[0][0].ToString() != "")
+            {
+                lblScholarshipAEWS1.Text = DataSet1.Tables[18].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblScholarshipAEWS1.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[19].Rows[0][0].ToString() != "")
+            {
+                lblScholarshipAEWS2.Text = DataSet1.Tables[19].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblScholarshipAEWS2.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[20].Rows[0][0].ToString() != "")
+            {
+                lblScholarshipAEWS3.Text = DataSet1.Tables[20].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblScholarshipAEWS3.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[21].Rows[0][0].ToString() != "")
+            {
+                lblScholarshipSC1.Text = DataSet1.Tables[21].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblScholarshipSC1.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[22].Rows[0][0].ToString() != "")
+            {
+                lblScholarshipSC2.Text = DataSet1.Tables[22].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblScholarshipSC2.Text = "0.00";
+            }
+
+            if (DataSet1.Tables[23].Rows[0][0].ToString() != "")
+            {
+                lblScholarshipSC3.Text = DataSet1.Tables[23].Rows[0][0].ToString();
+                //cashSpentNet += Convert.ToDecimal(DataSet1.Tables[7].Rows[0][0].ToString());
+            }
+            else
+            {
+                lblScholarshipSC3.Text = "0.00";
+            }
+
+            netInHand = Convert.ToDecimal(lblNetCash.Text) - (Convert.ToDecimal(cashSpentNet) + Convert.ToDecimal(lblAdvance.Text) + Convert.ToDecimal(lblCard.Text) + Convert.ToDecimal(lblCashCard.Text) + Convert.ToDecimal(lblCheque.Text) + Convert.ToDecimal(lblCardQR.Text) + Convert.ToDecimal(lblPayTM.Text) + Convert.ToDecimal(lblScholarshipAEWS1.Text) + Convert.ToDecimal(lblScholarshipAEWS2.Text) + Convert.ToDecimal(lblScholarshipAEWS3.Text) + Convert.ToDecimal(lblScholarshipSC1.Text) + Convert.ToDecimal(lblScholarshipSC2.Text) + Convert.ToDecimal(lblScholarshipSC3.Text) + Convert.ToDecimal(lblNetbank.Text) + Convert.ToDecimal(lblNetbank.Text) + Convert.ToDecimal(lblQRCode.Text)) + Convert.ToDecimal(lblCashReturn.Text);
             lblNetCashInHand.Text = Convert.ToString(netInHand);
         };
     }

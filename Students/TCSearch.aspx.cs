@@ -81,10 +81,10 @@ public partial class Students_TCSearch : System.Web.UI.Page
             ddlBulkUpdCls.DataValueField = "ClassID";
             ddlBulkUpdCls.DataBind();
 
-            dpPrintBulkClass.DataSource = dt;
-            dpPrintBulkClass.DataTextField = "ClassName";
-            dpPrintBulkClass.DataValueField = "ClassID";
-            dpPrintBulkClass.DataBind();
+            dpIPrintBulkClass.DataSource = dt;
+            dpIPrintBulkClass.DataTextField = "ClassName";
+            dpIPrintBulkClass.DataValueField = "ClassID";
+            dpIPrintBulkClass.DataBind();
         }
         else
         {
@@ -104,14 +104,14 @@ public partial class Students_TCSearch : System.Web.UI.Page
             ddlBulkUpdCls.DataBind();
             ddlBulkUpdCls.SelectedIndex = 0;
 
-            dpPrintBulkClass.DataSource = null;
-            dpPrintBulkClass.DataBind();
-            dpPrintBulkClass.SelectedIndex = 0;
+            dpIPrintBulkClass.DataSource = null;
+            dpIPrintBulkClass.DataBind();
+            dpIPrintBulkClass.SelectedIndex = 0;
         }
 
         ddlClassForApproval.Items.Insert(0, new ListItem("-- Select--", ""));
         ddlBulkUpdCls.Items.Insert(0, new ListItem("-- Select--", ""));
-        dpPrintBulkClass.Items.Insert(0, new ListItem("-- Select--", ""));
+        dpIPrintBulkClass.Items.Insert(0, new ListItem("-- Select--", ""));
     }
 
     private void BindAcademinYear()
@@ -647,6 +647,7 @@ public partial class Students_TCSearch : System.Web.UI.Page
 
             sqlstr = "select isactive from m_academicyear where AcademicID='" + HttpContext.Current.Session["AcademicID"].ToString() + "'";
             Isactive = utls.ExecuteScalar(sqlstr);
+            medicalCheckup = "1";
             if (Isactive == "True")
             {
                 query = "SP_UPDATETCDETAILS1 '', " + academicId + ",'" + tcSlno + "','" + leaveOfStudy + "','" + promotionText + "','" + medicalCheckup + "','" + lDate + "','" + conduct + "','" + aDate + "','" + tcDate + "','" + courseofStudy + "',0," + userId + ",'False'," + classId + "," + sectionId + "";

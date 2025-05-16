@@ -882,10 +882,29 @@
                     $("[id*=ddlClass] option[value='" + ClassID + "']").attr("selected", "true");
                     FlagSectionID = $(this).find("SectionID").text();
                     GetSectionByClass();
+                    var SportStudent = $(this).find("SportStudent").text();
+                    if (SportStudent == "1") {
+                        $("[id*=chksportStudent]").prop('checked', true);
+                    }
+                    else if (SportStudent == "0") {
+                        $("[id*=chksportStudent]").prop('checked', false);
+                    }
 
                     $("[id*=hfStudentInfoID]").val($(this).find("StudentID").text());
                     $("[id*=hfRegNo]").val($(this).find("RegNo").text());
+                    $("[id*=lblApplicationNo]").html($(this).find("ApplicationNo").text());
                     $("[id*=lblRegNo]").html($(this).find("RegNo").text());
+
+
+                    if ($("[id*=lblApplicationNo]").html() != "") {
+                        $("[id*=spnRegno]").css("display", "block");
+                        $("[id*=spnAppno]").css("display", "block");
+                    } else {
+                        $("[id*=spnRegno]").css("display", "block");
+                        $("[id*=spnAppno]").css("display", "block");
+
+                    }
+
                     $("[id*=lblStudentName]").html($(this).find("StudentName").text());
                     if ($(this).find("SectionID").text() == "") {
                         $("[id*=lblClass]").html($(this).find("Class").text() + " / " + "New")
@@ -898,6 +917,39 @@
 
                     $("[id*=txtRegNo]").val($(this).find("RegNo").text());
                     $("[id*=txtConcessionReason]").val($(this).find("Reason").text());
+
+                    var BusFacility = $(this).find("BusFacility").text();
+                    var BusRouteID = $(this).find("BusRouteID").text();
+                    if (BusFacility.trim() == "Y") {
+                        $("[id*=rbtnBusYes]").prop("checked", true);
+                    }
+                    else if (BusFacility.trim() == "N") {
+                        $("[id*=rbtnBusNo]").prop("checked", false);
+                    }
+                    GetBusRouteDetails(BusRouteID);
+
+                    var IcStudent = $(this).find("IcStudent").text();
+                    if (IcStudent.trim() == "Y") {
+                        $("[id*=chkICStudent]").prop("checked", true);
+                    }
+                    else if (IcStudent.trim() == "N") {
+                        $("[id*=chkICStudent]").prop("checked", false);
+                    }
+                    getICType();
+
+                    var IcType = $(this).find("IcType").text();
+                    $("[id*=rbtnICType1]").attr("checked", false);
+                    $("[id*=rbtnICType2]").attr("checked", false);
+
+                    if (IcType.trim() == "1") {
+                        $("[id*=rbtnICType1]").attr("checked", true);
+                        $("[id*=rbtnICType2]").attr("checked", false);
+                    }
+                    else if (IcType.trim() == "2") {
+                        $("[id*=rbtnICType1]").attr("checked", false);
+                        $("[id*=rbtnICType2]").attr("checked", true);
+                    }
+
                     var Gender = $(this).find("Gender").text();
 
                     if (Gender == "Male" || Gender == "M") {
@@ -920,6 +972,8 @@
                     $("[id*=ddlCaste] option[value='" + Caste + "']").attr("selected", "true");
 
                     $("[id*=txtAadhaar]").val($(this).find("AadhaarNo").text());
+                    $("[id*=txtFatherAadhaar]").val($(this).find("FatherAadhaarNo").text());
+                    $("[id*=txtMotherAadhaar]").val($(this).find("MotherAadhaarNo").text());
                     $("[id*=txtTempAddress]").val($(this).find("TempAddr").text());
                     $("[id*=txtPerAddress]").val($(this).find("PerAddr").text());
                     $("[id*=txtEmail]").val($(this).find("Email").text());
@@ -1007,7 +1061,7 @@
 
                     $("[id*=ddlSchoolMedium]").val($(this).find("mediumID").text());
                     $("[id*=txtFirstlang]").val($(this).find("Firstlang").text());
-                   // $("[id*=txtFirstlang]").html($(this).find("Firstlang").text());
+                    // $("[id*=txtFirstlang]").html($(this).find("Firstlang").text());
                     $("[id*=ddlSeclang]").val($(this).find("Seclang").text());
                     var Scholar = $(this).find("Scholar").text();
                     if (Scholar == "Y") {
@@ -1142,7 +1196,7 @@
                 GetMedicalRemarkInfo(RegNo);
                 GetAcademicRemarkInfo(RegNo);
                 GetHostelInfo(RegNo);
-                GetBusRouteDetails(0);
+                //GetBusRouteDetails(RegNo);
                 GetStaffChildrenInfo(RegNo);
                 GetOldSchoolInfo(RegNo);
                 GetConcessionInfo(RegNo);
@@ -1169,6 +1223,25 @@
 
             }
         };
+
+          function getICType() {
+            const chkICStudent = document.getElementById('chkICStudent');
+            const rbtnICType1 = document.getElementById('rbtnICType1');
+            const rbtnICType2 = document.getElementById('rbtnICType2');
+
+            if (chkICStudent.checked) {
+                // Enable both radio buttons if checkbox is checked
+                rbtnICType1.disabled = false;
+                rbtnICType2.disabled = false;
+            } else {
+                // Disable both radio buttons and uncheck them if checkbox is unchecked
+                rbtnICType1.disabled = true;
+                rbtnICType2.disabled = true;
+
+                rbtnICType1.checked  = false;
+                rbtnICType2.checked  = false;
+            }
+        }
 
         function GetFamilyInfo(RegNo) {
             if ($("[id*=hfViewPrm]").val() == 'true') {
@@ -1253,7 +1326,7 @@
                     var ehref = eanchor + $(this).find("StudentID").text() + "','" + $(this).find("Relation").text() + eanchorEnd;
                     var dhref = danchor + $(this).find("StudentID").text() + "','" + $(this).find("Relation").text() + danchorEnd;
                     $("td", row).eq(0).html($(this).find("Relation").text()).attr("valign", "top");
-                    $("td", row).eq(1).html($(this).find("Name").text()).attr("valign", "top");
+                    $("td", row).eq(1).html($(this).find("Name").text().replace("'", "''")).attr("valign", "top");
                     $("td", row).eq(2).html($(this).find("Qual").text()).attr("valign", "top");
                     $("td", row).eq(3).html($(this).find("Occupation").text()).attr("valign", "top");
                     $("td", row).eq(4).html($(this).find("Income").text()).attr("valign", "top");
@@ -2850,6 +2923,8 @@
                     var Community = $("[id*=ddlCommunity]").val();
                     var Caste = $("[id*=ddlCaste]").val();
                     var Aadhaar = $("[id*=txtAadhaar]").val();
+                    var FatherAadhaar = $("[id*=txtFatherAadhaar]").val();
+                    var MotherAadhaar = $("[id*=txtMotherAadhaar]").val();
                     var TempAddress = $("[id*=txtTempAddress]").val();
                     var PerAddress = $("[id*=txtPerAddress]").val();
                     var Email = $("[id*=txtEmail]").val();
@@ -2868,8 +2943,24 @@
                     if (Section == "New") {
                         Section = "";
                     }
+                    var IcStudent;
+                    if ($("[id*=chkICStudent]").is(':checked')) {
+                        IcStudent = "Y";
+                    }
+                    else {
+                        IcStudent = "N";
+                    }
+
+                    var IcType;
+                    if ($("[id*=rbtnICType1]").is(':checked')) {
+                        IcType = "1";
+                    }
+
+                    else if ($("[id*=rbtnICType2]").is(':checked')) {
+                        IcType = "2";
+                    }
                     var Academicyear = $("[id*=hfAcademicyear]").val();
-                    var parameters = '{"id": "' + StudentInfoID + '","studentname": "' + StudentName + '","classname": "' + Classname + '","classid": "' + Class + '","sectionname": "' + Section + '","gender": "' + Gender + '","dob": "' + DOB + '","doj": "' + DOJ + '","religion": "' + Religion + '","mtongue": "' + MotherTongue + '","community": "' + Community + '","caste": "' + Caste + '","aadhaar": "' + Aadhaar + '","tempaddress": "' + TempAddress + '","peraddress": "' + PerAddress + '","email": "' + Email + '","phoneno": "' + PhoneNo + '","smartcard": "' + SmartCard + '","rationcard": "' + RationCard + '","photopath": "' + PhotoPath + '","photofile": "' + PhotoFile + '","sslcno": "' + SSLCNo + '","sslcyear": "' + SSLCYear + '","hscno": "' + HSCNo + '","hscyear": "' + HSCYear + '","suid": "' + SUID + '","tamilname": "' + Tamilname + '","academicyear": "' + Academicyear + '","academicyear": "' + Academicyear + '"}';
+                    var parameters = '{"id": "' + StudentInfoID + '","studentname": "' + StudentName + '","classname": "' + Classname + '","classid": "' + Class + '","sectionname": "' + Section + '","gender": "' + Gender + '","dob": "' + DOB + '","doj": "' + DOJ + '","religion": "' + Religion + '","mtongue": "' + MotherTongue + '","community": "' + Community + '","caste": "' + Caste + '","aadhaar": "' + Aadhaar + '","fatheraadhaar": "' + FatherAadhaar + '","motheraadhaar": "' + MotherAadhaar + '","tempaddress": "' + TempAddress + '","peraddress": "' + PerAddress + '","email": "' + Email + '","phoneno": "' + PhoneNo + '","smartcard": "' + SmartCard + '","rationcard": "' + RationCard + '","photopath": "' + PhotoPath + '","photofile": "' + PhotoFile + '","sslcno": "' + SSLCNo + '","sslcyear": "' + SSLCYear + '","hscno": "' + HSCNo + '","hscyear": "' + HSCYear + '","suid": "' + SUID + '","tamilname": "' + Tamilname + '","academicyear": "' + Academicyear + '","academicyear": "' + Academicyear + '","IcStudent": "' + IcStudent + '","IcType": "' + IcType + '"}';
                     $.ajax({
                         type: "POST",
                         url: "../Students/StudentInfo.aspx/SaveandPayAdvanceFees",
@@ -2939,6 +3030,8 @@
                     var Community = $("[id*=ddlCommunity]").val();
                     var Caste = $("[id*=ddlCaste]").val();
                     var Aadhaar = $("[id*=txtAadhaar]").val();
+                    var FatherAadhaar = $("[id*=txtFatherAadhaar]").val();
+                    var MotherAadhaar = $("[id*=txtMotherAadhaar]").val();
                     var TempAddress = $("[id*=txtTempAddress]").val();
                     var PerAddress = $("[id*=txtPerAddress]").val();
                     var Email = $("[id*=txtEmail]").val();
@@ -2961,9 +3054,33 @@
                     if (sstatus == "---Select---") {
                         sstatus = "";
                     }
+                    var sportStudent = "";
+                    if ($("[id*=chksportStudent]").is(':checked')) {
+                        sportStudent = "1";
+                    }
+                    else {
+                        sportStudent = "0";
+                    }
+
+                    var IcStudent;
+                    if ($("[id*=chkICStudent]").is(':checked')) {
+                        IcStudent = "Y";
+                    }
+                    else {
+                        IcStudent = "N";
+                    }
+
+                    var IcType;
+                    if ($("[id*=rbtnICType1]").is(':checked')) {
+                        IcType = "1";
+                    }
+
+                    else if ($("[id*=rbtnICType2]").is(':checked')) {
+                        IcType = "2";
+                    }
 
                     var Academicyear = $("[id*=hfAcademicyear]").val();
-                    var parameters = '{"id": "' + StudentInfoID + '","studentname": "' + StudentName + '","classname": "' + Classname + '","classid": "' + Class + '","sectionname": "' + Section + '","gender": "' + Gender + '","dob": "' + DOB + '","doj": "' + DOJ + '","religion": "' + Religion + '","mtongue": "' + MotherTongue + '","community": "' + Community + '","caste": "' + Caste + '","aadhaar": "' + Aadhaar + '","tempaddress": "' + TempAddress + '","peraddress": "' + PerAddress + '","email": "' + Email + '","phoneno": "' + PhoneNo + '","smartcard": "' + SmartCard + '","rationcard": "' + RationCard + '","photopath": "' + PhotoPath + '","photofile": "' + PhotoFile + '","sslcno": "' + SSLCNo + '","sslcyear": "' + SSLCYear + '","hscno": "' + HSCNo + '","hscyear": "' + HSCYear + '","suid": "' + SUID + '","tamilname": "' + Tamilname + '","academicyear": "' + Academicyear + '","sstatus": "' + sstatus + '","userid": "' + $("[id*=hfuserid]").val() + '"}';
+                    var parameters = '{"id": "' + StudentInfoID + '","studentname": "' + StudentName + '","classname": "' + Classname + '","classid": "' + Class + '","sectionname": "' + Section + '","gender": "' + Gender + '","dob": "' + DOB + '","doj": "' + DOJ + '","religion": "' + Religion + '","mtongue": "' + MotherTongue + '","community": "' + Community + '","caste": "' + Caste + '","aadhaar": "' + Aadhaar + '","fatheraadhaar": "' + FatherAadhaar + '","motheraadhaar": "' + MotherAadhaar + '","tempaddress": "' + TempAddress + '","peraddress": "' + PerAddress + '","email": "' + Email + '","phoneno": "' + PhoneNo + '","smartcard": "' + SmartCard + '","rationcard": "' + RationCard + '","photopath": "' + PhotoPath + '","photofile": "' + PhotoFile + '","sslcno": "' + SSLCNo + '","sslcyear": "' + SSLCYear + '","hscno": "' + HSCNo + '","hscyear": "' + HSCYear + '","suid": "' + SUID + '","tamilname": "' + Tamilname + '","academicyear": "' + Academicyear + '","sstatus": "' + sstatus + '","sportStudent": "' + sportStudent + '","IcStudent": "' + IcStudent + '","IcType": "' + IcType + '","userid": "' + $("[id*=hfuserid]").val() + '"}';
                     $.ajax({
                         type: "POST",
                         url: "../Students/StudentInfo.aspx/SaveStudentInfo",
@@ -4054,6 +4171,8 @@
             $("[id*=ddlCommunity]").val("");
             $("[id*=ddlCaste]").val("");
             $("[id*=txtAadhaar]").val("");
+            $("[id*=txtFatherAadhaar]").val("");
+            $("[id*=txtMotherAadhaar]").val("");
             $("[id*=txtTempAddress]").val("");
             $("[id*=txtPerAddress]").val("");
             $("[id*=txtEmail]").val("");
@@ -4832,14 +4951,28 @@
             <h2>
                 Student Information
                 <div id="jSuccess-info">
-                    Registration No :
-                    <asp:Label ID="lblRegNo" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Student
-                    Name :
-                    <asp:Label ID="lblStudentName" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Class
-                    & Section :
-                    <asp:Label ID="lblClass" runat="server"></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Present
-                    Status :
-                    <asp:Label ID="lblStatus" runat="server"></asp:Label></div>
+                     <table>
+                        <tr>
+                            <td style="width:250px;float:left">
+                                <span id="spnAppno">Application No :<asp:Label ID="lblApplicationNo" runat="server"></asp:Label></span>
+                            </td>
+                            <td style="width:250px;float:left">
+                                <span id="spnRegno">Registration No :<asp:Label ID="lblRegNo" runat="server"></asp:Label></span>
+                            </td>
+                            <td style="width:250px;float:left">
+                                Student Name :
+                                <asp:Label ID="lblStudentName" runat="server"></asp:Label>
+                            </td>
+                            <td style="width:250px;float:left">
+                                Class & Section :
+                                <asp:Label ID="lblClass" runat="server"></asp:Label>
+                            </td>
+                            <td style="width:250px;float:left">
+                                Present Status :
+                                <asp:Label ID="lblStatus" runat="server"></asp:Label>
+                            </td>
+                        </tr>
+                    </table>
             </h2>
             <div class="clear">
             </div>
@@ -4867,7 +5000,10 @@
                                                     Student Name :</label>
                                             </td>
                                             <td width="26%" class="col2">
-                                                <asp:TextBox ID="txtStudentName" CssClass="jsrequired" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="txtStudentName" CssClass="jsrequired" runat="server"></asp:TextBox>&nbsp;
+                                                 <label>
+                                                    <input type="checkbox" name="chksportStudent" id="chksportStudent"  />
+                                                    Full-time Sport Student</label>
                                             </td>
                                             <td width="14%" class="col2">
                                                 <span class="col1">
@@ -4959,6 +5095,26 @@
                                                 <label for="textarea">
                                                 </label>
                                                 <asp:TextBox ID="txtAadhaar" runat="server"></asp:TextBox>
+                                            </td>
+                                        </tr>
+                                         <tr>
+                                            <td>
+                                                <label>
+                                                    Father Aadhaar card :</label>
+                                            </td>
+                                            <td>
+                                                <label for="textarea">
+                                                </label>
+                                                <asp:TextBox ID="txtFatherAadhaar" runat="server"></asp:TextBox>
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    Mother Aadhaar card :</label>
+                                            </td>
+                                            <td>
+                                                <label for="textarea">
+                                                </label>
+                                                <asp:TextBox ID="txtMotherAadhaar" runat="server"></asp:TextBox>
                                             </td>
                                         </tr>
                                         <tr>
@@ -5084,15 +5240,25 @@
                                                 <asp:TextBox ID="txtTamilname" CssClass="text_tam" runat="server"></asp:TextBox>
                                             </td>
                                         </tr>
-                                        <tr>
+                                          <tr>
                                             <td>
-                                                &nbsp;</td>
+                                                <label>
+                                                    Is IC Student :</label>
+                                            </td>
                                             <td>
-                                                &nbsp;</td>
+                                               <label> <input type="checkbox" name="chkICStudent" id="chkICStudent" onchange="getICType();"  />
+                                                    Yes</label>
+                                            </td>
                                             <td>
-                                                &nbsp;</td>
-                                            <td>
-                                                &nbsp;</td>
+                                                <label>
+                                                    IC Type :</label>
+                                            </td>
+                                             <td class="col2">
+                                                <label>
+                                                    <input type="radio" name="ic1" id="rbtnICType1" value="1" />NEET</label>
+                                                <label>
+                                                    <input type="radio" name="ic1" id="rbtnICType2" value="2" />JEEE</label>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td colspan="4" align="center">
@@ -5808,7 +5974,7 @@
                                         <tr>
                                             <td width="22%" class="col1">
                                                 <label>
-                                                    Medium:</label>
+                                                    Medium of Instruction:</label>
                                             </td>
                                             <td width="27%" class="col2">
                                                 <asp:DropDownList ID="ddlSchoolMedium" CssClass="jsrequired" runat="server" AppendDataBoundItems="True">
@@ -5816,7 +5982,7 @@
                                             </td>
                                             <td width="22%" class="col2">
                                                 <label>
-                                                    First Language:</label>
+                                                    Second Language:</label>
                                             </td>
                                             <td width="29%" class="col2">
                                               <asp:DropDownList ID="txtFirstlang" CssClass="" runat="server" AppendDataBoundItems="True">
@@ -5826,7 +5992,7 @@
                                         <tr>
                                             <td>
                                                 <label>
-                                                    Second language :</label>
+                                                    First language :</label>
                                             </td>
                                             <td>
                                                 <asp:DropDownList ID="ddlSeclang" CssClass="" runat="server" AppendDataBoundItems="True">
@@ -5843,7 +6009,8 @@
                                                     <asp:ListItem Value="C">Current</asp:ListItem>
                                                     <asp:ListItem Value="O">Old</asp:ListItem>
                                                     <asp:ListItem Value="D">Discontinued</asp:ListItem>
-                                                    <asp:ListItem Value="F">Temproray</asp:ListItem>
+                                                    <asp:ListItem Value="F">Temporary</asp:ListItem>
+                                                     <asp:ListItem Value="E">Cancelled</asp:ListItem>
                                                 </asp:DropDownList>
                                             </td>
                                         </tr>

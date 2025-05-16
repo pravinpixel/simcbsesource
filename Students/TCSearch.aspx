@@ -683,7 +683,7 @@
                 });
             }
             else {
-                var select = $("[id*=dpPrintBulkSection]");
+                var select = $("[id*=dpIPrintBulkSection]");
                 select.children().remove();
                 select.append($("<option>").val('').text('---Select---'));
             }
@@ -693,7 +693,7 @@
             var xmlDoc = $.parseXML(response.d);
             var xml = $(xmlDoc);
             var cls = xml.find("SectionByClass");
-            var select = $("[id*=dpPrintBulkSection]");
+            var select = $("[id*=dpIPrintBulkSection]");
             select.children().remove();
             select.append($("<option>").val('').text('---Select---'));
             $.each(cls, function () {
@@ -834,13 +834,13 @@
     <%="<script src='" + ResolveUrl("~/js/jquery.printElement.js") + "' type='text/javascript'></script>"%>
     <script type="text/javascript">
         function BulkPrint() {
-            if ($("[id*=dpPrintBulkClass]").val() != '') {
+            if ($("[id*=dpIPrintBulkClass]").val() != '') {
                 if (jConfirm('Are you sure to update bulk?', 'Confirm', function (r) {
                     if (r) {
                         $.ajax({
                             type: "POST",
                             url: "../Students/TCSearch.aspx/BulkPrint",
-                            data: '{"classId": "' + $('[id*=dpPrintBulkClass]').val() + '","sectionId":"' + $('[id*=dpPrintBulkSection]').val() + '","academicId":"' + $('[id*=hfAcademicYear]').val() + '"}',
+                            data: '{"classId": "' + $('[id*=dpIPrintBulkClass]').val() + '","sectionId":"' + $('[id*=dpIPrintBulkSection]').val() + '","academicId":"' + $('[id*=hfAcademicYear]').val() + '"}',
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             success: OnBulkPrintSuccess,
@@ -1127,14 +1127,14 @@
                                     Class:
                                 </label>
                                 &nbsp;
-                                <asp:DropDownList ID="dpPrintBulkClass" runat="server" onchange="GetSectionForBulkPrint(this.value);">
+                                <asp:DropDownList ID="dpIPrintBulkClass" runat="server" onchange="GetSectionForBulkPrint(this.value);">
                                 </asp:DropDownList>
                                 &nbsp; &nbsp;
                                 <label>
                                     Section:
                                 </label>
                                 &nbsp;
-                                <asp:DropDownList ID="dpPrintBulkSection" runat="server">
+                                <asp:DropDownList ID="dpIPrintBulkSection" runat="server">
                                     <asp:ListItem Text="---Select---" Value=""></asp:ListItem>
                                 </asp:DropDownList>
                                 &nbsp;

@@ -45,6 +45,78 @@ public partial class Students_StudentSearch : System.Web.UI.Page
         }
     }
 
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        utl = new Utilities();
+        try
+        {
+            if (!FileUpload2.HasFile)
+            {
+                return;
+            }
+            if (File.Exists(Server.MapPath(".//") + FileUpload2.PostedFile.FileName) == true)
+            {
+                File.Delete(Server.MapPath(".//") + FileUpload2.PostedFile.FileName);
+            }
+            FileUpload1.SaveAs(Server.MapPath(".//") + System.DateTime.Now.ToString("yyyyMMddhhmmss") + FileUpload2.PostedFile.FileName);
+
+            string path = Server.MapPath(".//") + System.DateTime.Now.ToString("yyyyMMddhhmmss") + FileUpload2.PostedFile.FileName;
+            //  DisplayData();
+
+            string excelConnectionString = "";
+            OleDbConnection excelConnection = null;
+            OleDbCommand cmd = null;
+            try
+            {
+                excelConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties='Excel 8.0;HDR=Yes'";
+                excelConnection = new OleDbConnection(excelConnectionString);
+                cmd = new OleDbCommand("Select sno,regno,type,classid,sectionid,name from [sheet1$]", excelConnection);
+                cmd.CommandTimeout = 50000;
+                excelConnection.Open();
+            }
+            catch
+            {
+                excelConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties='Excel 8.0;HDR=No'";
+                excelConnection = new OleDbConnection(excelConnectionString);
+                cmd = new OleDbCommand("Select regno,FeesCatHeadID,Amount,ConcessionAmount from [sheet1$]", excelConnection);
+                cmd.CommandTimeout = 50000;
+                excelConnection.Open();
+            }
+            OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            excelConnection.Close();
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    string sqlstr = "";
+                    string regno = ds.Tables[0].Rows[i]["regno"].ToString().Trim();
+                    string FeesCatHeadID = ds.Tables[0].Rows[i]["FeesCatHeadID"].ToString().Trim();
+                    string ConcessionAmount = ds.Tables[0].Rows[i]["ConcessionAmount"].ToString().Trim();
+                    string academicID = ds.Tables[0].Rows[i]["AcademicID"].ToString().Trim();
+                    string icnt = utl.ExecuteScalar("select count(*) s_studentconcession where isactive=1 and academicID=" + academicID + " and FeesCatHeadID='" + FeesCatHeadID + "'");
+                    if (icnt == "" || icnt == "0")
+                    {
+                        utl.ExecuteQuery("insert into s_studentconcession(FeesCatHeadID,AcademicID,RegNo,ConcessType,ConcessAmt,IsActive,UserID)values('" + FeesCatHeadID + "','" + academicID + "','" + regno + "','P','" + ConcessionAmount + "',1,1)");
+
+                        sqlstr = "update s_studentinfo set Concession='Y',reason='COVID Concession' where regno='" + regno + "' and academicyear=" + academicID + "";
+                        utl.ExecuteQuery(sqlstr);
+                    }
+
+                }
+                FileUpload2.Dispose();
+                File.Delete(path);
+                utl.ShowMessage("Uploaded Successfully", this.Page);
+            }
+        }
+        catch (Exception ex)
+        {
+            FileUpload2.Dispose();
+            utl.ShowMessage("File content problem, cant upload the file. kindly check it" + ex, this.Page);
+        }
+    }
+
     protected void Button1_Click(object sender, EventArgs e)
     {
         utl = new Utilities();
@@ -70,7 +142,7 @@ public partial class Students_StudentSearch : System.Web.UI.Page
             {
                 excelConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path + ";Extended Properties='Excel 8.0;HDR=Yes'";
                 excelConnection = new OleDbConnection(excelConnectionString);
-                cmd = new OleDbCommand("Select regno,billno from [sheet1$]", excelConnection);
+                cmd = new OleDbCommand("Select sno,regno,type,classid,sectionid,name from [sheet1$]", excelConnection);
                 cmd.CommandTimeout = 50000;
                 excelConnection.Open();
             }
@@ -78,7 +150,7 @@ public partial class Students_StudentSearch : System.Web.UI.Page
             {
                 excelConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path + ";Extended Properties='Excel 8.0;HDR=No'";
                 excelConnection = new OleDbConnection(excelConnectionString);
-                cmd = new OleDbCommand("Select regno,billno  from [sheet1$]", excelConnection);
+                cmd = new OleDbCommand("Select sno,regno,type,classid,sectionid,name from [sheet1$]", excelConnection);
                 cmd.CommandTimeout = 50000;
                 excelConnection.Open();
             }
@@ -92,35 +164,35 @@ public partial class Students_StudentSearch : System.Web.UI.Page
                 {
                     string sqlstr = "";
                     string regno = ds.Tables[0].Rows[i]["regno"].ToString().Trim();
-                    string billno = ds.Tables[0].Rows[i]["billno"].ToString().Trim();
+                    string sno = ds.Tables[0].Rows[i]["sno"].ToString().Trim();
+                    string classid = ds.Tables[0].Rows[i]["classid"].ToString().Trim();
+                    string sectionid = ds.Tables[0].Rows[i]["sectionid"].ToString().Trim();
 
-                    sqlstr = "select billid from f_studentbillmaster a inner join f_studentbills b on a.billid=b.billid where regno='" + regno + "' and billno='" + billno + "'";
+                    string stype = ds.Tables[0].Rows[i]["type"].ToString().Trim();
+
+                    sqlstr = "select * from s_studentinfo where regno='" + regno + "'";
                     DataTable dtss = new DataTable();
                     dtss = utl.GetDataTable(sqlstr);
                     if (dtss.Rows.Count > 0)
                     {
-
-                        DataSet dst = new DataSet();
-                        dst = utl.GetDataset("sp_managefee " + regno);
-                        if (dst != null && dst.Tables.Count > 0 && dst.Tables[2].Rows.Count > 0)
+                        if (stype.ToString().Trim() == "section")
                         {
-                            for (int m = 0; m < dst.Tables[2].Rows.Count; m++)
+                            utl.ExecuteQuery("update s_studentinfo set class='" + classid.ToString().Trim() + "',section='" + sectionid.ToString().Trim() + "' where regno='" + regno.ToString().Trim() + "'");
+                        }
+                        else if (stype.ToString().Trim() == "fees")
+                        {
+                            utl.ExecuteQuery("update s_studentinfo set class='" + classid.ToString().Trim() + "',section='" + sectionid.ToString().Trim() + "' where regno='" + regno.ToString().Trim() + "'");
+                            DataTable dts = new DataTable();
+
+                            dts = utl.GetDataTable("select top 1 * from f_studentbillmaster where RegNo ='" + regno.ToString().Trim() + "' and AcademicId='" + dtss.Rows[0]["academicyear"].ToString().Trim() + "' and isactive=1 order by billid asc");
+                            if (dts.Rows.Count > 0)
                             {
-                                utl.ExecuteQuery("update f_studentbills set feecatheadID='" + dst.Tables[2].Rows[m]["feescatheadid"].ToString() + "' where regno='" + regno.ToString().Trim() + "' and billid='" + dtss.Rows[0]["billid"].ToString() + "'");
+                                utl.ExecuteQuery("update a set a.feescatheadid=f.feescatheadid from f_studentbills as  a inner join f_studentbillmaster  as b on a.billid=b.billid  inner join s_studentinfo e on e.regno=b.regno and e.AcademicYear=b.AcademicId inner join m_feescategory g on e.Active=g.FeesCatCode  inner join m_feescategoryhead c on c.feescatheadid=a.feescatheadid  inner join m_feeshead d  on d.feesheadid=c.feesheadid left join m_feescategoryhead f on (e.class=f.classid and f.feesheadid=c.feesheadid   and f.FeesCategoryId=g.FeesCategoryId  and e.AcademicYear=f.AcademicId) where e.regno='" + regno.ToString() + "' and b.BillId=" + dts.Rows[0]["billid"].ToString().Trim() + "  and  e.AcademicYear='" + dtss.Rows[0]["academicyear"].ToString() + "' ");
                             }
                         }
-                        //utl.ExecuteQuery("update s_studentinfo set class='" + classid.ToString().Trim() + "',section='" + sectionid.ToString().Trim() + "' where regno='" + regno.ToString().Trim() + "'");
-                        //DataTable dts = new DataTable();
-
-                        //dts = utl.GetDataTable("select top 1 * from f_studentbillmaster where RegNo ='" + regno.ToString().Trim() + "' and AcademicId='" + dtss.Rows[0]["academicyear"].ToString().Trim() + "' and isactive=1 order by billid asc");
-                        //if (dts.Rows.Count > 0)
-                        //{
-                        //    utl.ExecuteQuery("update a set a.feescatheadid=f.feescatheadid from f_studentbills as  a inner join f_studentbillmaster  as b on a.billid=b.billid  inner join s_studentinfo e on e.regno=b.regno and e.AcademicYear=b.AcademicId inner join m_feescategory g on e.Active=g.FeesCatCode  inner join m_feescategoryhead c on c.feescatheadid=a.feescatheadid  inner join m_feeshead d  on d.feesheadid=c.feesheadid left join m_feescategoryhead f on (e.class=f.classid and f.feesheadid=c.feesheadid   and f.FeesCategoryId=g.FeesCategoryId  and e.AcademicYear=f.AcademicId) where e.regno='" + regno.ToString() + "' and b.BillId=" + dts.Rows[0]["billid"].ToString().Trim() + "  and  e.AcademicYear='" + dtss.Rows[0]["academicyear"].ToString() + "' ");
-                        //}
-
-                        // return;
+                       // return;
                     }
-
+                   
                 }
             }
 
@@ -264,6 +336,22 @@ public partial class Students_StudentSearch : System.Web.UI.Page
             query = "[GetPromoStudentInfo_Pager]";
         }
 
+        string stracademicyear = "";
+        string icnt = "";
+        if (regno != "")
+        {
+            stracademicyear = utl.ExecuteScalar("select academicyear from s_studentinfo where regno='" + regno + "'");
+            if (stracademicyear != "" && stracademicyear != "0")
+            {
+                icnt = utl.ExecuteScalar("select count(*) from s_studentpromotion where regno='" + regno + "' and academicid='" + stracademicyear + "'");
+
+                if (icnt == "" || icnt == "0")
+                {
+                    utl.ExecuteQuery("insert into  s_studentpromotion(regno,ClassID,SectionID,BusFacility,Concession,Hostel,Scholar,AcademicId,Active,UserId)(select regno,Class,case when Section=0 then NULL else section end,BusFacility,Concession,Hostel,Scholar,academicyear,Active,1 from s_studentinfo where regno= '" + regno + "')");
+                }
+            }
+
+        }
         SqlCommand cmd = new SqlCommand(query);
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
@@ -321,7 +409,7 @@ public partial class Students_StudentSearch : System.Web.UI.Page
         string query = "";
         if (isActive == "True" || isActive == "1")
         {
-            query = "sp_GetStudentBySection '" + Class + "','" + Section + "','" + HttpContext.Current.Session["AcademicID"].ToString() + "'";
+           query = "sp_GetStudentBySection '" + Class + "','" + Section + "','" + HttpContext.Current.Session["AcademicID"].ToString() + "'";
         }
         else if (isActive == "False" || isActive == "0")
         {

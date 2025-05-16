@@ -23,7 +23,12 @@
             else
                 $("table.form :input").prop('disabled', false);
         });
-
+        function goto() {
+            if ($("[id*=txtpage]").val() != null && $("[id*=txtpage]").val() != "") {
+                GetStudentInfo(parseInt($("[id*=txtpage]").val()));
+                $("[id*=txtpage]").val('');
+            }
+        }
         var Academic = "";
         function GetStudentInfo(pageIndex) {
             if ($("[id*=hfViewPrm]").val() == 'true') {
@@ -133,10 +138,20 @@
 
             var row = $("[id*=dgStudentInfo] tr:last-child").clone(true);
             $("[id*=dgStudentInfo] tr").not($("[id*=dgStudentInfo] tr:first-child")).remove();
+            var vanchor = ''
+            var vanchorEnd = '';
             var eanchor = ''
             var eanchorEnd = '';
             var danchor = ''
             var danchorEnd = '';
+            if ($("[id*=hfViewPrm]").val() == 'false') {
+                vanchor = "<a>";
+                vanchorEnd = "</a>";
+            }
+            else {
+                vanchor = "<a  href=\"javascript:ViewStudentInfo('";
+                vanchorEnd = "');\">View</a>";
+            }
             if ($("[id*=hfEditPrm]").val() == 'false') {
                 eanchor = "<a>";
                 eanchorEnd = "</a>";
@@ -150,8 +165,8 @@
                 danchorEnd = "</a>";
             }
             else {
-                danchor = "<a  href=\"javascript:DeleteStudentInfo('";
-                danchorEnd = "');\">Delete</a>";
+                danchor = "<a  href=\"javascript:UpdateCoCurricularpayment('";
+                danchorEnd = "');\">Co-Curricular Payment</a>";
             }
 
             if (StudentInfoes.length == 0) {
@@ -161,8 +176,11 @@
                 $("td", row).eq(3).html("No Record Found").attr("align", "left");
                 $("td", row).eq(4).html("");
                 $("td", row).eq(5).html("");
-                $("td", row).eq(6).html("").removeClass("editacc edit-links"); ;
+                $("td", row).eq(6).html("").removeClass("viewacc edit-links");
+                $("td", row).eq(7).html("").removeClass("editacc edit-links");
+             //   $("td", row).eq(8).html("").removeClass("editacc edit-links");
                 //   $("td", row).eq(6).html("").removeClass("deleteacc delete-links"); ;
+
                 $("[id*=dgStudentInfo]").append(row);
                 row = $("[id*=dgStudentInfo] tr:last-child").clone(true);
 
@@ -179,6 +197,7 @@
 
                 $.each(StudentInfoes, function () {
                     var iStudentInfo = $(this);
+                    var vhref = vanchor + $(this).find("StudentID").text() + vanchorEnd;
                     var ehref = eanchor + $(this).find("StudentID").text() + eanchorEnd;
                     var dhref = danchor + $(this).find("StudentID").text() + danchorEnd;
                     row.addClass("even");
@@ -188,14 +207,23 @@
                     $("td", row).eq(3).html($(this).find("Class").text());
                     $("td", row).eq(4).html($(this).find("Section").text());
                     $("td", row).eq(5).html($(this).find("Status").text());
-                    $("td", row).eq(6).html(ehref).addClass("editacc edit-links");
+                    $("td", row).eq(6).html(vhref).addClass("viewacc view-links");
+                    $("td", row).eq(7).html(ehref).addClass("editacc edit-links");
+                  //  $("td", row).eq(8).html(dhref).addClass("editacc edit-links");
+
                     //  $("td", row).eq(6).html(dhref).addClass("deleteacc delete-links");
                     $("[id*=dgStudentInfo]").append(row);
                     row = $("[id*=dgStudentInfo] tr:last-child").clone(true);
                 });
-
+                if ($("[id*=hfViewPrm]").val() == 'false') {
+                    $('.viewacc').hide();
+                }
+                else {
+                    $('.viewacc').show();
+                }
                 if ($("[id*=hfEditPrm]").val() == 'false') {
                     $('.editacc').hide();
+                    
                 }
                 else {
                     $('.editacc').show();
@@ -255,7 +283,7 @@
                 var SectionName = $(this).find("SectionName").text();
                 select.append($("<option>").val(SectionID).text(SectionName));
                 $("[id*=dgStudentInfo] tr:has(td)").remove();
-                $("[id*=dgStudentInfo]").append("<tr class=\"even\"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>");
+                $("[id*=dgStudentInfo]").append("<tr class=\"even\"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>");
 
             });
             GetStudentBySection();
@@ -311,7 +339,7 @@
                 var StudentName = $(this).find("StudentName").text();
                 select.append($("<option>").val(StudentID).text(StudentName));
                 $("[id*=dgStudentInfo] tr:has(td)").remove();
-                $("[id*=dgStudentInfo]").append("<tr class=\"even\"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>");
+                $("[id*=dgStudentInfo]").append("<tr class=\"even\"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>");
             });
         };
 
@@ -373,8 +401,67 @@
                 $("table.form :input").prop('disabled', true);
                 return false;
             }
+        }
+
+        function ViewStudentInfo(StudentInfoID) {
+            if ($("[id*=hfViewPrm]").val() == 'true') {
+                $("table.form :input").prop('disabled', false);
+                $.ajax({
+                    type: "POST",
+                    url: "../Students/StudentInfoView.aspx/GetStudentInfo",
+                    data: '{studentid: ' + StudentInfoID + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var url = "../Students/StudentInfoView.aspx?StudentID=" + StudentInfoID + "";
+                        $.prettyPhoto.open('StudentInfoView.aspx?StudentID=' + StudentInfoID + '&iframe=true&width=800', '', '');
+                    },
+                    failure: function (response) {
+                        AlertMessage('info', response.d);
+                    },
+                    error: function (response) {
+                        AlertMessage('info', response.d);
+                    }
+                });
+
+            }
+            else {
+                $("table.form :input").prop('disabled', true);
+                return false;
+            }
 
         }
+
+        function UpdateCoCurricularpayment(StudentInfoID) {
+            if ($("[id*=hfEditPrm]").val() == 'true') {
+                $("table.form :input").prop('disabled', false);
+                $.ajax({
+                    type: "POST",
+                    url: "../Students/StudentInfo.aspx/GetStudentInfo",
+                    data: '{studentid: ' + StudentInfoID + '}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var url = "../Students/CoCurricularPayment.aspx?menuId=" + $("[id*=hdnMenuIndex]").val() + "&activeIndex=" + $("[id*=hdnIndex]").val() + "&moduleId=" + $("[id*=hfModuleID]").val() + "&StudentID=" + StudentInfoID + "";
+                        $(location).attr('href', url)
+                    },
+                    failure: function (response) {
+                        AlertMessage('info', response.d);
+                    },
+                    error: function (response) {
+                        AlertMessage('info', response.d);
+                    }
+                });
+
+            }
+            else {
+                $("table.form :input").prop('disabled', true);
+                return false;
+            }
+
+        }
+
+
 
         function GetModuleID(path) {
             $.ajax({
@@ -477,7 +564,7 @@
             </h2>
             <div class="block john-accord content-wrapper2">
                 <div class="block1">
-                    <table class="form">
+                    <table class="form" width="100%">
                         <tr>
                             <td>
                                 <strong class="searchby">Search By&nbsp;&nbsp;&nbsp;
@@ -498,6 +585,7 @@
                                                     Register No :</label>
                                             </td>
                                             <td width="18%">
+                                                <input type="text" id="testid" value="" style="display: none" />
                                                 <asp:TextBox ID="txtRegNo" CssClass="bloodgroup" onkeydown="GetStudentInfo(1);" onblur="GetStudentInfo(1);"
                                                     runat="server"></asp:TextBox>
                                             </td>
@@ -514,7 +602,6 @@
                                                     Student Name :</label>
                                             </td>
                                             <td width="32%">
-                                                <input type="text" id="testid" value="" style="display: none" />
                                                 <asp:TextBox ID="txtStudentName" CssClass="" onkeydown="GetStudentInfo(1);" onblur="GetStudentInfo(1);"
                                                     runat="server"></asp:TextBox>
                                             </td>
@@ -583,7 +670,8 @@
                                                     <asp:ListItem Value="C">Current</asp:ListItem>
                                                     <asp:ListItem Value="O">Old</asp:ListItem>
                                                     <asp:ListItem Value="D">Discontinued</asp:ListItem>
-                                                     <asp:ListItem Value="F">Temporary</asp:ListItem>
+                                                    <asp:ListItem Value="F">Temporary</asp:ListItem>
+                                                     <asp:ListItem Value="E">Cancelled</asp:ListItem>
                                                 </asp:DropDownList>
                                             </td>
                                         </tr>
@@ -664,6 +752,17 @@
                                                 runat="server" ControlToValidate="FileUpload1" Display="Dynamic" ErrorMessage="Please select a valid Excel file."
                                                 ForeColor="Red" ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.xls)$" />
                                         </td>
+                                        <td height="30" align="center" colspan="3" style="width: 45%">
+                                            <label>
+                                                Select the concession file to upload :</label>&nbsp;<asp:FileUpload ID="FileUpload2"
+                                                    runat="server" />
+                                            <asp:Button ID="Button2" runat="server" ValidationGroup="vg1" CssClass="btn-icon button-generate"
+                                                OnClick="Button2_Click" Text="Upload" />
+                                            <br />
+                                            <asp:RegularExpressionValidator ValidationGroup="vg1" ID="RegularExpressionValidator2"
+                                                runat="server" ControlToValidate="FileUpload1" Display="Dynamic" ErrorMessage="Please select a valid Excel file."
+                                                ForeColor="Red" ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.xls)$" />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td align="center" colspan="3" height="30" style="width: 45%">
@@ -694,8 +793,11 @@
                             </td>
                         </tr>
                         <tr valign="top">
-                            <td valign="top">
-                                &nbsp;
+                            <td align="right" valign="top">
+                                &nbsp; Goto Page No :
+                                <asp:TextBox ID="txtpage" runat="server" Width="50px"></asp:TextBox>
+                                <button id="btngoto" type="button" class="btn-icon btn-navy btn-add" onclick="goto();">
+                                    <span></span>Go</button>
                             </td>
                         </tr>
                     </table>
@@ -731,6 +833,15 @@
                                         HeaderText="Status" SortExpression="Status">
                                         <ItemStyle HorizontalAlign="Center"></ItemStyle>
                                     </asp:BoundField>
+                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"
+                                        HeaderStyle-CssClass="sorting_mod viewacc">
+                                        <HeaderTemplate>
+                                            View</HeaderTemplate>
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lnkView" runat="server" Text="View" CommandArgument='<%# Eval("StudentID") %>'
+                                                CommandName="View" CausesValidation="false" CssClass="links"></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"
                                         HeaderStyle-CssClass="sorting_mod editacc">
                                         <HeaderTemplate>
@@ -740,7 +851,17 @@
                                                 CommandName="Edit" CausesValidation="false" CssClass="links"></asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <%--    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"
+                                     <%--   <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"
+                                        HeaderStyle-CssClass="sorting_mod editacc">
+                                        <HeaderTemplate>
+                                            Action</HeaderTemplate>
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lnkCocurricularpayment" runat="server" Text="Co-Curricular Payment"
+                                                CommandArgument='<%# Eval("StudentID") %>' CommandName="Edit" CausesValidation="false"
+                                                CssClass="links"></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center"
                                         HeaderStyle-CssClass="sorting_mod deleteacc">
                                         <HeaderTemplate>
                                             Delete</HeaderTemplate>
@@ -855,5 +976,11 @@
                 $("[id*=txtRegNo]").val('');
             }
         }
+    </script>
+      <script src="../prettyphoto/js/prettyPhoto.js" type="text/javascript"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $("a[rel^='prettyPhoto']").prettyPhoto();
+        });
     </script>
 </asp:Content>

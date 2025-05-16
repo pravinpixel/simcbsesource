@@ -2,8 +2,6 @@
     AutoEventWireup="true" CodeFile="DayBookReport.aspx.cs" Inherits="Reports_DayBookReport" %>
 
 <%@ MasterType VirtualPath="~/MasterPage/AdminMaster.master" %>
-
-   
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript">
@@ -93,7 +91,7 @@
         });
 
         function value() {
-            if ($("[id*=txtAccManualValue1]").val()=="") {
+            if ($("[id*=txtAccManualValue1]").val() == "") {
                 $("[id*=txtAccManualValue1]").val() = "0.00";
             }
             if ($("[id*=txtAccManualValue2]").val() == "") {
@@ -103,7 +101,7 @@
                 $("[id*=txtOtherCashSpentValue]").val() = "0.00";
             }
             var totValue = parseFloat($("[id*=hdnTotalAcc]").val()) + parseFloat($("[id*=txtAccManualValue1]").val()) + parseFloat($("[id*=txtAccManualValue2]").val());
-            var totCashSpent = parseFloat($("[id*=lblCashSpent]").html()) + parseFloat($("[id*=txtOtherCashSpentValue]").val());
+            var totCashSpent = parseFloat($("[id*=lblCashSpent]").html()) + parseFloat($("[id*=txtOtherCashSpentValue]").val()) + parseFloat($("[id*=lblAdvance]").val()) + parseFloat($("[id*=lblCheque]").val()) + parseFloat($("[id*=lblCashCard]").val()) + parseFloat($("[id*=lblQRCode]").val()) + parseFloat($("[id*=lblNetbank]").val()) + parseFloat($("[id*=lblPayTM]").val()) + parseFloat($("[id*=lblCardQR]").val()) + parseFloat($("[id*=lblCashQR]").val()) + parseFloat($("[id*=lblScholarshipAEWS1]").val()) + parseFloat($("[id*=lblScholarshipAEWS2]").val()) + parseFloat($("[id*=lblScholarshipAEWS3]").val()) + parseFloat($("[id*=lblScholarshipAEWS3]").val()) + parseFloat($("[id*=lblScholarshipSC1]").val()) + parseFloat($("[id*=lblScholarshipSC2]").val()) + parseFloat($("[id*=lblScholarshipSC3]").val()) + parseFloat($("[id*=lblAdvance]").val()) + parseFloat($("[id*=lblCard]").val()) + parseFloat($("[id*=<CloudUploadOutlined />]").val());
             var netCashInHand = parseFloat(totValue) - parseFloat(totCashSpent) + parseFloat($("[id*=lblCashReturn]").html());
             $("[id*=lblNetCash]").html(parseFloat(totValue));
             $("[id*=lblNetCashInHand]").html(parseFloat(netCashInHand));
@@ -164,18 +162,22 @@
                 Day Book Report</h2>
             <div class="clear">
             </div>
-          <div class="block john-accord content-wrapper2">
-            <div align="center">
-              <table width="100%" align="center" class="form">
+            <div class="block john-accord content-wrapper2">
+                <div align="center">
+                    <table width="100%" align="center" class="form">
                         <tr align="center">
-                            <td width="56%" align="right" style="padding-right:10px;">
+                            <td width="56%" align="right" style="padding-right: 10px;">
                                 <label>
                                     Select Date</label>
-                                <asp:TextBox ID="txtStartdate" CssClass="jsrequired dateNL date-picker" runat="server"></asp:TextBox> </td>
-                                &nbsp;&nbsp; &nbsp;&nbsp;
-                               <td width="44%" align="left">  <asp:Button ID="btnSearch" class="btn-icon button-search" Text="Search" runat="server" OnClick="btnSearch_Click" />
-                                <asp:Button ID="btnPrint" class="btn-icon button-print" Text="Print" runat="server" OnClientClick="print()" />
-                           </td>
+                                <asp:TextBox ID="txtStartdate" CssClass="jsrequired dateNL date-picker" runat="server"></asp:TextBox>
+                            </td>
+                            &nbsp;&nbsp; &nbsp;&nbsp;
+                            <td width="44%" align="left">
+                                <asp:Button ID="btnSearch" class="btn-icon button-search" Text="Search" runat="server"
+                                    OnClick="btnSearch_Click" />
+                                <asp:Button ID="btnPrint" class="btn-icon button-print" Text="Print" runat="server"
+                                    OnClientClick="print()" />
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="2">
@@ -183,24 +185,35 @@
                         </tr>
                     </table>
                     <br />
-<br />
-
-                <table width="500" class="printContent">
+                    <br />
+                    <table width="500" class="printContent">
                         <tr class="tbl-bg">
-                            <td colspan="2" style="padding-left:10px; padding-bottom:10px;">
-                                Amalorpavam Lourds Academy
+                            <td colspan="2" style="padding-left: 10px; padding-bottom: 10px;">
+                                Amalorpavam Lourdes Academy
                             </td>
-                            <td align="right" style="padding-right:10px; padding-bottom:10px;"> Date: <asp:Label ID="lblDate" runat="server"></asp:Label></td>
+                            <td align="right" style="padding-right: 10px; padding-bottom: 10px;">
+                                Date:
+                                <asp:Label ID="lblDate" runat="server"></asp:Label>
+                            </td>
                         </tr>
                         <tr class="tbl-subbg">
-                          <td height="25" colspan="2" ><label><strong>Details</strong></label></td>
-                          <td class="price-brd-left" ><label><strong>Amount</strong></label></td>
+                            <td height="25" colspan="2">
+                                <label>
+                                    <strong>Details</strong></label>
+                            </td>
+                            <td class="price-brd-left">
+                                <label>
+                                    <strong>Amount</strong></label>
+                            </td>
                         </tr>
                         <tr>
                             <td width="300" height="25">
                                 <label>
-                                    LKG New Admission Accounts</label></td>
-                          <td width="50" align="center" class="colan">:</td>
+                                    LKG New Admission Accounts</label>
+                            </td>
+                            <td width="50" align="center" class="colan">
+                                :
+                            </td>
                             <td width="200" class="price-brd-left">
                                 <asp:Label ID="lbllkgAdminAcc" runat="server">0.00</asp:Label>
                             </td>
@@ -208,17 +221,25 @@
                         <tr class="bankForm">
                             <td height="25" class="col2">
                                 <label>
-                            Pre Primary Accounts </label></td>
-                            <td align="center">:</td>
-                            <td class="price-brd-left"> 
+                                    Pre Primary Accounts
+                                </label>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
                                 <asp:Label ID="lblPrePrimAcc" runat="server">0.00</asp:Label>
                             </td>
                         </tr>
                         <tr class="bankForm">
                             <td height="25" class="col2">
                                 <label>
-                            Primary Accounts </label></td>
-                            <td align="center">:</td>
+                                    Primary Accounts
+                                </label>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
                             <td class="price-brd-left">
                                 <asp:Label ID="lblPrimAcc" runat="server">0.00</asp:Label>
                             </td>
@@ -226,8 +247,12 @@
                         <tr class="bankForm">
                             <td height="25" class="col2">
                                 <label>
-                            High School Accounts </label></td>
-                            <td align="center">:</td>
+                                    High School Accounts
+                                </label>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
                             <td class="price-brd-left">
                                 <asp:Label ID="lblHighSchAcc" runat="server">0.00</asp:Label>
                             </td>
@@ -235,8 +260,12 @@
                         <tr class="bankForm">
                             <td height="25" class="col2">
                                 <label>
-                            High Secondary Accounts </label></td>
-                            <td align="center">:</td>
+                                    High Secondary Accounts
+                                </label>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
                             <td class="price-brd-left">
                                 <asp:Label ID="lblHighSecAcc" runat="server">0.00</asp:Label>
                             </td>
@@ -244,18 +273,51 @@
                         <tr class="bankForm">
                             <td height="25" class="col2">
                                 <label>
-                                    Hostel Accounts </label></td>
-                            <td align="center">:</td>
+                                    Hostel Accounts
+                                </label>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
                             <td class="price-brd-left">
                                 <asp:Label ID="lblHostelAcc" runat="server">0.00</asp:Label>
                             </td>
                         </tr>
+                         <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <label>
+                                   ALA application fees accounts
+                                </label>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <asp:Label ID="lblAHSSApp" runat="server">0.00</asp:Label>
+                            </td>
+                        </tr>
+                           <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <label>
+                                   ASOS application fees accounts
+                                </label>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <asp:Label ID="lblAECAApp" runat="server">0.00</asp:Label>
+                            </td>
+                        </tr>
                         <tr class="bankForm">
                             <td height="25" class="col2">
-                               &nbsp;&nbsp; <asp:TextBox ID="txtAccManual1" runat="server" class="water jsrequired" Text="Other Accounts if any"
+                                &nbsp;&nbsp;
+                                <asp:TextBox ID="txtAccManual1" runat="server" class="water jsrequired" Text="Other Accounts if any"
                                     ToolTip="Other Accounts if any"></asp:TextBox>
                             </td>
-                            <td align="center">:</td>
+                            <td align="center">
+                                :
+                            </td>
                             <td class="price-brd-left">
                                 <asp:TextBox ID="txtAccManualValue1" Text="0.00" class="acc  noitalic numericswithdecimals"
                                     runat="server"></asp:TextBox>
@@ -263,10 +325,12 @@
                         </tr>
                         <tr class="bankForm">
                             <td height="25" class="col2">
-                                 &nbsp;&nbsp;<asp:TextBox ID="txtAccManual2" class="water jsrequired"  Text="Other Accounts if any"
+                                &nbsp;&nbsp;<asp:TextBox ID="txtAccManual2" class="water jsrequired" Text="Other Accounts if any"
                                     ToolTip="Other Accounts if any" runat="server"></asp:TextBox>
                             </td>
-                            <td align="center">:</td>
+                            <td align="center">
+                                :
+                            </td>
                             <td class="price-brd-left">
                                 <asp:TextBox ID="txtAccManualValue2" Text="0.00" class="acc noitalic numericswithdec"
                                     runat="server"></asp:TextBox>
@@ -274,32 +338,316 @@
                         </tr>
                         <tr class="bankForm">
                             <td height="25" class="col2">
-                                <strong><label>
-                                    Net Cash Received</label></strong>
+                                <strong>
+                                    <label>
+                                        Net Cash Received</label></strong>
                             </td>
-                            <td align="center">:</td>
+                            <td align="center">
+                                :
+                            </td>
                             <td class="price-brd-left">
-                                 <strong><asp:Label ID="lblNetCash" runat="server">0.00</asp:Label> </strong>
+                                <strong>
+                                    <asp:Label ID="lblNetCash" runat="server">0.00</asp:Label>
+                                </strong>
                             </td>
                         </tr>
                         <tr class="bankForm">
                             <td height="25" class="col2">
-                                 <strong><label>
-                                    Cash Spent</label> </strong>
+                                <strong>
+                                    <label>
+                                        Cash Spent</label>
+                                </strong>
                             </td>
-                            <td align="center">:</td>
+                            <td align="center">
+                                :
+                            </td>
                             <td class="price-brd-left">
-                                 <strong><asp:Label ID="lblCashSpent" runat="server">0.00</asp:Label> </strong>
+                                <strong>
+                                    <asp:Label ID="lblCashSpent" runat="server">0.00</asp:Label>
+                                </strong>
                             </td>
                         </tr>
                         <tr class="bankForm">
                             <td height="25" class="col2">
-                                 &nbsp;&nbsp;<asp:TextBox ID="txtOtherCashSpent" runat="server" class="water" Text="Other Cash Spent if any"
+                                &nbsp;&nbsp;<asp:TextBox ID="txtOtherCashSpent" runat="server" class="water" Text="Other Cash Spent if any"
                                     ToolTip="Other Cash Spent if any"></asp:TextBox>
                             </td>
-                            <td align="center">:</td>
+                            <td align="center">
+                                :
+                            </td>
                             <td class="price-brd-left">
                                 <asp:TextBox ID="txtOtherCashSpentValue" runat="server" Text="0.00" class="acc noitalic numericswithdecimals"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Advance Fees</label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblAdvance" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr style="display:none;" class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total Cash Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblCash" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total Cheque Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblCheque" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total Card Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblCard" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total Cash + Card Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblCashCard" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total QR Code Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblQRCode" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total NetBanking Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblNetbank" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total PayTM Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblPayTM" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total Card + QR Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblCardQR" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total Cash + QR Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblCashQR" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total Scholarship(AEWS) - I Term Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblScholarshipAEWS1" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total Scholarship(AEWS) - II Term Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblScholarshipAEWS2" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total Scholarship(AEWS) - III Term Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblScholarshipAEWS3" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total Scholarship(SC/ST) - I Term Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblScholarshipSC1" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total Scholarship(SC/ST) - II Term Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblScholarshipSC2" runat="server">0.00</asp:Label>
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr class="bankForm">
+                            <td height="25" class="col2">
+                                <strong>
+                                    <label>
+                                        Total Scholarship(SC/ST) - III Term Payment
+                                    </label>
+                                </strong>
+                            </td>
+                            <td align="center">
+                                :
+                            </td>
+                            <td class="price-brd-left">
+                                <strong>
+                                    <asp:Label ID="lblScholarshipSC3" runat="server">0.00</asp:Label>
+                                </strong>
                             </td>
                         </tr>
                         <tr class="bankForm">
@@ -307,40 +655,50 @@
                                 <label>
                                     Cash Returned Against Vouchers</label>
                             </td>
-                            <td align="center">:</td>
+                            <td align="center">
+                                :
+                            </td>
                             <td class="price-brd-left">
                                 <asp:Label ID="lblCashReturn" runat="server">0.00</asp:Label>
                             </td>
                         </tr>
                         <tr class="bankForm">
                             <td height="25" class="col2">
-                                 <strong><label>
-                                    Net Cash In Hand</label> </strong>
+                                <strong>
+                                    <label>
+                                        Net Cash In Hand</label>
+                                </strong>
                             </td>
-                            <td align="center">:</td>
+                            <td align="center">
+                                :
+                            </td>
                             <td class="price-brd-left">
-                                 <strong><asp:Label ID="lblNetCashInHand" runat="server">0.00</asp:Label> </strong>
+                                <strong>
+                                    <asp:Label ID="lblNetCashInHand" runat="server">0.00</asp:Label>
+                                </strong>
                             </td>
                         </tr>
                     </table>
-              </div>
-              <table align="center" width="100%">
-                  <tr class="bankForm">
-                    <td colspan="2" align="center">&nbsp;</td>
-                  </tr>
-                  <tr class="bankForm">
-                      <td colspan="2" align="center">
-                          <button id="btnBankSubmit" type="button" class="btn-icon btn-navy btn-update" onclick="Save();">
-                              <span></span>
-                              <div id="spBankSubmit">
-                                  Update</div>
-                          </button>
-                          <button id="btnBankCancel" type="button" class="btn-icon btn-navy btn-cancel1" runat="server"
+                </div>
+                <table align="center" width="100%">
+                    <tr class="bankForm">
+                        <td colspan="2" align="center">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr class="bankForm">
+                        <td colspan="2" align="center">
+                            <button id="btnBankSubmit" type="button" class="btn-icon btn-navy btn-update" onclick="Save();">
+                                <span></span>
+                                <div id="spBankSubmit">
+                                    Update</div>
+                            </button>
+                            <button id="btnBankCancel" type="button" class="btn-icon btn-navy btn-cancel1" runat="server"
                                 onclick="return Cancel();">
-                              <span></span>Cancel</button>
-                      </td>
-                  </tr>
-              </table>
+                                <span></span>Cancel</button>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

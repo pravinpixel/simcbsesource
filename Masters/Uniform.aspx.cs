@@ -167,7 +167,7 @@ public partial class Uniform : System.Web.UI.Page
     public static DataSet GetData(SqlCommand cmd, int pageIndex)
     {
 
-        string strConnString = ConfigurationManager.AppSettings["SIMConnection"].ToString();
+        string strConnString = ConfigurationManager.AppSettings["SIMCBSEConnection"].ToString();
         using (SqlConnection con = new SqlConnection(strConnString))
         {
             using (SqlDataAdapter sda = new SqlDataAdapter())

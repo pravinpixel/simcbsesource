@@ -462,7 +462,6 @@
             }
             else {
                 $.each(StudentInfos, function () {
-
                     $("[id*=lblClass]").html($(this).find("Class").text());
                     $("[id*=lblSection]").html($(this).find("Section").text());
                     if ($(this).find("Sex").text() == "M") {
@@ -476,6 +475,7 @@
                     $("[id*=lblStudentName]").html($(this).find("StudentName").text());
 
                     $("[id*=lblRegNo]").html($(this).find("RegNo").text());
+                    $("[id*=lblReg]").html($(this).find("RegNo").text());
 
                     var Gender = $(this).find("Gender").text();
                     $("[id*=lblDOB]").html($(this).find("DOB").text());
@@ -1225,6 +1225,15 @@
                                                     <div style="float: left; width: 120px; right: 60px; margin-top: 5px;">
                                                         <img id="img_prev" src="../img/photo.jpg" alt="Profile Photo" width="114" height="114" />
                                                     </div>
+                                                    <tr>
+                                                     <td class="col1">
+                                                            <label>
+                                                                Reg No :</label>
+                                                        </td>
+                                                        <td width="26%" class="col2">
+                                                            <asp:Label ID="lblReg" runat="server"></asp:Label>
+                                                        </td>
+                                                    </tr>
                                                     <tr>
                                                         <td width="20%" class="col1">
                                                             <label>

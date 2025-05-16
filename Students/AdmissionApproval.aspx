@@ -116,7 +116,49 @@
                 }
             }
 
+            if ($("[id*=txtRegNo]").val() != "") {
+                getApplicationdetail();
+            }
+
+
         };
+
+        function getApplicationdetail() {
+
+            if ($("[id*=hfViewPrm]").val() == 'true') {
+
+                $.ajax({
+                    type: "POST",
+                    url: "../Students/AdmissionApproval.aspx/getApplicationdetail",
+                    data: '{"regNo":"' + $("[id*=txtRegNo]").val() + '"}',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.d != "") {
+                            if (response.d == "failed") {
+                                jAlert("The selected student is  either In-Active or not Paid in SIMApp software, Kindly check with administrator");
+                                $("[id*=txtRegNo]").val('');
+                                GetStudentsDetail(1);
+                            }
+                            else {
+                                jAlert(response.d);
+                            }
+                        }
+
+                    },
+                    failure: function (response) {
+                        AlertMessage('info', response.d);
+                    },
+                    error: function (response) {
+                        AlertMessage('info', response.d);
+                    }
+                });
+
+            }
+            else {
+                return false;
+            }
+        }
 
 
         //        Pager Click Function

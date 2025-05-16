@@ -14,8 +14,10 @@ using System.Collections;
 /// </summary>
 public class Utilities
 {
+    string strASSConnection = null;
     string strConnection = null;
     string strConnectionSMS = null;
+    string strSIMAppConnection = null;
     public SqlConnection sqlCon = null;
     public SqlConnection sqlConSMS = null;
     SqlDataAdapter da = null;
@@ -27,6 +29,14 @@ public class Utilities
 
     public Utilities()
     {
+        strASSConnection = ConfigurationManager.AppSettings["ASSConnection"].ToString();
+        sqlCon = new SqlConnection(strASSConnection);
+        sqlCon.Open();
+
+        strSIMAppConnection = ConfigurationManager.AppSettings["SIMAPPConnection"].ToString();
+        sqlCon = new SqlConnection(strSIMAppConnection);
+        sqlCon.Open();
+
         strConnection = ConfigurationManager.AppSettings["SIMCBSEConnection"].ToString();
         sqlCon = new SqlConnection(strConnection);
         sqlCon.Open();
@@ -72,6 +82,120 @@ private string FriendlyInteger(int n, string leftDigits, int thousands)
 
         return FriendlyInteger(n, "", 0);
     }
+
+    public DataSet GetAPPDataset(string strQry)
+    {
+        DataSet ds = new DataSet();
+        using (SqlConnection sqlCon = new SqlConnection(strSIMAppConnection))
+        {
+            sqlCon.Open();
+            using (SqlCommand sqlCmd = new SqlCommand(strQry, sqlCon))
+            {
+                sqlCmd.CommandTimeout = 6000;
+                using (SqlDataAdapter da = new SqlDataAdapter(sqlCmd))
+                {
+                    try
+                    {
+                        da.Fill(ds);
+                    }
+                    catch
+                    { }
+                }
+            }
+        }
+        return ds;
+    }
+    public DataTable GetAPPDataTable(string strQry)
+    {
+        DataTable dt = new DataTable();
+        using (SqlConnection sqlCon = new SqlConnection(strSIMAppConnection))
+        {
+            sqlCon.Open();
+            using (SqlCommand sqlCmd = new SqlCommand(strQry, sqlCon))
+            {
+                sqlCmd.CommandTimeout = 6000;
+                using (SqlDataAdapter da = new SqlDataAdapter(sqlCmd))
+                {
+                    try
+                    {
+                        da.Fill(dt);
+                    }
+                    catch
+                    { }
+                }
+            }
+
+        }
+
+        return dt;
+    }
+
+    public string ExecuteAPPQuery(string strQry)
+    {
+        string strError = string.Empty;
+        DataSet ds = new DataSet();
+        using (SqlConnection sqlCon = new SqlConnection(strSIMAppConnection))
+        {
+            sqlCon.Open();
+
+            using (SqlCommand sqlCmd = new SqlCommand(strQry, sqlCon))
+            {
+                sqlCmd.CommandTimeout = 6000;
+                try
+                {
+                    sqlCmd.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    strError = ex.Message.ToString();
+                    try
+                    {
+
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+        }
+        return strError;
+    }
+
+    public string ExecuteAPPScalar(string strQry)
+    {
+        string strError = string.Empty;
+
+        string strVal = string.Empty;
+
+        DataSet ds = new DataSet();
+
+        using (SqlConnection sqlCon = new SqlConnection(strSIMAppConnection))
+        {
+            sqlCon.Open();
+
+            using (SqlCommand sqlCmd = new SqlCommand(strQry, sqlCon))
+            {
+
+                sqlCmd.CommandTimeout = 6000;
+
+                try
+                {
+                    strVal = Convert.ToString(sqlCmd.ExecuteScalar());
+                }
+
+                catch
+                {
+
+                }
+            }
+        }
+
+        return strVal;
+
+    }
+
 
     public DataSet GetDataset(string strQry)
     {
@@ -143,6 +267,84 @@ private string FriendlyInteger(int n, string leftDigits, int thousands)
         }
 
         return dt;
+    }
+    public DataTable GetASSDataTable(string strQry)
+    {
+        DataTable dt = new DataTable();
+        using (SqlConnection sqlCon = new SqlConnection(strASSConnection))
+        {
+            sqlCon.Open();
+            using (SqlCommand sqlCmd = new SqlCommand(strQry, sqlCon))
+            {
+                sqlCmd.CommandTimeout = 6000;
+                using (SqlDataAdapter da = new SqlDataAdapter(sqlCmd))
+                {
+                    try
+                    {
+                        da.Fill(dt);
+                    }
+                    catch
+                    { }
+                }
+            }
+
+        }
+
+        return dt;
+    }
+    public DataSet GetAssDataset(string strQry)
+    {
+        DataSet ds = new DataSet();
+        using (SqlConnection sqlCon = new SqlConnection(strASSConnection))
+        {
+            sqlCon.Open();
+            using (SqlCommand sqlCmd = new SqlCommand(strQry, sqlCon))
+            {
+                sqlCmd.CommandTimeout = 6000;
+                using (SqlDataAdapter da = new SqlDataAdapter(sqlCmd))
+                {
+                    try
+                    {
+                        da.Fill(ds);
+                    }
+                    catch
+                    { }
+                }
+            }
+        }
+        return ds;
+    }
+    public string ExecuteASSQuery(string strQry)
+    {
+        string strError = string.Empty;
+        DataSet ds = new DataSet();
+        using (SqlConnection sqlCon = new SqlConnection(strASSConnection))
+        {
+            sqlCon.Open();
+
+            using (SqlCommand sqlCmd = new SqlCommand(strQry, sqlCon))
+            {
+                sqlCmd.CommandTimeout = 6000;
+                try
+                {
+                    sqlCmd.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    strError = ex.Message.ToString();
+                    try
+                    {
+
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+        }
+        return strError;
     }
     public string ExecuteQuery(string strQry)
     {
@@ -241,6 +443,40 @@ private string FriendlyInteger(int n, string leftDigits, int thousands)
         lbl.Text = "<script language='javascript' type='text/javascript'> alert('" + messageText + "');</script>";
         pg.Controls.Add(lbl);
     }
+
+    public string ExecuteASSScalar(string strQry)
+    {
+        string strError = string.Empty;
+
+        string strVal = string.Empty;
+
+        DataSet ds = new DataSet();
+
+        using (SqlConnection sqlCon = new SqlConnection(strASSConnection))
+        {
+            sqlCon.Open();
+
+            using (SqlCommand sqlCmd = new SqlCommand(strQry, sqlCon))
+            {
+
+                sqlCmd.CommandTimeout = 6000;
+
+                try
+                {
+                    strVal = Convert.ToString(sqlCmd.ExecuteScalar());
+                }
+
+                catch
+                {
+
+                }
+            }
+        }
+
+        return strVal;
+
+    }
+
     public string ExecuteScalar(string strQry)
     {
         string strError = string.Empty;

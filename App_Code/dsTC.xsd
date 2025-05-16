@@ -2,15 +2,16 @@
 <xs:schema id="dsTC" targetNamespace="http://tempuri.org/dsTC.xsd" xmlns:mstns="http://tempuri.org/dsTC.xsd" xmlns="http://tempuri.org/dsTC.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="1" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="2" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="SIMCBSEV1ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SIMCBSEV1ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.SIMCBSEV1ConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
-          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="SIMV6ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SIMV6ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.SIMV6ConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="SIMV6ConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="SIMV6ConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.SIMV6ConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="SIMCBSEConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SIMCBSEConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.SIMCBSEConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="SIMCBSEV1ConnectionString (Web.config)" DbObjectName="Promotion.dbo.sp_GetTCReport" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="SIMCBSEConnectionString (Web.config)" DbObjectName="SIMCBSE.dbo.sp_GetTCReport" DbObjectType="StoredProcedure" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
                     <CommandText>dbo.sp_GetTCReport</CommandText>
@@ -53,11 +54,11 @@
   <xs:element name="dsTC" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="dsTC" msprop:Generator_UserDSName="dsTC">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowClassName="DataTable1Row">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="tcslno" msdata:Caption="RegNo" msprop:Generator_ColumnVarNameInTable="columntcslno" msprop:Generator_ColumnPropNameInRow="tcslno" msprop:Generator_ColumnPropNameInTable="tcslnoColumn" msprop:Generator_UserColumnName="tcslno" type="xs:string" />
-              <xs:element name="RegNo" msprop:Generator_ColumnVarNameInTable="columnRegNo" msprop:Generator_ColumnPropNameInRow="RegNo" msprop:Generator_ColumnPropNameInTable="RegNoColumn" msprop:Generator_UserColumnName="RegNo" type="xs:long" />
+              <xs:element name="tcslno" msdata:Caption="RegNo" msprop:Generator_ColumnVarNameInTable="columntcslno" msprop:Generator_ColumnPropNameInRow="tcslno" msprop:Generator_ColumnPropNameInTable="tcslnoColumn" msprop:Generator_UserColumnName="tcslno" type="xs:string" minOccurs="0" />
+              <xs:element name="RegNo" msprop:Generator_ColumnVarNameInTable="columnRegNo" msprop:Generator_ColumnPropNameInRow="RegNo" msprop:Generator_ColumnPropNameInTable="RegNoColumn" msprop:Generator_UserColumnName="RegNo" type="xs:long" minOccurs="0" />
               <xs:element name="StudentName" msprop:Generator_ColumnVarNameInTable="columnStudentName" msprop:Generator_ColumnPropNameInRow="StudentName" msprop:Generator_ColumnPropNameInTable="StudentNameColumn" msprop:Generator_UserColumnName="StudentName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -65,14 +66,14 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="ClassName" msprop:Generator_ColumnVarNameInTable="columnClassName" msprop:Generator_ColumnPropNameInRow="ClassName" msprop:Generator_ColumnPropNameInTable="ClassNameColumn" msprop:Generator_UserColumnName="ClassName">
+              <xs:element name="ClassName" msprop:Generator_ColumnVarNameInTable="columnClassName" msprop:Generator_ColumnPropNameInRow="ClassName" msprop:Generator_ColumnPropNameInTable="ClassNameColumn" msprop:Generator_UserColumnName="ClassName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="SectionName" msprop:Generator_ColumnVarNameInTable="columnSectionName" msprop:Generator_ColumnPropNameInRow="SectionName" msprop:Generator_ColumnPropNameInTable="SectionNameColumn" msprop:Generator_UserColumnName="SectionName">
+              <xs:element name="SectionName" msprop:Generator_ColumnVarNameInTable="columnSectionName" msprop:Generator_ColumnPropNameInRow="SectionName" msprop:Generator_ColumnPropNameInTable="SectionNameColumn" msprop:Generator_UserColumnName="SectionName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
@@ -117,14 +118,14 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="LeaveofClass" msprop:Generator_ColumnVarNameInTable="columnLeaveofClass" msprop:Generator_ColumnPropNameInRow="LeaveofClass" msprop:Generator_ColumnPropNameInTable="LeaveofClassColumn" msprop:Generator_UserColumnName="LeaveofClass">
+              <xs:element name="LeaveofClass" msprop:Generator_ColumnVarNameInTable="columnLeaveofClass" msprop:Generator_ColumnPropNameInRow="LeaveofClass" msprop:Generator_ColumnPropNameInTable="LeaveofClassColumn" msprop:Generator_UserColumnName="LeaveofClass" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="LeaveofSection" msprop:Generator_ColumnVarNameInTable="columnLeaveofSection" msprop:Generator_ColumnPropNameInRow="LeaveofSection" msprop:Generator_ColumnPropNameInTable="LeaveofSectionColumn" msprop:Generator_UserColumnName="LeaveofSection">
+              <xs:element name="LeaveofSection" msprop:Generator_ColumnVarNameInTable="columnLeaveofSection" msprop:Generator_ColumnPropNameInRow="LeaveofSection" msprop:Generator_ColumnPropNameInTable="LeaveofSectionColumn" msprop:Generator_UserColumnName="LeaveofSection" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />

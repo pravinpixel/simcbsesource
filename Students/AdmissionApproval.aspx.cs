@@ -152,10 +152,19 @@ public partial class Students_AdmissionApproval : System.Web.UI.Page
     {
         Utilities utl = new Utilities();
 
-        string sqlstr = "select studentid from s_studentinfo where regno='" + regNo + "'";
+        string sqlstr = "select studentid from s_studentinfo where regno='" + regNo + "' and (adminno is null or adminno = 0)";
         string studentid = utl.ExecuteScalar(sqlstr);
         string returnVal = "";
-        if (studentid == regNo)
+        string Actual = "";
+        if (studentid == "")
+        {
+            sqlstr = "select regNo from s_studentinfo where regno='" + regNo + "'";
+            Actual = utl.ExecuteScalar(sqlstr);
+
+
+            returnVal = "Already Admission is Approved, Please find the Actual Regno:" + Actual;
+        }
+        else if (studentid == regNo)
         {
             returnVal = utl.ExecuteScalar("exec sp_StudAdmissionApprovalNew " + regNo + "," + sectionId + "," + Classid + ",'" + AcademicYearId + "'," + userId);
         }
@@ -165,7 +174,13 @@ public partial class Students_AdmissionApproval : System.Web.UI.Page
         }
         string reg = returnVal;
 
-        utl.ExecuteQuery("update f_studentbillmaster set refno=" + regNo + " and academicID='" + AcademicYearId + "' where regno=" + returnVal + "");
+        utl.ExecuteQuery("update s_studentinfo set regNo=" + returnVal + ",active='N' where academicyear='" + AcademicYearId + "' and regno=" + regNo + "");
+
+        utl.ExecuteQuery("update f_studentbillmaster set refno=" + regNo + ",regno=" + returnVal + " where academicID='" + AcademicYearId + "' and regno=" + regNo + "");
+
+        string applicationno = utl.ExecuteScalar("select applicationno from s_studentinfo where regno='" + returnVal + "'");
+
+        utl.ExecuteAPPQuery("update studentapplications set regno='" + returnVal + "' where ApplicationNo='" + applicationno.ToString().Trim() + "'");
 
         returnVal = utl.ExecuteScalar("select 'The Approved Student Register no is : ' + CONVERT(varchar(max), RegNo) + ' and Admission no is :  ' + CONVERT(varchar(max), AdminNo) + ' ' from s_studentinfo where RegNo='" + reg + "'");
         if (returnVal=="")
@@ -176,5 +191,36 @@ public partial class Students_AdmissionApproval : System.Web.UI.Page
         {
             return returnVal;
         }       
+    }
+
+    [WebMethod]
+    public static string getApplicationdetail(string regNo)
+    {
+        Utilities utl = new Utilities();
+        string returnVal = "";
+        utl = new Utilities();
+        DataSet dsapp = new DataSet();
+
+        string applicationNo = utl.ExecuteScalar("select applicationno from s_studentinfo where regno='" + regNo + "' ");
+        dsapp = utl.GetAPPDataset(@"select ApplicationNo,TempNo,case when isCancel=1 then 'In-Active' else 'Active' end as status,d.PaymentDate,d.TempRecNo,d.Amount,e.name,case when d.deleted_at is null then 'Paid' else 'Not-Paid' end as paidStatus  from studentapplications a inner join institutions b on b.ID=a.SchoolID 
+inner join student_classes c on c.ClassId=a.ClassRequested and a.SchoolID=c.InstitutionId 
+left join s_payment_receipts d on d.ApplicationID=a.ApplicationID  
+left join users e on d.UserId=e.id
+where a.isactive=1 and a.AcademicID=(select AcademicID from academicyears where IsActive=1) and c.IsActive=1 and SchoolID=2 and ReturnDate is not null and a.applicationNo='" + applicationNo + "' order by a.ApplicationID asc");
+        if (dsapp != null && dsapp.Tables.Count > 0 && dsapp.Tables[0].Rows.Count > 0)
+        {
+            if (dsapp.Tables[0].Rows.Count > 0)
+            {
+                if (dsapp.Tables[0].Rows[0]["status"].ToString() == "Active" && dsapp.Tables[0].Rows[0]["paidStatus"].ToString() == "Paid")
+                {
+                    returnVal = "The selected student with the Application no: " + applicationNo + " is '" + dsapp.Tables[0].Rows[0]["status"].ToString() + "' and the New Admission payment in SIMAPP is '" + dsapp.Tables[0].Rows[0]["paidStatus"].ToString() + "'<br/> Details -  Date: " + dsapp.Tables[0].Rows[0]["PaymentDate"].ToString() + " , Receipt No: " + dsapp.Tables[0].Rows[0]["TempRecNo"].ToString() + ", Receipt Amount:" + dsapp.Tables[0].Rows[0]["Amount"].ToString() + ", Received By:" + dsapp.Tables[0].Rows[0]["name"].ToString() + ", You can proceed to Approve the admission!";
+                }
+                else
+                {
+                    returnVal = "failed";
+                }
+            }
+        }
+        return returnVal;
     }
 }

@@ -72,7 +72,7 @@ public partial class Students_ManageFees : System.Web.UI.Page
 
 
     [WebMethod]
-    public static string BindAcademicYearMonth(string regNo, string academicId, string editPrm, string delPrm, string btype)
+    public static string BindAcademicYearMonth(string regNo, string academicId, string editPrm, string delPrm, string btype)    
     {
         string strConnString = ConfigurationManager.AppSettings["SIMCBSEConnection"].ToString();
 
@@ -714,6 +714,7 @@ public partial class Students_ManageFees : System.Web.UI.Page
 
             string feesCatHeadId = "";
             string feesHeadAmt = "";
+            string feesHeadActualAmt = "", feesConcessionAmt="";
             string feesCatId = string.Empty;
             string feesMonthName = string.Empty;
             string feestotalAmount = string.Empty;
@@ -734,6 +735,9 @@ public partial class Students_ManageFees : System.Web.UI.Page
                 string PaidMonthName = "";
                 string cashmode = "";
                 string cardmode = "";
+                string qrmode = "";
+                string remarks = "";
+                string paymodeHTML = "";
 
                 if (PaidMonthRow.Length > 0)
                     PaidMonthName = PaidMonthRow[0]["monthname"].ToString();
@@ -746,15 +750,42 @@ public partial class Students_ManageFees : System.Web.UI.Page
 
                         paymentMode += "<option value=\"" + dsManageSchoolFees.Tables[dsManageSchoolFees.Tables.Count - 2].Rows[q]["paymentmodeid"].ToString() + "\">" + dsManageSchoolFees.Tables[dsManageSchoolFees.Tables.Count - 2].Rows[q]["paymentmodename"].ToString() + "</option>";
 
-                        if (dsManageSchoolFees.Tables[dsManageSchoolFees.Tables.Count - 2].Rows[q]["paymentmodeid"].ToString() == "4")
+                        if (dsManageSchoolFees.Tables[dsManageSchoolFees.Tables.Count - 2].Rows[q]["paymentmodeid"].ToString() == "4" || dsManageSchoolFees.Tables[dsManageSchoolFees.Tables.Count - 2].Rows[q]["paymentmodeid"].ToString() == "8" || dsManageSchoolFees.Tables[dsManageSchoolFees.Tables.Count - 2].Rows[q]["paymentmodeid"].ToString() == "9")
                         {
-                            cashmode = "<input type=\"textbox\" id=\"txtcashamt\" onkeyup=\"checkval(this);\" class='numericswithdecimals' style=\"width: 100px;\" name=\"txtcashamt\" value=\"0\"/>";
-                            cardmode = "<input type=\"textbox\" id=\"txtcardamt\" onkeyup=\"checkval(this);\"  class='numericswithdecimals' style=\"width: 100px;\"  name=\"txtcardamt\" value=\"0\"/>";
+                            cashmode = "<input type=\"textbox\" id=\"txtcashamt\" onkeyup=\"checkval(this);\" class='numericswithdecimals' style=\"width: 50px;\" name=\"txtcashamt\" value=\"0\"/>";
+                            cardmode = "<input type=\"textbox\" id=\"txtcardamt\" onkeyup=\"checkval(this);\"  class='numericswithdecimals' style=\"width: 50px;\"  name=\"txtcardamt\" value=\"0\"/>";
+                            qrmode = "<input type=\"textbox\" id=\"txtqramt\" onkeyup=\"checkval(this);\"  class='numericswithdecimals' style=\"width: 50px;\"  name=\"txtqramt\" value=\"0\"/>";
+                            remarks = "<input type=\"textbox\" id=\"txtremarks\" style=\"width: 600px;\" class=\"jsrequired\" name=\"txtremarks\"/>";
+
+                            paymodeHTML = @"<tr><td>Payment Mode</td>
+	                                          <td >:</td>
+	                                          <td >" + paymentMode + "</td><td id=\"modes\" style='display:none;float: left;position: absolute;' colspan='3'>Cash: " + cashmode + "&nbsp;Card:" + cardmode + "&nbsp;QR:" + qrmode + "</td></tr>";
+                            paymodeHTML += @"<tr><td id='remarks' colspan='6'><br/>Remarks:&nbsp;" + remarks + "</td></tr>";
+
+                        }
+                        if (dsManageSchoolFees.Tables[dsManageSchoolFees.Tables.Count - 2].Rows[q]["paymentmodeid"].ToString() == "10" || dsManageSchoolFees.Tables[dsManageSchoolFees.Tables.Count - 2].Rows[q]["paymentmodeid"].ToString() == "11" || dsManageSchoolFees.Tables[dsManageSchoolFees.Tables.Count - 2].Rows[q]["paymentmodeid"].ToString() == "12" || dsManageSchoolFees.Tables[dsManageSchoolFees.Tables.Count - 2].Rows[q]["paymentmodeid"].ToString() == "13" || dsManageSchoolFees.Tables[dsManageSchoolFees.Tables.Count - 2].Rows[q]["paymentmodeid"].ToString() == "14" || dsManageSchoolFees.Tables[dsManageSchoolFees.Tables.Count - 2].Rows[q]["paymentmodeid"].ToString() == "15")
+                        {
+                            cashmode = "<input type=\"textbox\" id=\"txtcashamt\" onkeyup=\"checkval(this);\" class='numericswithdecimals' style=\"width: 50px;\" name=\"txtcashamt\" value=\"0\"/>";
+                            cardmode = "<input type=\"textbox\" id=\"txtcardamt\" onkeyup=\"checkval(this);\"  class='numericswithdecimals' style=\"width: 50px;\"  name=\"txtcardamt\" value=\"0\"/>";
+                            qrmode = "<input type=\"textbox\" id=\"txtqramt\" onkeyup=\"checkval(this);\"  class='numericswithdecimals' style=\"width: 50px;\"  name=\"txtqramt\" value=\"0\"/>";
+                            remarks = "<input type=\"textbox\" id=\"txtremarks\" style=\"width: 600px;\" class=\"jsrequired\" name=\"txtremarks\"/>";
+
+                            paymodeHTML = @"<tr><td>Payment Mode</td>
+	                                          <td >:</td>
+	                                          <td >" + paymentMode + "</td><td id=\"modes\" style='display:none;float: left;position: absolute;' colspan='3'>Cash: " + cashmode + "&nbsp;Card:" + cardmode + "&nbsp;QR:" + qrmode + "</td></tr>";
+                            paymodeHTML += @"<tr><td id='remarks' colspan='6'><br/>Remarks:&nbsp;" + remarks + "</td></tr>";
                         }
                         else
                         {
-                            cashmode = "<input type=\"textbox\" disabled=\"disabled\" onkeyup=\"checkval(this);\" class='numericswithdecimals' style=\"width: 100px;\" id=\"txtcashamt\" name=\"txtcashamt\" value=\"0\"/>";
-                            cardmode = "<input type=\"textbox\" disabled=\"disabled\"  onkeyup=\"checkval(this);\" class='numericswithdecimals' style=\"width: 100px;\"  id=\"txtcardamt\" name=\"txtcardamt\" value=\"0\"/>";
+                            cashmode = "<input type=\"textbox\" onkeyup=\"checkval(this);\" class='numericswithdecimals' style=\"width: 50px;\" id=\"txtcashamt\" name=\"txtcashamt\" value=\"0\"/>";
+                            cardmode = "<input type=\"textbox\"  onkeyup=\"checkval(this);\" class='numericswithdecimals' style=\"width: 50px;\"  id=\"txtcardamt\" name=\"txtcardamt\" value=\"0\"/>";
+                            qrmode = "<input type=\"textbox\" id=\"txtqramt\" onkeyup=\"checkval(this);\"  class='numericswithdecimals' style=\"width: 50px;\"  name=\"txtqramt\" value=\"0\"/>";
+                            remarks = "<input type=\"textbox\" id=\"txtremarks\" style=\"width: 600px;\" class=\"jsrequired\" name=\"txtremarks\"/>";
+
+                            paymodeHTML = @"<tr><td>Payment Mode</td>
+	                                          <td >:</td>
+	                                          <td >" + paymentMode + "</td><td id=\"modes\" style='display:none;float: left;position: absolute;' colspan='3'>Cash: " + cashmode + "&nbsp;Card:" + cardmode + "&nbsp;QR:" + qrmode + "</td></tr>";
+                            paymodeHTML += @"<tr><td id='remarks' colspan='6'><br/>Remarks:&nbsp;" + remarks + "</td></tr>";
                         }
                     }
                     paymentMode += "</select>";
@@ -795,18 +826,11 @@ public partial class Students_ManageFees : System.Web.UI.Page
 	                                      <td ><label for='textfield2'>" + dsManageSchoolFees.Tables[2].Rows[0]["sectionname"].ToString().ToUpper() + "</label></td></tr>");
                 if (paymentMode != string.Empty)
                 {
-                    feePOPUPStudentDetails.Append(@"<tr><td >Payment Mode</td>
-	                                          <td >:</td>
-	                                          <td >" + paymentMode + "</td><td id=\"modes\" style='display: none;float: left;position: absolute;' colspan='3'>Cash: " + cashmode + "&nbsp;Card:" + cardmode + "</td></tr>");
+                    feePOPUPStudentDetails.Append(paymodeHTML);
+
                 }
                 feePOPUPStudentDetails.Append(@"</tr></table>");
-
-
-
-
-
-
-
+                decimal schoolConcessionTotal = 0;
 
                 if (dsManageSchoolFees.Tables[3].Rows.Count > 0 && dsManageSchoolFees.Tables[0].Rows.Count > 0)
                 {
@@ -815,18 +839,38 @@ public partial class Students_ManageFees : System.Web.UI.Page
 	                                          <tr class='tlb-trbg'><td width='79%' height='30' align='left' style='padding-left:10px;'>Heads</td><td width='21%' align='center'>Amount</td></tr>");
                     feePOPUPHeadDetails.Append(@"<tr><td colspan='2'><div class='' style='overflow:auto; height:120px; margin:10px 0px;width:100%;'>
                                                 <table width='100%' border='0' cellspacing='0' cellpadding='0'>");
+                    decimal sumofactualAmt = 0;
 
                     for (int k = 0; k < dsManageSchoolFees.Tables[3].Rows.Count; k++)
                     {
+                        decimal actualAmt = Convert.ToDecimal(dsManageSchoolFees.Tables[3].Rows[k]["actualamount"]);
+                        decimal amount = Convert.ToDecimal(dsManageSchoolFees.Tables[3].Rows[k]["amount"]);
+                        decimal concession = actualAmt - amount;
+
                         feesCatHeadId += dsManageSchoolFees.Tables[3].Rows[k]["feescatheadid"].ToString() + "|";
                         feesHeadAmt += dsManageSchoolFees.Tables[3].Rows[k]["amount"].ToString() + "|";
-                        feePOPUPHeadDetails.Append(@"<tr><td height='30' class='tdbrd'> " + dsManageSchoolFees.Tables[3].Rows[k]["feesheadname"].ToString().ToUpper() + "</td>");
-                        feePOPUPHeadDetails.Append(@"<td class='tdbrd amt-rgt'>" + Math.Round(Convert.ToDecimal(dsManageSchoolFees.Tables[3].Rows[k]["amount"].ToString().ToUpper())) + "</td></tr>");
+                        feesHeadActualAmt += dsManageSchoolFees.Tables[3].Rows[k]["actualamount"].ToString() + "|";
+                        feesConcessionAmt += concession + "|"; ;
 
+
+                        feePOPUPHeadDetails.Append(@"<tr><td height='30' class='tdbrd'> " + dsManageSchoolFees.Tables[3].Rows[k]["feesheadname"].ToString().ToUpper() + "</td>");
+                        // feePOPUPHeadDetails.Append(@"<td class='tdbrd amt-rgt'>" + Math.Round(Convert.ToDecimal(dsManageSchoolFees.Tables[3].Rows[k]["amount"].ToString().ToUpper())) + "</td></tr>");
+                        feePOPUPHeadDetails.Append(@"<td class='tdbrd amt-rgt'>" + Math.Round(Convert.ToDecimal(dsManageSchoolFees.Tables[3].Rows[k]["actualamount"].ToString().ToUpper())) + "</td></tr>");
+                        sumofactualAmt += Math.Round(actualAmt);
+                        schoolConcessionTotal += concession;
                     }
                     feePOPUPHeadDetails.Append(@"</table></div></td></tr>");
+
+
+                    if (schoolConcessionTotal > 0)
+                    {
+
+                        feePOPUPHeadDetails.Append(@" <tr class='tlt-rs'><td height='30' class='tdbrd'>Concession Granted</td>
+                                                     <td class='tdbrd amt-rgt'>Rs. " + Math.Round(schoolConcessionTotal) + "</td></tr>");
+                    }
+
                     feePOPUPHeadDetails.Append(@"<tr class='tlt-rs'><td height='30' class='tdbrd'>Total </td>
-                                                    <td class='tdbrd'>Rs. " + Math.Round(Convert.ToDecimal(cmd.Parameters["@FeesTotalAmt"].Value.ToString())) + "</td></tr></table>");
+                                                    <td class='tdbrd amt-rgt'>Rs. " + Math.Round(Convert.ToDecimal(cmd.Parameters["@FeesTotalAmt"].Value.ToString())) + "</td></tr></table>");
 
                 }
 
@@ -835,7 +879,19 @@ public partial class Students_ManageFees : System.Web.UI.Page
                 feePOPUPContent.Append("<tr><td  class='popup-form' style='padding:6px;'>" + feePOPUPStudentDetails.ToString() + "</td></tr>");
 
                 feePOPUPContent.Append(@"<tr><td  class='popup-form' style='padding:6px;'>" + feePOPUPHeadDetails.ToString() + "</td></tr>");
-                feePOPUPContent.Append("<tr><td style='text-align:center;' ><input id=\"btnSubmit\" type=\"button\" class=\"btn btn-navy\"  value=\"Save & Print\" onclick=\"SaveFeesBill(\'" + regno + "\',\'" + academicId + "\',\'" + feesCatHeadId + "\',\'" + feesHeadAmt + "\',\'" + feesCatId + "\',\'" + feesMonthName + "\',\'" + Math.Round(Convert.ToDecimal(feestotalAmount)) + "\');\" /></td> </tr>");
+                //feePOPUPContent.Append("<tr><td style='text-align:center;' ><input id=\"btnSubmit\" type=\"button\" class=\"btn btn-navy\"  value=\"Save & Print\" onclick=\"SaveFeesBill(\'" + regno + "\',\'" + academicId + "\',\'" + feesCatHeadId + "\',\'" + feesHeadAmt + "\',\'" + feesCatId + "\',\'" + feesMonthName + "\',\'" + Math.Round(Convert.ToDecimal(feestotalAmount)) + "\');\" /></td> </tr>");
+                feePOPUPContent.Append("<tr><td style='text-align:center;' ><input id=\"btnSubmit\" type=\"button\" class=\"btn btn-navy\"  value=\"Save & Print\" onclick=\"SaveFeesBill(\'"
+    + regno + "\',\'"
+    + academicId + "\',\'"
+    + feesCatHeadId + "\',\'"
+    + feesHeadAmt + "\',\'"
+    + feesCatId + "\',\'"
+    + feesMonthName + "\',\'"
+    + Math.Round(Convert.ToDecimal(feestotalAmount)) + "\',\'"
+    + feesHeadActualAmt + "\',\'"
+    + feesConcessionAmt + "\');\" /></td> </tr>");
+
+
                 feePOPUPContent.Append(@"<tr><td colspan='6' ></td></tr> </table>");
                 feePOPUPContent.Append(@"<input type=""hidden"" id=""hdnMonthNum"" value=" + cmd.Parameters["@FeesMonth"].Value.ToString() + ">");
                 feePOPUPContent.Append(@"<input type=""hidden"" id=""hdnFeeType"" value=" + cmd.Parameters["@FeesType"].Value.ToString() + ">");
@@ -914,20 +970,100 @@ public partial class Students_ManageFees : System.Web.UI.Page
     }
 
     [WebMethod]
-    public static string SaveBillDetails(string regNo, string AcademicId, string FeesHeadIds, string FeesAmount, string FeesCatId, string FeesMonthName, string FeestotalAmount, string BillDate, string userId, string PaymentMode, string CashAmt, string CardAmt, string MonthNum, string FeeType)
+    public static string SaveBillDetails(string regNo, string AcademicId, string FeesHeadIds, string FeesAmount, string FeesCatId, string FeesMonthName, string FeestotalAmount, string FeesHeadActualAmt, string FeesHeadConcessionAmt, string BillDate, string userId, string PaymentMode, string CashAmt, string CardAmt, string QRAmount, string Remarks, string MonthNum, string FeeType)
     {
         Utilities utl = new Utilities();
         FeesHeadIds = FeesHeadIds.Substring(0, FeesHeadIds.Length - 1);
         FeesAmount = FeesAmount.Substring(0, FeesAmount.Length - 1);
-        string[] feeHead = FeesHeadIds.Split('|');
-        string[] feeAmount = FeesAmount.Split('|');
+        FeesCatId = FeesCatId.Substring(0, FeesCatId.Length - 1);
+        CardAmt = CardAmt.Substring(0, CardAmt.Length - 1);
+        CashAmt = CashAmt.Substring(0, CashAmt.Length - 1);
+        QRAmount = QRAmount.Substring(0, QRAmount.Length - 1);
 
-        string subQuery = string.Empty;
-        int i = 0;
-        foreach (string head in feeHead)
+        string[] fh = FeesHeadIds.Split('-');
+        string[] feeHead = fh[0].Split('|');
+
+        string[] feeActualAmount = FeesHeadActualAmt.Split('|');
+        string[] feeConcessionAmount = FeesHeadConcessionAmt.Split('|');
+
+        string[] sport_feeHead = new string[2];
+        if (fh.Length > 1)
         {
-            subQuery += "INSERT INTO [dbo].[f_studentbills]([BillId],[FeesCatHeadId],[BillMonth],[Amount],[IsActive],[UserId])VALUES(''DummyBill''," + head + ",''" + FeesMonthName + "''," + feeAmount[i] + ",''True''," + userId + ")";
-            i++;
+            sport_feeHead = fh[1].Split('|');
+        }
+
+
+        string[] ac = AcademicId.Split('-');
+        string academic = ac[0].ToString();
+        string sport_academic = string.Empty;
+        if (ac.Length > 1)
+        {
+            sport_academic = ac[1].ToString();
+        }
+
+        string[] fa = FeesAmount.Split('-');
+        string[] feeAmount = fa[0].Split('|');
+
+        string[] faActual = FeesHeadActualAmt.Split('-');
+        string[] feeActualAmt = faActual[0].Split('|');
+
+
+        string[] faConcession = FeesAmount.Split('-');
+        string[] feeConcessionAmt = faConcession[0].Split('|');
+
+        string[] sport_feeAmount = null;
+
+        if (fa.Length > 1)
+        {
+            sport_feeAmount = fa[1].Split('|');
+        }
+
+        string[] fc = FeesCatId.Split('-');
+        string feecatid = fc[0].ToString();
+        string sport_feecatid = string.Empty;
+        if (fc.Length > 1)
+        {
+            sport_feecatid = fc[1].ToString();
+        }
+
+        string[] fm = FeesMonthName.Split('-');
+        string feemonth = fm[0].ToString();
+        string sport_feemonth = string.Empty;
+        if (fm.Length > 1)
+        {
+            sport_feemonth = fm[1].ToString();
+        }
+
+        string[] fta = FeestotalAmount.Split('-');
+        string feetotalamt = fta[0].ToString();
+        string sport_feetotalamt = string.Empty;
+        if (fta.Length > 1)
+        {
+            sport_feetotalamt = fta[1].ToString();
+        }
+
+        string[] cs = CashAmt.Split('-');
+        string cashamt = cs[0].ToString();
+        string sport_cashamt = string.Empty;
+        if (cs.Length > 1)
+        {
+            sport_cashamt = cs[1].ToString();
+        }
+
+        string[] crd = CardAmt.Split('-');
+        string cardamt = crd[0].ToString();
+        string sport_cardamt = string.Empty;
+        if (crd.Length > 1)
+        {
+            sport_cardamt = crd[1].ToString();
+        }
+
+        string[] qr = QRAmount.Split('-');
+        string qramt = qr[0].ToString();
+        string sport_qramt = string.Empty;
+        if (qr.Length > 1)
+        {
+            sport_qramt = qr[1].ToString();
         }
 
         if (BillDate == string.Empty)
@@ -938,24 +1074,135 @@ public partial class Students_ManageFees : System.Web.UI.Page
         string[] formats = { "dd/MM/yyyy" };
         string formatBillDate = DateTime.ParseExact(BillDate, formats, new CultureInfo("en-US"), DateTimeStyles.None).ToShortDateString();
 
+
         if (PaymentMode == "1")
         {
-            CashAmt = FeestotalAmount;
-            CardAmt = "0";
+            cashamt = feetotalamt;
+            cardamt = "0";
+
+            sport_cashamt = sport_feetotalamt;
+            sport_cardamt = "0";
+            sport_qramt = "0";
         }
         else if (PaymentMode == "3")
         {
-            CashAmt = "0";
-            CardAmt = FeestotalAmount;
+            cashamt = "0";
+            cardamt = feetotalamt;
+
+            sport_cashamt = "0";
+            sport_cardamt = sport_feetotalamt;
+            sport_qramt = "0";
         }
 
+        else if (PaymentMode == "5")
+        {
+            cashamt = "0";
+            cardamt = "0";
+            qramt = feetotalamt;
+            sport_cashamt = "0";
+            sport_cardamt = "0";
+            sport_qramt = sport_feetotalamt;
+        }
 
-        string query = "[SP_InsertFeesBill] '0000'," + AcademicId + "," + FeesCatId + "," + regNo + ",'" + FeesMonthName + "'," + FeestotalAmount + ",'" + formatBillDate + "'," + userId + ",'" + subQuery + "'," + PaymentMode + ",'" + CashAmt + "','" + CardAmt + "'";
+        FeesCatId = utl.ExecuteScalar("select feescategoryid from m_feescategory where feescatcode=(select active from s_studentinfo where regno='" + regNo + "')");
 
-        DataSet dsSaveBill = utl.GetDataset(query);
+        string subAssQuery = string.Empty;
+        int i = 0;
+
+        //ASS BILL Opening
+        if (sport_feeHead.Length > 0)
+        {
+            foreach (string s_head in sport_feeHead)
+            {
+                if (s_head != "" && s_head != null)
+                {
+                    subAssQuery += "INSERT INTO [dbo].[f_studentbills]([BillId],[FeesCatHeadId],[BillMonth],[Amount],[IsActive],[UserId])VALUES(''DummyBill''," + s_head + ",''" + sport_feemonth + "''," + sport_feeAmount[i] + ",''True''," + userId + ")";
+
+                    i++;
+                }
+
+            }
+            string ass_query = "";
+            DataSet dsSportSaveBill = null;
+
+            if (sport_feecatid != "" && sport_feemonth != "" && subAssQuery != "")
+            {
+                ass_query = "[SP_InsertFeesBill] '0000'," + sport_academic + "," + sport_feecatid + "," + regNo + ",'" + sport_feemonth + "'," + sport_feetotalamt + ",'" + formatBillDate + "'," + userId + ",'" + subAssQuery + "'," + PaymentMode + ",'" + sport_cashamt + "','" + sport_cardamt + "','" + sport_qramt + "','" + Remarks + "'";
+
+                dsSportSaveBill = utl.GetAssDataset(ass_query);
+            }
+
+            if (dsSportSaveBill != null && dsSportSaveBill.Tables.Count > 0 && dsSportSaveBill.Tables[0].Rows.Count > 0)
+            {
+
+                ass_query = "select distinct convert(varchar,year(startdate))+'-'+  convert(varchar,Datepart(yy,enddate)) as AcademicYear   from m_academicyear  where academicID='" + sport_academic + "'";
+                string sport_AcademicYear = utl.ExecuteASSScalar(ass_query);
+
+                ass_query = "select isnull(count(*),0)+1 from f_studenttaxbillmaster a inner join f_studentbillmaster b on a.BillID=b.BillID where b.academicID='" + sport_academic + "' ";
+                string sport_TaxBillcnt = utl.ExecuteASSScalar(ass_query);
+
+                string sport_schoolabbrivation = utl.ExecuteScalar("select ltrim(rtrim(Schoolabbreviation)) from m_schooldetails");
+                string sport_TaxBillNo = "GST/" + sport_schoolabbrivation.ToString().TrimEnd() + "/" + "" + sport_AcademicYear + "/000" + sport_TaxBillcnt.ToString();
+
+                ass_query = "insert into f_studenttaxbillmaster(TaxBillNo,BillID,isactive,userID)values( '" + sport_TaxBillNo.ToString().Trim() + "'," + dsSportSaveBill.Tables[0].Rows[0][0].ToString() + ",'true'," + userId + ")";
+                utl.ExecuteASSQuery(ass_query);
+
+                string sport_taxBillID = utl.ExecuteASSScalar("SELECT isnull(max(TaxBillID),0) from f_studenttaxbillmaster where isactive=1");
+                string sport_taxQuery = string.Empty;
+                i = 0;
+                foreach (string s_head in sport_feeHead)
+                {
+                    string s_classID = utl.ExecuteASSScalar("select class from s_studentinfo where regno = '" + regNo + "'");
+
+                    string s_headID = utl.ExecuteASSScalar("select feesheadid from m_feescategoryhead where FeesCatHeadID='" + s_head + "' and academicID='" + sport_academic + "' and ClassID='" + s_classID + "' and feescategoryID='" + sport_feecatid + "' and formonth like '%" + sport_feemonth + "%'");
+
+                    DataTable sport_dttax = new DataTable();
+                    sport_dttax = utl.GetASSDataTable("select a.* from m_tax a  where a.isactive=1 and a.academicid='" + AcademicId + "' and a.feeheadid='" + s_headID + "'");
+                    if (sport_dttax.Rows.Count > 0)
+                    {
+                        decimal s_taxvalue = Convert.ToDecimal(sport_feeAmount[i]) / (100 + Convert.ToDecimal(sport_dttax.Rows[0]["Percentage"].ToString())) * Convert.ToDecimal(sport_dttax.Rows[0]["Percentage"].ToString());
+
+                        sport_taxQuery = "insert into f_studenttaxbills(TaxBillID,FeesCatId,TaxID,TaxPercent,TaxAmount,isactive,userid)values('" + sport_taxBillID + "','" + s_head + "','" + sport_dttax.Rows[0]["TaxID"].ToString() + "','" + sport_dttax.Rows[0]["Percentage"].ToString() + "','" + s_taxvalue + "','true','" + userId + "')";
+                        utl.ExecuteASSQuery(sport_taxQuery);
+                    }
+
+                    i++;
+                }
+
+            }
+        }
+
+        //Ass BILL closure
+
+        string subQuery = string.Empty;
+        i = 0;
+        foreach (string head in feeHead)
+        {
+            if (head != null && head != "")
+            {
+                // subQuery += "INSERT INTO [dbo].[f_studentbills]([BillId],[FeesCatHeadId],[BillMonth],[Amount],[IsActive],[UserId])VALUES(''DummyBill''," + head + ",''" + feemonth + "''," + feeAmount[i] + ",''True''," + userId + ")";
+                subQuery += "INSERT INTO [dbo].[f_studentbills]([BillId],[FeesCatHeadId],[BillMonth],[Amount],[IsActive],[UserId],[ActualAmount],[Discount]) " +
+                  "VALUES(''DummyBill''," + head + ",''" + feemonth + "''," + feeAmount[i] + ",''True''," + userId + "," + feeActualAmount[i] + "," + feeConcessionAmount[i] + ")";
+
+                i++;
+            }
+        }
+        try
+        {
+
+    
+       // string query = "[SP_InsertFeesBill] '0000'," + academic + "," + FeesCatId + "," + regNo + ",'" + feemonth + "'," + feeAmount + ",'" + formatBillDate + "'," + userId + ",'" + subQuery + "'," + PaymentMode + ",'" + cashamt + "','" + cardamt + "','" + qramt + "','" + Remarks + "'";
+          string query = "[SP_InsertFeesBill] '0000'," + academic + ",'" + FeesCatId + "'," + regNo + ",'" + feemonth + "'," + feetotalamt + ",'" + formatBillDate + "'," + userId + ",'" + subQuery + "'," + PaymentMode + ",'" + cashamt + "','" + cardamt + "','" + qramt + "','" + Remarks + "'";
+
+
+
+            DataSet dsSaveBill = utl.GetDataset(query);
 
         if (dsSaveBill != null && dsSaveBill.Tables.Count > 0 && dsSaveBill.Tables[0].Rows.Count > 0)
         {
+            utl.ExecuteQuery("update f_studentbills set isactive=1 where BillID='" + dsSaveBill.Tables[0].Rows[0][0].ToString() + "'");
+            utl.ExecuteQuery("update f_studentbillmaster set isactive=1 where BillID='" + dsSaveBill.Tables[0].Rows[0][0].ToString() + "'");
+
             if (MonthNum.Trim() == "0" && FeeType.ToUpper() == "ACADEMIC")
             {
                 PrintBill(dsSaveBill.Tables[0].Rows[0][0].ToString());
@@ -968,6 +1215,12 @@ public partial class Students_ManageFees : System.Web.UI.Page
         }
         else
             return "Failed";
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
     }
 
 
@@ -1023,7 +1276,7 @@ public partial class Students_ManageFees : System.Web.UI.Page
     }
 
     [WebMethod]
-    public static string UpdateBillDetails(string BillId, string AcademicId, string FeesHeadIds, string FeesAmount, string FeesCatId, string FeesMonthName, string FeestotalAmount, string BillDate, string userId, string PaymentMode, string MonthNum, string FeeType)
+    public static string UpdateBillDetails(string BillId, string AcademicId, string FeesHeadIds, string FeesAmount, string FeesCatId, string FeesMonthName, string FeestotalAmount, string BillDate, string userId, string PaymentMode, string CashAmt, string CardAmt, string QRAmount, string Remarks, string MonthNum, string FeeType)
     {
         Utilities utl = new Utilities();
         FeesHeadIds = FeesHeadIds.Substring(0, FeesHeadIds.Length - 1);
@@ -1035,7 +1288,7 @@ public partial class Students_ManageFees : System.Web.UI.Page
         int i = 0;
         foreach (string head in feeHead)
         {
-            subQuery += "INSERT INTO [dbo].[f_studentbills]([BillId],[FeesCatHeadId],[BillMonth],[Amount],[IsActive],[UserId])VALUES("+BillId+","+ head + ",''" + FeesMonthName + "''," + feeAmount[i] + ",''True''," + userId + ")";
+            subQuery += "INSERT INTO [dbo].[f_studentbills]([BillId],[FeesCatHeadId],[BillMonth],[Amount],[IsActive],[UserId])VALUES(" + BillId + "," + head + ",''" + FeesMonthName + "''," + feeAmount[i] + ",''True''," + userId + ")";
             i++;
         }
 
@@ -1044,10 +1297,24 @@ public partial class Students_ManageFees : System.Web.UI.Page
             BillDate = DateTime.Now.ToString("dd/MM/yyyy");
         }
 
+        if (PaymentMode == "1")
+        {
+            CashAmt = FeestotalAmount;
+        }
+        else if (PaymentMode == "3")
+        {
+            CardAmt = FeestotalAmount;
+        }
+        else if (PaymentMode == "5")
+        {
+            QRAmount = FeestotalAmount;
+        }
+
+
         string[] formats = { "dd/MM/yyyy" };
         string formatBillDate = DateTime.ParseExact(BillDate, formats, new CultureInfo("en-US"), DateTimeStyles.None).ToShortDateString();
-                
-        string query = "[SP_UpdateFeesBill] '0000'," + AcademicId + "," + FeesCatId + "," + BillId + ",'" + FeesMonthName + "'," + FeestotalAmount + ",'" + formatBillDate + "'," + userId + ",'" + subQuery + "'," + PaymentMode + "," + FeestotalAmount + "," + "0";
+
+        string query = "[SP_UpdateFeesBill] '0000'," + AcademicId + "," + FeesCatId + "," + BillId + ",'" + FeesMonthName + "'," + FeestotalAmount + ",'" + formatBillDate + "'," + userId + ",'" + subQuery + "'," + PaymentMode + ",'" + CashAmt + "','" + CardAmt + "','" + QRAmount + "','" + Remarks + "'";
 
         DataSet dsSaveBill = utl.GetDataset(query);
 
@@ -1112,7 +1379,9 @@ public partial class Students_ManageFees : System.Web.UI.Page
     {
         Utilities utl = new Utilities();
 
-        string sqlstr = "select isactive from m_academicyear where AcademicID='" + HttpContext.Current.Session["AcademicID"].ToString() + "'";
+        string Partial = utl.ExecuteASSScalar("select count(*) from s_studentinfo where regno='" + regNo + "'");
+         
+        string sqlstr = "select isactive from m_academicyear where AcademicID='" + academicId + "'";
         string Isactive = utl.ExecuteScalar(sqlstr);
         HttpContext.Current.Session["Isactive"] = Isactive.ToString();
         string query = "";
@@ -1150,6 +1419,129 @@ public partial class Students_ManageFees : System.Web.UI.Page
         PrintBiMonthBill(billId);
         return "";
     }
+
+
+    //public static void PrintBill(string billId)
+    //{
+    //    try
+    //    {
+    //        PrintDocument fd = new PrintDocument();
+    //        Utilities utl = new Utilities();
+    //        string sqlstr = "select isactive from m_academicyear where AcademicID='" + HttpContext.Current.Session["AcademicID"].ToString() + "'";
+    //        string Isactive = utl.ExecuteScalar(sqlstr);
+    //        HttpContext.Current.Session["Isactive"] = Isactive.ToString();
+    //        string query = "";
+    //        DataSet dsStud = new DataSet();
+    //        if (Isactive == "True")
+    //        {
+    //            query = "[sp_GetStudentBill] " + billId + "";
+    //        }
+    //        else
+    //        {
+    //            query = "[sp_GetOldStudentBill] " + billId + ",'" + HttpContext.Current.Session["AcademicID"] + "'";
+    //        }
+
+    //        DataSet dsPrint = utl.GetDataset(query);
+    //        int yPos = 0;
+    //        int headCount = 0;
+    //        string printerName = ConfigurationManager.AppSettings["FeesPrinter"];
+    //        string clientMachineName, clientIPAddress;
+    //        clientIPAddress = HttpContext.Current.Request.ServerVariables["remote_addr"];
+
+    //        if (dsPrint.Tables.Count > 1)
+    //        {
+    //            StringBuilder str = new StringBuilder();
+    //            StringBuilder str1 = new StringBuilder();
+
+    //            StringFormat stringAlignRight = new StringFormat();
+    //            stringAlignRight.Alignment = StringAlignment.Far;
+    //            stringAlignRight.LineAlignment = StringAlignment.Center;
+
+    //            StringFormat stringAlignLeft = new StringFormat();
+    //            stringAlignLeft.Alignment = StringAlignment.Near;
+    //            stringAlignLeft.LineAlignment = StringAlignment.Center;
+
+    //            StringFormat stringAlignCenter = new StringFormat();
+    //            stringAlignCenter.Alignment = StringAlignment.Center;
+    //            stringAlignCenter.LineAlignment = StringAlignment.Center;
+
+    //            fd.PrintPage += (s, args) =>
+    //            {
+    //                if (dsPrint.Tables[0].Rows.Count > 0)
+    //                {
+    //                    args.Graphics.DrawString(dsPrint.Tables[2].Rows[0]["SchoolShortName"].ToString().ToUpper(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, 0, 250, 25), stringAlignCenter);
+    //                    args.Graphics.DrawString(dsPrint.Tables[2].Rows[0]["Schoolstate"].ToString().ToUpper() + "-" + dsPrint.Tables[2].Rows[0]["SchoolZip"].ToString() + " PHONE NO-" + dsPrint.Tables[2].Rows[0]["phoneno"].ToString().ToUpper(), new System.Drawing.Font("ARIAL", 8, FontStyle.Regular), Brushes.Black, new Rectangle(0, 20, 250, 25), stringAlignCenter);
+
+    //                    args.Graphics.DrawLine(new Pen(Color.Black, 2), 0, 42, 500, 42);
+    //                    args.Graphics.DrawString("Reg.No : " + dsPrint.Tables[0].Rows[0]["RegNo"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, 45, 150, 50), stringAlignLeft);
+    //                    args.Graphics.DrawString("Rec.No : " + dsPrint.Tables[0].Rows[0]["BillNo"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(120, 45, 120, 50), stringAlignRight);
+    //                    args.Graphics.DrawString("Name 	:  " + dsPrint.Tables[0].Rows[0]["stname"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, 70, 250, 50), stringAlignLeft);
+    //                    args.Graphics.DrawString("Class & Section : 	" + dsPrint.Tables[0].Rows[0]["classname"].ToString() + "  " + dsPrint.Tables[0].Rows[0]["sectionname"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, 95, 150, 50), stringAlignLeft);
+    //                    args.Graphics.DrawString(" Month 	: 	" + dsPrint.Tables[0].Rows[0]["BillMonth"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(120, 95, 120, 50), stringAlignRight);
+    //                    args.Graphics.DrawString("PARTICULARS", new System.Drawing.Font("ARIAL", 8, FontStyle.Regular), Brushes.Black, new Rectangle(0, 135, 180, 50), stringAlignCenter);
+    //                    args.Graphics.DrawString("AMOUNT ", new System.Drawing.Font("ARIAL", 8, FontStyle.Regular), Brushes.Black, new Rectangle(180, 135, 70, 50), stringAlignCenter);
+    //                    decimal totalConcessionAmount = 0;
+    //                    if (dsPrint.Tables[1].Rows.Count > 0)
+    //                    {
+    //                        yPos = 158;
+
+    //                        for (int i = 0; i < dsPrint.Tables[1].Rows.Count; i++, yPos += 25, headCount += 1)
+    //                        {
+    //                            string concessionAmount = dsPrint.Tables[1].Rows[i]["ConcessionAmount"].ToString();
+    //                            decimal concessionVal;
+    //                            if (decimal.TryParse(concessionAmount, out concessionVal))
+    //                            {
+    //                                totalConcessionAmount += concessionVal;
+    //                            }
+    //                            args.Graphics.DrawString(dsPrint.Tables[1].Rows[i]["FeesHeadName"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(5, yPos, 180, 50), stringAlignLeft);
+    //                            args.Graphics.DrawString(dsPrint.Tables[1].Rows[i]["actualamount"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(165, yPos, 70, 50), stringAlignRight);
+    //                        }
+    //                    }
+
+    //                    int tableHeight = 25 * headCount; // Height for fee items
+
+    //                    if (totalConcessionAmount > 0)
+    //                    {
+    //                        yPos += 25;
+    //                        tableHeight += 25;
+    //                        args.Graphics.DrawString("Concession Granted", new Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, yPos, 180, 25), stringAlignLeft);
+    //                        args.Graphics.DrawString(totalConcessionAmount.ToString("0.00"), new Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(165, yPos, 70, 25), stringAlignRight);
+    //                        yPos += 25;
+    //                    }
+
+    //                    // Draw the TOTAL row as the last row
+    //                    tableHeight += 25; // Add height for TOTAL row
+    //                    args.Graphics.DrawString("TOTAL", new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, yPos, 180, 25), stringAlignRight);
+    //                    args.Graphics.DrawString(dsPrint.Tables[0].Rows[0]["TotalAmount"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(165, yPos, 70, 25), stringAlignRight);
+
+    //                    // Footer
+    //                    args.Graphics.DrawString("Date : " + dsPrint.Tables[0].Rows[0]["BillDate"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, yPos + 40, 250, 50), stringAlignLeft);
+    //                    args.Graphics.DrawString("Cashier : " + dsPrint.Tables[0].Rows[0]["staffname"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, yPos + 40, 250, 150), stringAlignLeft);
+
+    //                    // Draw a single table border encompassing all rows
+    //                    Pen tablePen = new Pen(Color.Black, 1);
+    //                    tablePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+    //                    // Header row border
+    //                    args.Graphics.DrawRectangle(tablePen, 0, 145, 180, 25);
+    //                    args.Graphics.DrawRectangle(tablePen, 180, 145, 68, 25);
+    //                    // Entire table content border (fee items + Concession + TOTAL)
+    //                    args.Graphics.DrawRectangle(tablePen, 0, 170, 180, tableHeight);
+    //                    args.Graphics.DrawRectangle(tablePen, 180, 170, 68, tableHeight);
+    //                    // Vertical line separating PARTICULARS and AMOUNT for the entire table
+    //                    args.Graphics.DrawLine(tablePen, 180, 145, 180, 170 + tableHeight);
+    //                }
+    //            };
+
+    //            clientIPAddress = "192.168.0.102";
+    //            fd.PrinterSettings.PrinterName = "\\\\" + clientIPAddress + "\\" + printerName + "";
+    //            fd.Print();
+    //        }
+    //        fd.Dispose();
+    //    }
+    //    catch (Exception err)
+    //    {
+    //    }
+    //}
     public static void PrintBill(string billId)
     {
         try
@@ -1213,50 +1605,95 @@ public partial class Students_ManageFees : System.Web.UI.Page
                         args.Graphics.DrawString(" Month 	: 	" + dsPrint.Tables[0].Rows[0]["BillMonth"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(120, 95, 120, 50), stringAlignRight);
                         args.Graphics.DrawString("PARTICULARS", new System.Drawing.Font("ARIAL", 8, FontStyle.Regular), Brushes.Black, new Rectangle(0, 135, 180, 50), stringAlignCenter);
                         args.Graphics.DrawString("AMOUNT ", new System.Drawing.Font("ARIAL", 8, FontStyle.Regular), Brushes.Black, new Rectangle(180, 135, 70, 50), stringAlignCenter);
+                        decimal totalConcessionAmount = 0;
                         if (dsPrint.Tables[1].Rows.Count > 0)
                         {
                             yPos = 158;
 
                             for (int i = 0; i < dsPrint.Tables[1].Rows.Count; i++, yPos += 25, headCount += 1)
                             {
+                                string concessionAmount = dsPrint.Tables[1].Rows[i]["ConcessionAmount"].ToString();
+                                decimal concessionVal;
+                                if (decimal.TryParse(concessionAmount, out concessionVal))
+                                {
+                                    totalConcessionAmount += concessionVal;
+                                }
                                 args.Graphics.DrawString(dsPrint.Tables[1].Rows[i]["FeesHeadName"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(5, yPos, 180, 50), stringAlignLeft);
-                                args.Graphics.DrawString(dsPrint.Tables[1].Rows[i]["Amount"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(165, yPos, 70, 50), stringAlignRight);
+                                // args.Graphics.DrawString(dsPrint.Tables[1].Rows[i]["Amount"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(165, yPos, 70, 50), stringAlignRight);
+                                args.Graphics.DrawString(dsPrint.Tables[1].Rows[i]["actualamount"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(165, yPos, 70, 50), stringAlignRight);
+
                             }
                         }
 
-                        args.Graphics.DrawString("TOTAL", new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, yPos + 8, 180, 50), stringAlignRight);
-                        args.Graphics.DrawString(dsPrint.Tables[0].Rows[0]["TotalAmount"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(165, yPos + 8, 70, 50), stringAlignRight);
 
+                       
+                        int tableHeight = 25 * headCount;
+
+                        if (totalConcessionAmount > 0)
+                        {
+                            yPos += 25;
+                            tableHeight += 25;
+                            // Draw border around Concession row
+                            Pen penConcession = new Pen(Color.Black, 1);
+                            penConcession.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                            args.Graphics.DrawRectangle(penConcession, 0, yPos, 180, 25);
+                            args.Graphics.DrawRectangle(penConcession, 180, yPos, 68, 25);
+
+                            args.Graphics.DrawString("Concession Granted", new Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, yPos, 180, 25), stringAlignLeft);
+                            args.Graphics.DrawString(totalConcessionAmount.ToString("0.00"), new Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(165, yPos, 70, 25), stringAlignRight);
+                            yPos += 14; 
+                        }
+                        tableHeight += 35;
+
+                        args.Graphics.DrawString("TOTAL", new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, yPos, 180, 50), stringAlignRight);
+                        args.Graphics.DrawString(dsPrint.Tables[0].Rows[0]["TotalAmount"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(165, yPos, 70, 50), stringAlignRight);
+
+                        //args.Graphics.DrawString("TOTAL", new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, yPos + 8, 180, 50), stringAlignRight);
+                        //args.Graphics.DrawString(dsPrint.Tables[0].Rows[0]["TotalAmount"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(165, yPos + 8, 70, 50), stringAlignRight);
 
                         args.Graphics.DrawString("Date : " + dsPrint.Tables[0].Rows[0]["BillDate"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, yPos + 40, 250, 50), stringAlignLeft);
                         args.Graphics.DrawString("Cashier : " + dsPrint.Tables[0].Rows[0]["staffname"].ToString(), new System.Drawing.Font("ARIAL", 9, FontStyle.Regular), Brushes.Black, new Rectangle(0, yPos + 40, 250, 150), stringAlignLeft);
- 
-                        //args.Graphics.DrawRectangle(new Pen(Color.Black, 1), 0, 145, 180, 25);
-                        //args.Graphics.DrawRectangle(new Pen(Color.Black, 1), 180, 145, 68, 25);
 
-                        Pen pen = new Pen(Color.Black, 1);
-                        pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
-                        args.Graphics.DrawRectangle(pen, 0, 145, 180, 25);
+                       
 
-                        Pen pen0 = new Pen(Color.Black, 1);
-                        pen0.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
-                        args.Graphics.DrawRectangle(pen0, 180, 145, 68, 25);
+                        
+                        //Pen pen = new Pen(Color.Black, 1);
+                        //pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                        //args.Graphics.DrawRectangle(pen, 0, 145, 180, 25);
 
-                        Pen pen1 = new Pen(Color.Black, 1);
-                        pen1.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
-                        args.Graphics.DrawRectangle(pen1, 0, 170, 180, 25 * headCount);
+                        //Pen pen0 = new Pen(Color.Black, 1);
+                        //pen0.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                        //args.Graphics.DrawRectangle(pen0, 180, 145, 68, 25);
 
-                        Pen pen2 = new Pen(Color.Black, 1);
-                        pen2.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
-                        args.Graphics.DrawRectangle(pen2, 180, 170, 68, 25 * headCount);
+                        //Pen pen1 = new Pen(Color.Black, 1);
+                        //pen1.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                        //args.Graphics.DrawRectangle(pen1, 0, 170, 180, 25 * headCount);
 
-                        Pen pen3 = new Pen(Color.Black, 1);
-                        pen3.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
-                        args.Graphics.DrawRectangle(pen3, 0, yPos + 12, 180, 35);
+                        //Pen pen2 = new Pen(Color.Black, 1);
+                        //pen2.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                        //args.Graphics.DrawRectangle(pen2, 180, 170, 68, 25 * headCount);
 
-                        Pen pen4 = new Pen(Color.Black, 1);
-                        pen4.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
-                        args.Graphics.DrawRectangle(pen4, 180, yPos + 12, 68, 35);
+                        //Pen pen3 = new Pen(Color.Black, 1);
+                        //pen3.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                        //args.Graphics.DrawRectangle(pen3, 0, yPos + 12, 180, 35);
+
+                        //Pen pen4 = new Pen(Color.Black, 1);
+                        //pen4.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                        //args.Graphics.DrawRectangle(pen4, 180, yPos + 12, 68, 35);
+
+
+                       
+                        Pen tablePen = new Pen(Color.Black, 1);
+                        tablePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                        
+                        args.Graphics.DrawRectangle(tablePen, 0, 145, 180, 25);
+                        args.Graphics.DrawRectangle(tablePen, 180, 145, 68, 25);
+                        
+                        args.Graphics.DrawRectangle(tablePen, 0, 170, 180, tableHeight);
+                        args.Graphics.DrawRectangle(tablePen, 180, 170, 68, tableHeight);
+                      
+                        args.Graphics.DrawLine(tablePen, 180, 145, 180, 170 + tableHeight);
+
                         //args.Graphics.DrawRectangle(new Pen(Color.Black, 1), 0, 170, 180, 25 * headCount);
                         //args.Graphics.DrawRectangle(new Pen(Color.Black, 1), 180, 170, 68, 25 * headCount);
 
@@ -1266,7 +1703,8 @@ public partial class Students_ManageFees : System.Web.UI.Page
 
 
                 };
-               // clientIPAddress = "192.168.0.43";
+                //commentit
+                //clientIPAddress = "192.168.0.102";
                 fd.PrinterSettings.PrinterName = "\\\\" + clientIPAddress + "\\" + printerName + "";
                 fd.Print();
             }
@@ -1276,8 +1714,6 @@ public partial class Students_ManageFees : System.Web.UI.Page
         {
         }
     }
-
-
 
     public static void PrintBiMonthBill(string billId)
     {

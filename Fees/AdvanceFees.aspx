@@ -358,6 +358,26 @@
             </div>
             <div class="block1 content-wrapper2">
                 <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                 <table class="form" width="100%">
+                    <tr>
+                        <td height="30" align="center" colspan="3" style="width: 45%">
+                            <label>
+                                Select the Advance Fees file to upload :</label>&nbsp;<asp:FileUpload ID="FileUpload1"
+                                    runat="server" />
+                            <asp:Button ID="Button1" runat="server" ValidationGroup="vg1" CssClass="btn-icon button-generate"
+                                OnClick="Button1_Click" Text="Upload" />
+                            <br />
+                            <asp:RegularExpressionValidator ValidationGroup="vg1" ID="RegularExpressionValidator1"
+                                runat="server" ControlToValidate="FileUpload1" Display="Dynamic" ErrorMessage="Please select a valid Excel file."
+                                ForeColor="Red" ValidationExpression="([a-zA-Z0-9\s_\\.\-:])+(.xls)$" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="3" height="30" style="width: 45%">
+                            <strong>(or)</strong>
+                        </td>
+                    </tr>
+                </table>
                     <tr>
                         <td height="30">
                             <table class="form" width="100%" border="0" cellspacing="0" cellpadding="0">

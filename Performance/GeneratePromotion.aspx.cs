@@ -196,7 +196,7 @@ public partial class Performance_GeneratePromotion : System.Web.UI.Page
                 if (RegNo != ds.Tables[0].Rows[i]["RegNo"].ToString())
                 {
                     h = h + 1;
-                    if (ds.Tables[0].Rows[i]["Remarks"].ToString().ToLower() == "promoted" || ds.Tables[0].Rows[i]["Remarks"].ToString().ToLower() == "")
+                    if (ds.Tables[0].Rows[i]["Remarks"].ToString().ToLower() == "promoted")
                     {
 
                         dvContent.Append(@"<tr class='even'><td>" + h.ToString() + "</td><td>" + ds.Tables[0].Rows[i]["AdminNo"].ToString() + "</td><td>" + ds.Tables[0].Rows[i]["ExamNo"].ToString() + "</td><td class='regno'>" + ds.Tables[0].Rows[i]["RegNo"].ToString() + "</td><td>" + ds.Tables[0].Rows[i]["StudentName"].ToString() + "</td><td>" + ds.Tables[0].Rows[i]["DOB"].ToString() + "</td><td>" + ds.Tables[0].Rows[i]["ClassName"].ToString() + "</td><td>" + ds.Tables[0].Rows[i]["SectionName"].ToString() + "</td>");
@@ -213,7 +213,7 @@ public partial class Performance_GeneratePromotion : System.Web.UI.Page
 
                         dvContent.Append(@"<td>" + ds.Tables[0].Rows[i]["PresentDays"].ToString() + "</td><td>" + ds.Tables[0].Rows[i]["AttendancePercn"].ToString() + "</td><td>" + ds.Tables[0].Rows[i]["Status"].ToString() + "</td><td>" + ds.Tables[0].Rows[i]["Remarks"].ToString() + "</td>");
 
-                        dvContent.Append(@"<td class='status'><select id='ddlpromote' style='width:100px'><option selected='true' value='Promoted'>Promoted</option><option value'Detained'>Detained</option></td>");
+                        dvContent.Append(@"<td class='status'><select id='ddlpromote' style='width:100px'><option value='Promoted'>Promoted</option><option  selected='true' value'Detained'>Detained</option></td>");
                     }
 
                     RegNo = ds.Tables[0].Rows[i]["RegNo"].ToString();

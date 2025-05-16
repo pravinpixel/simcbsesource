@@ -83,7 +83,7 @@
       </Query>
       <rd:DataSetInfo>
         <rd:DataSetName>dsTC</rd:DataSetName>
-        <rd:SchemaPath>E:\6. SIM Projects\SIMSOURCE\App_Code\dsTC.xsd</rd:SchemaPath>
+        <rd:SchemaPath>E:\6. SIM Projects\SIMCBSESOURCE - ASS\App_Code\dsTC.xsd</rd:SchemaPath>
         <rd:TableName>DataTable1</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -746,14 +746,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="LeaveOfClass">
+                    <Textbox Name="LeaveofClass">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!LeaveOfClass.Value</Value>
+                              <Value>=Fields!LeaveofClass.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                               </Style>
@@ -764,7 +764,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>LeaveOfClass</rd:DefaultName>
+                      <rd:DefaultName>LeaveofClass</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -776,18 +776,19 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="LeaveOfSection">
+                    <Textbox Name="LeaveofSection">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!LeaveOfSection.Value</Value>
+                              <Value>=Fields!LeaveofSection.Value</Value>
                               <Style>
                                 <FontSize>9pt</FontSize>
                               </Style>
@@ -798,7 +799,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>LeaveOfSection</rd:DefaultName>
+                      <rd:DefaultName>LeaveofSection</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
