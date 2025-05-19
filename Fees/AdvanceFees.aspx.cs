@@ -577,7 +577,7 @@ public partial class Fees_AdvanceFees : System.Web.UI.Page
                     string oldregno = ds.Tables[0].Rows[i]["oldregno"].ToString();
                     if (remarks.ToLower() == "transfer")
                     {
-                        int icnt = Convert.ToInt32(utl.ExecuteScalar("select  isnull(COUNT(*),0) from s_studentpromotion where AcademicId=31 and isactive=1 and regno='" + regno + "'"));
+                        int icnt = Convert.ToInt32(utl.ExecuteScalar("select  isnull(COUNT(*),0) from s_studentpromotion where AcademicId=31 and regno='" + regno + "'"));
                         if (icnt == 0 || icnt == null)
                         {
                             utl.ExecuteQuery(@"insert into dbo.s_studentpromotion(regno,ClassID,SectionID,BusFacility,Concession,Hostel,Scholar
