@@ -1098,7 +1098,7 @@
             </div>
             <div id="divBillDetials" style="background: url(../img/overly.png) repeat; width: 100%;
                 display: none; height: 100%; position: fixed; top: 0; left: 0; z-index: 10000;">
-                <div id="divBillContents" style="position: absolute; top: 25%; left: 31%;">
+                <div id="divBillContents" style="position: absolute; top: 0%; left: 31%;">
                 </div>
             </div>
         </div>
