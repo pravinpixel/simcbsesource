@@ -1602,7 +1602,7 @@ public partial class Students_ManageSchoolFees : System.Web.UI.Page
                 DataSet dataSports = new DataSet();
                 sport_academicID = utl.ExecuteASSScalar("select top 1 academicID from m_academicyear where isactive=1 order by academicID desc ");
 
-                string sport_Student = utl.ExecuteASSScalar("select count(*) from s_studentinfo where RegNo = " + dsManageSchoolFees.Tables[2].Rows[0]["RegNo"].ToString() + " and academicyear=" + sport_academicID);
+                string sport_Student = utl.ExecuteASSScalar("select count(*) from s_studentinfo where RegNo = " + dsManageSchoolFees.Tables[2].Rows[0]["RegNo"].ToString() + " and academicyear=" + sport_academicID + " and regno not in(select regno from s_studentcancellation where regno='"+dsManageSchoolFees.Tables[2].Rows[0]["RegNo"].ToString() +"' and academicID='"+ sport_academicID +"' and isactive=1)");
                  SqlConnection sport_conn = new SqlConnection(ConfigurationManager.AppSettings["ASSConnection"].ToString());
                     string sqlstr = "select isactive from m_academicyear where AcademicID='" + sport_academicID + "'";
                     string sport_Isactive = utl.ExecuteASSScalar(sqlstr);
@@ -1682,7 +1682,7 @@ public partial class Students_ManageSchoolFees : System.Web.UI.Page
                     }
                     else
                     {
-                        string ICTYPE_Student = utl.ExecuteScalar("select IsICStudent  from s_studentinfo where RegNo = " + dsManageSchoolFees.Tables[2].Rows[0]["RegNo"].ToString() + " and academicID=" + academicId);
+                        string ICTYPE_Student = utl.ExecuteScalar("select IsICStudent from s_studentinfo where RegNo = " + dsManageSchoolFees.Tables[2].Rows[0]["RegNo"].ToString() + " and academicID=" + academicId);
                         if (ICTYPE_Student == "Y")
                         {
                             // Utilities utl = new Utilities();
